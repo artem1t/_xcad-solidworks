@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using Xarial.XCad.Delegates;
-using Xarial.XCad.Diagnostics;
+using Xarial.XCad.Utils.Diagnostics;
 
 namespace Xarial.XCad.Sw
 {

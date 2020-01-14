@@ -14,7 +14,7 @@ using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
-using Xarial.XCad.Diagnostics;
+using Xarial.XCad.Utils.Diagnostics;
 using Xarial.XCad.Enums;
 using Xarial.XCad.SolidWorks;
 using Xarial.XCad.Structures;

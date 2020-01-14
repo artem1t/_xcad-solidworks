@@ -6,7 +6,7 @@
 //*********************************************************************
 
 using SolidWorks.Interop.sldworks;
-using Xarial.XCad.Diagnostics;
+using Xarial.XCad.Utils.Diagnostics;
 
 namespace Xarial.XCad.Sw
 {

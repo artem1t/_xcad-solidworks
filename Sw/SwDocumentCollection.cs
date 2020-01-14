@@ -13,7 +13,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using Xarial.XCad.Delegates;
-using Xarial.XCad.Diagnostics;
+using Xarial.XCad.Utils.Diagnostics;
 using Xarial.XCad.Structures;
 
 namespace Xarial.XCad.Sw

@@ -12,8 +12,8 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
-using Xarial.XCad.Diagnostics;
-using Xarial.XCad.Reflection;
+using Xarial.XCad.Utils.Diagnostics;
+using Xarial.XCad.Utils.Reflection;
 
 namespace Xarial.XCad.Sw.Utils
 {

@@ -13,8 +13,8 @@ using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Text;
 using Xarial.XCad.Attributes;
-using Xarial.XCad.Diagnostics;
-using Xarial.XCad.Reflection;
+using Xarial.XCad.Utils.Diagnostics;
+using Xarial.XCad.Utils.Reflection;
 using Xarial.XCad.Sw;
 using Xarial.XCad.Sw.Utils;
 

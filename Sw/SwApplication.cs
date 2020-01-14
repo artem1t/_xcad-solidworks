@@ -9,7 +9,7 @@ using SolidWorks.Interop.sldworks;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Xarial.XCad.Diagnostics;
+using Xarial.XCad.Utils.Diagnostics;
 
 namespace Xarial.XCad.Sw
 {
