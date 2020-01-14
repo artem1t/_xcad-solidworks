@@ -89,7 +89,7 @@ namespace Xarial.XCad.SolidWorks
 
                 app.SetAddinCallbackInfo(0, this, AddInId);
 
-                m_Application = new SwApplication(app);
+                m_Application = new SwApplication(app, m_Logger);
 
                 m_CommandManager = new SwCommandManager(m_Application, AddInId, m_Logger);
 

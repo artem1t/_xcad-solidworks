@@ -6,23 +6,18 @@
 //*********************************************************************
 
 using SolidWorks.Interop.sldworks;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xarial.XCad.Diagnostics;
 
 namespace Xarial.XCad.Sw
 {
-    public class SwApplication : IXApplication
+    public class SwAssembly : SwDocument, IXPart
     {
-        public ISldWorks Application { get; }
+        public IAssemblyDoc Assembly { get; }
 
-        public IXDocumentCollection Documents { get; }
-
-        internal SwApplication(ISldWorks app, ILogger logger)
+        internal SwAssembly(IAssemblyDoc assembly, ISldWorks app, ILogger logger)
+            : base((IModelDoc2)assembly, app, logger)
         {
-            Application = app;
-            Documents = new SwDocumentCollection(app, logger);
+            Assembly = assembly;
         }
     }
 }
