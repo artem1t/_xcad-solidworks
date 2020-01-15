@@ -20,6 +20,7 @@ using Xarial.XCad.Utils.PageBuilder.PageElements;
 
 namespace Xarial.XCad.Sw.PMPage.Controls
 {
+    //TODO: think of a better way to work with type instead of object (can be either SwSelObject or List)
     internal class PropertyManagerPageSelectionBoxControl : PropertyManagerPageBaseControl<object, IPropertyManagerPageSelectionbox>
     {
         protected override event ControlValueChangedDelegate<object> ValueChanged;
@@ -55,6 +56,13 @@ namespace Xarial.XCad.Sw.PMPage.Controls
             }
         }
 
+        private SwSelObject ToSelObject(object disp) 
+        {
+            //TODO: create specific sel object from disp
+
+            return new SwSelObject(m_App.IActiveDoc2, disp);
+        }
+
         private void OnSubmitSelection(int Id, object Selection, int SelType, ref string ItemText, ref bool res)
         {
             if (Id == this.Id)
@@ -62,7 +70,7 @@ namespace Xarial.XCad.Sw.PMPage.Controls
                 Debug.Assert(m_CustomFilter != null, "This event must not be attached if custom filter is not specified");
 
                 //TODO: implement conversion
-                res = m_CustomFilter.Filter(this, new SwSelObject(m_App.IActiveDoc2, Selection),
+                res = m_CustomFilter.Filter(this, ToSelObject(Selection),
                     (SelectType_e)SelType, ref ItemText);
             }
         }
@@ -87,7 +95,7 @@ namespace Xarial.XCad.Sw.PMPage.Controls
                 {
                     var selIndex = SwSpecificControl.SelectionIndex[i];
                     var obj = selMgr.GetSelectedObject6(selIndex, -1);
-                    list.Add(obj);
+                    list.Add(ToSelObject(obj));
                 }
 
                 return list;
@@ -100,7 +108,7 @@ namespace Xarial.XCad.Sw.PMPage.Controls
                 {
                     var selIndex = SwSpecificControl.SelectionIndex[0];
                     var obj = selMgr.GetSelectedObject6(selIndex, -1);
-                    return obj;
+                    return ToSelObject(obj);
                 }
                 else
                 {
@@ -119,14 +127,14 @@ namespace Xarial.XCad.Sw.PMPage.Controls
 
                 if (SupportsMultiEntities)
                 {
-                    foreach (var item in value as IList)
+                    foreach (SwSelObject item in value as IList)
                     {
-                        disps.Add(new DispatchWrapper(item));
+                        disps.Add(new DispatchWrapper(item.Dispatch));
                     }
                 }
                 else
                 {
-                    disps.Add(new DispatchWrapper(value));
+                    disps.Add(new DispatchWrapper((value as SwSelObject).Dispatch));
                 }
 
                 var selMgr = m_App.IActiveDoc2.ISelectionManager;

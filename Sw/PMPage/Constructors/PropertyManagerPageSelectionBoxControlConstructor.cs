@@ -19,11 +19,13 @@ using Xarial.XCad.Sw.Utils;
 using Xarial.XCad.Attributes;
 using Xarial.XCad.Utils.PageBuilder.Base;
 using Xarial.XCad.Services;
+using Xarial.XCad.Utils.PageBuilder.Attributes;
 
 namespace Xarial.XCad.Sw.PMPage.Constructors
 {
+    [DefaultType(typeof(IXSelObject))]
     internal class PropertyManagerPageSelectionBoxControlConstructor
-        : PropertyManagerPageBaseControlConstructor<PropertyManagerPageSelectionBoxControl, IPropertyManagerPageSelectionbox>, ISelectionBoxConstructor
+        : PropertyManagerPageBaseControlConstructor<PropertyManagerPageSelectionBoxControl, IPropertyManagerPageSelectionbox>
     {
         private readonly ILogger m_Logger;
 
@@ -36,25 +38,8 @@ namespace Xarial.XCad.Sw.PMPage.Constructors
         protected override PropertyManagerPageSelectionBoxControl CreateControl(
             IPropertyManagerPageSelectionbox swCtrl, IAttributeSet atts, PropertyManagerPageHandlerEx handler, short height)
         {
-            var selAtt = atts.Get<SelectionBoxAttribute>();
-            swCtrl.SetSelectionFilters(selAtt.Filters);
-            swCtrl.Mark = selAtt.SelectionMark;
-
             swCtrl.SingleEntityOnly = !(typeof(IList).IsAssignableFrom(atts.BoundType));
-
-            ISelectionCustomFilter customFilter = null;
-
-            if (selAtt.CustomFilter != null)
-            {
-                customFilter = Activator.CreateInstance(selAtt.CustomFilter) as ISelectionCustomFilter;
-
-                if (customFilter == null)
-                {
-                    throw new InvalidCastException(
-                        $"Specified custom filter of type {selAtt.CustomFilter.FullName} cannot be cast to {typeof(ISelectionCustomFilter).FullName}");
-                }
-            }
-
+            
             if (height == -1)
             {
                 height = 20;
@@ -62,18 +47,36 @@ namespace Xarial.XCad.Sw.PMPage.Constructors
 
             swCtrl.Height = height;
 
+            ISelectionCustomFilter customFilter = null;
+
+            //TODO: identify filters based on type
+
             if (atts.Has<SelectionBoxOptionsAttribute>())
             {
-                var style = atts.Get<SelectionBoxOptionsAttribute>();
+                var selAtt = atts.Get<SelectionBoxOptionsAttribute>();
 
-                if (style.Style != 0)
+                if (selAtt.Style != 0)
                 {
-                    swCtrl.Style = (int)style.Style;
+                    swCtrl.Style = (int)selAtt.Style;
                 }
 
-                if (style.SelectionColor != 0)
+                if (selAtt.SelectionColor != 0)
                 {
-                    swCtrl.SetSelectionColor(true, ConvertColor(style.SelectionColor));
+                    swCtrl.SetSelectionColor(true, ConvertColor(selAtt.SelectionColor));
+                }
+
+                swCtrl.SetSelectionFilters(selAtt.Filters);
+                swCtrl.Mark = selAtt.SelectionMark;
+
+                if (selAtt.CustomFilter != null)
+                {
+                    customFilter = Activator.CreateInstance(selAtt.CustomFilter) as ISelectionCustomFilter;
+
+                    if (customFilter == null)
+                    {
+                        throw new InvalidCastException(
+                            $"Specified custom filter of type {selAtt.CustomFilter.FullName} cannot be cast to {typeof(ISelectionCustomFilter).FullName}");
+                    }
                 }
             }
 
