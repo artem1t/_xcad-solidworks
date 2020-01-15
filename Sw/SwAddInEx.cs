@@ -17,6 +17,7 @@ using Xarial.XCad.Utils.Diagnostics;
 using Xarial.XCad.Utils.Reflection;
 using Xarial.XCad.Sw;
 using Xarial.XCad.Sw.Utils;
+using Xarial.XCad.Sw.PMPage;
 
 namespace Xarial.XCad.SolidWorks
 {
@@ -176,6 +177,22 @@ namespace Xarial.XCad.SolidWorks
 
             GC.Collect();
             GC.WaitForPendingFinalizers();
+        }
+
+        public IXNativePage<TData> CreatePage<TData>()
+        {
+            return CreatePropertyManagerPage<TData>(typeof(TData));
+        }
+
+        public PropertyManagerPageEx<TData> CreatePropertyManagerPage<TData, THandler>()
+            where THandler : PropertyManagerPageHandlerEx, new()
+        {
+            return CreatePropertyManagerPage<TData>(typeof(THandler));
+        }
+
+        private PropertyManagerPageEx<TData> CreatePropertyManagerPage<TData>(Type handlerType)
+        {
+            return new PropertyManagerPageEx<TData>(m_Application.Application, m_Logger, handlerType);
         }
     }
 }
