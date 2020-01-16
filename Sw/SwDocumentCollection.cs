@@ -58,7 +58,7 @@ namespace Xarial.XCad.Sw
             m_App.DocumentLoadNotify2 += OnDocumentLoadNotify2;
         }
 
-        private SwDocument this[IModelDoc2 model]
+        internal SwDocument this[IModelDoc2 model]
         {
             get
             {

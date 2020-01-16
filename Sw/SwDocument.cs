@@ -10,9 +10,15 @@ using SolidWorks.Interop.swconst;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
+using Xarial.XCad.Attributes;
 using Xarial.XCad.Delegates;
+using Xarial.XCad.Enums;
+using Xarial.XCad.Sw.MacroFeature;
+using Xarial.XCad.Sw.Utils;
 using Xarial.XCad.Utils.Diagnostics;
+using Xarial.XCad.Utils.Reflection;
 
 namespace Xarial.XCad.Sw
 {
@@ -30,12 +36,16 @@ namespace Xarial.XCad.Sw
         public string Path => Model.GetPathName();
         public string Title => Model.GetTitle();
 
+        public IXFeatureManager FeatureManager { get; }
+
         internal SwDocument(IModelDoc2 model, ISldWorks app, ILogger logger) 
         {
             Model = model;
 
             m_App = app;
             m_Logger = logger;
+
+            FeatureManager = new SwFeatureManager(model.FeatureManager);
 
             AttachEvents();
         }

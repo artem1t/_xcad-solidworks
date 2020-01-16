@@ -17,12 +17,17 @@ namespace Xarial.XCad.Sw
     {
         public ISldWorks Application { get; }
 
-        public IXDocumentCollection Documents { get; }
+        public IXDocumentCollection Documents => SwDocuments;
+
+        internal SwDocumentCollection SwDocuments { get; }
+
+        public IXGeometryBuilder GeometryBuilder { get; }
 
         internal SwApplication(ISldWorks app, ILogger logger)
         {
             Application = app;
-            Documents = new SwDocumentCollection(app, logger);
+            SwDocuments = new SwDocumentCollection(app, logger);
+            GeometryBuilder = new SwGeometryBuilder(app.IGetMathUtility(), app.IGetModeler());
         }
     }
 }

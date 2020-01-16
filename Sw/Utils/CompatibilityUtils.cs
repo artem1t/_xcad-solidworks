@@ -37,13 +37,8 @@ namespace Xarial.XCad.Sw.Utils
         internal enum HighResIconsScope_e
         {
             CommandManager,
-            TaskPane
-        }
-
-        internal enum SolidWorksRevisions_e
-        {
-            Sw2016 = 24,
-            Sw2017 = 25
+            TaskPane,
+            MacroFeature
         }
 
         internal static bool SupportsHighResIcons(this ISldWorks app, HighResIconsScope_e scope)
@@ -54,10 +49,13 @@ namespace Xarial.XCad.Sw.Utils
             switch (scope)
             {
                 case HighResIconsScope_e.CommandManager:
-                    return majorRev >= (int)SolidWorksRevisions_e.Sw2016;
+                    return app.IsVersionNewerOrEqual(SwVersion_e.Sw2016);
 
                 case HighResIconsScope_e.TaskPane:
-                    return majorRev >= (int)SolidWorksRevisions_e.Sw2017;
+                    return app.IsVersionNewerOrEqual(SwVersion_e.Sw2017);
+
+                case HighResIconsScope_e.MacroFeature:
+                    return app.IsVersionNewerOrEqual(SwVersion_e.Sw2017);
 
                 default:
                     //Debug.Assert(false, "Not supported scope");

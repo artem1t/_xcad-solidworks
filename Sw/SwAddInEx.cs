@@ -92,6 +92,8 @@ namespace Xarial.XCad.SolidWorks
 
                 m_Application = new SwApplication(app, m_Logger);
 
+                SwMacroFeatureDefinition.Application = m_Application;
+
                 m_CommandManager = new SwCommandManager(m_Application, AddInId, m_Logger);
 
                 return OnConnect();
