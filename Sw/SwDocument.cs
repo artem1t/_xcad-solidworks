@@ -45,7 +45,7 @@ namespace Xarial.XCad.Sw
             m_App = app;
             m_Logger = logger;
 
-            FeatureManager = new SwFeatureManager(model.FeatureManager);
+            FeatureManager = new SwFeatureManager(this, model.FeatureManager);
 
             AttachEvents();
         }

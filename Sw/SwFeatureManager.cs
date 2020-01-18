@@ -15,6 +15,7 @@ using Xarial.XCad.Attributes;
 using Xarial.XCad.Enums;
 using Xarial.XCad.Sw.MacroFeature;
 using Xarial.XCad.Sw.Utils;
+using Xarial.XCad.Utils.CustomFeature;
 using Xarial.XCad.Utils.Reflection;
 
 namespace Xarial.XCad.Sw
@@ -23,9 +24,11 @@ namespace Xarial.XCad.Sw
     {
         private readonly IFeatureManager m_FeatMgr;
         private readonly MacroFeatureParametersParser m_ParamsParser;
+        private readonly SwDocument m_Model;
 
-        internal SwFeatureManager(IFeatureManager featMgr) 
+        internal SwFeatureManager(SwDocument model, IFeatureManager featMgr) 
         {
+            m_Model = model;
             m_ParamsParser = new MacroFeatureParametersParser();
             m_FeatMgr = featMgr;
         }
@@ -40,25 +43,34 @@ namespace Xarial.XCad.Sw
                 throw new Exception();
             }
 
-            return new SwMacroFeature(m_FeatMgr.Document, feat);
+            return new SwMacroFeature(m_Model, feat, m_ParamsParser);
         }
 
         private IFeature InsertComFeatureWithParameters(Type macroFeatType, object parameters)
         {
-            string[] paramNames;
-            int[] paramTypes;
-            string[] paramValues;
-            object[] selection;
-            int[] dimTypes;
+            CustomFeatureParameter[] atts;
+            IXSelObject[] selection;
+            CustomFeatureDimensionType_e[] dimTypes;
             double[] dimValues;
-            IBody2[] editBodies;
+            IXBody[] editBodies;
 
             m_ParamsParser.Parse(parameters,
-                out paramNames, out paramTypes, out paramValues, out selection,
-                out dimTypes, out dimValues, out editBodies);
+                out atts, out selection, out dimTypes, out dimValues,
+                out editBodies);
 
-            return InsertComFeatureBase(macroFeatType, paramNames,
-                paramTypes, paramValues, dimTypes, dimValues, selection, editBodies);
+            string[] paramNames;
+            string[] paramValues;
+            int[] paramTypes;
+
+            m_ParamsParser.ConvertParameters(atts, out paramNames, out paramTypes, out paramValues);
+
+            //TODO: add dim types conversion
+
+            return InsertComFeatureBase(macroFeatType,
+                paramNames, paramTypes, paramValues,
+                dimTypes?.Select(d => (int)d)?.ToArray(), dimValues,
+                selection?.Cast<SwSelObject>()?.Select(s => s.Dispatch)?.ToArray(),
+                editBodies?.Cast<SwBody>()?.Select(b => b.Body)?.ToArray());
         }
 
         private IFeature InsertComFeatureBase(Type macroFeatType,

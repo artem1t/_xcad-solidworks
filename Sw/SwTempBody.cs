@@ -14,7 +14,7 @@ namespace Xarial.XCad.Sw
 {
     public class SwTempBody : SwBody
     {
-        internal SwTempBody(IBody2 body) : base(null, body)
+        internal SwTempBody(IBody2 body) : base(body)
         {
             //TODO: validate if temp body and/or convert
         }

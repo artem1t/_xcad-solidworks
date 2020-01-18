@@ -50,6 +50,7 @@ namespace Xarial.XCad.Sw
 
         private readonly string m_Provider;
         private readonly ILogger m_Logger;
+        private readonly MacroFeatureParametersParser m_ParamsParser;
 
         public ILogger Logger
         {
@@ -70,6 +71,7 @@ namespace Xarial.XCad.Sw
 
             m_Provider = provider;
             m_Logger = new TraceLogger("xCad.MacroFeature");
+            m_ParamsParser = new MacroFeatureParametersParser();
             TryCreateIcons();
         }
 
@@ -121,7 +123,8 @@ namespace Xarial.XCad.Sw
         {
             LogOperation("Editing feature", app as ISldWorks, modelDoc as IModelDoc2, feature as IFeature);
 
-            return OnEditDefinition(Application, Application.SwDocuments[modelDoc as IModelDoc2], new SwMacroFeature(modelDoc as IModelDoc2, feature as IFeature));
+            var doc = Application.SwDocuments[modelDoc as IModelDoc2];
+            return OnEditDefinition(Application, doc, new SwMacroFeature(doc, feature as IFeature, m_ParamsParser));
         }
 
         [Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]
@@ -131,7 +134,9 @@ namespace Xarial.XCad.Sw
 
             SetProvider(app as ISldWorks, feature as IFeature);
 
-            var res = OnRebuild(Application, Application.SwDocuments[modelDoc as IModelDoc2], new SwMacroFeature(modelDoc as IModelDoc2, feature as IFeature));
+            var doc = Application.SwDocuments[modelDoc as IModelDoc2];
+
+            var res = OnRebuild(Application, doc, new SwMacroFeature(doc, feature as IFeature, m_ParamsParser));
 
             if (res != null)
             {
@@ -146,7 +151,8 @@ namespace Xarial.XCad.Sw
         [Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]
         public object Security(object app, object modelDoc, object feature)
         {
-            return OnUpdateState(Application, Application.SwDocuments[modelDoc as IModelDoc2], new SwMacroFeature(modelDoc as IModelDoc2, feature as IFeature));
+            var doc = Application.SwDocuments[modelDoc as IModelDoc2];
+            return OnUpdateState(Application, doc, new SwMacroFeature(doc, feature as IFeature, m_ParamsParser));
         }
 
         private void SetProvider(ISldWorks app, IFeature feature)

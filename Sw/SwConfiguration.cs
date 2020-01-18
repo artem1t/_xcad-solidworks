@@ -12,13 +12,15 @@ using System.Text;
 
 namespace Xarial.XCad.Sw
 {
-    public class SwBody : SwSelObject, IXBody
+    public class SwConfiguration : IXConfiguration
     {
-        public IBody2 Body { get; }
+        private readonly IConfiguration m_Conf;
 
-        internal SwBody(IBody2 body) : base(null, body)
+        public string Name => m_Conf.Name;
+
+        internal SwConfiguration(IConfiguration conf) 
         {
-            Body = body;
+            m_Conf = conf;
         }
     }
 }

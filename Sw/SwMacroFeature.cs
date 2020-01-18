@@ -16,28 +16,34 @@ namespace Xarial.XCad.Sw
     public class SwMacroFeature : SwFeature, IXCustomFeature
     {
         private readonly MacroFeatureParametersParser m_ParamsParser;
-        private readonly IModelDoc2 m_Model;
+        private readonly SwDocument m_Model;
 
-        internal SwMacroFeature(IModelDoc2 model, IFeature feat) 
-            : base(model, feat)
+        private IMacroFeatureData m_FeatData;
+
+        public IMacroFeatureData FeatureData => m_FeatData ?? (m_FeatData = Feature.GetDefinition() as IMacroFeatureData);
+
+        internal SwMacroFeature(SwDocument model, IFeature feat, MacroFeatureParametersParser paramsParser) 
+            : base(model.Model, feat)
         {
-            m_ParamsParser = new MacroFeatureParametersParser();
+            m_ParamsParser = paramsParser;
             m_Model = model;
         }
+
+        public IXConfiguration Configuration => new SwConfiguration((Feature.GetDefinition() as IMacroFeatureData).CurrentConfiguration);
 
         public TParams GetParameters<TParams>()
             where TParams : class, new()
         {
-            return m_ParamsParser.GetParameters<TParams>(Feature,
-                Feature.GetDefinition() as IMacroFeatureData,
-                m_Model, out IDisplayDimension[] _, out string[] _, out IBody2[] _, out Enums.CustomFeatureOutdateState_e _);
+            //TODO: resolve model
+            return (TParams)m_ParamsParser.GetParameters(this, m_Model, typeof(TParams),
+                out IXDimension[] _, out string[] _, out IXBody[] _, out IXSelObject[] sels, out Enums.CustomFeatureOutdateState_e _);
         }
 
         public void SetParameters<TParams>(TParams param)
             where TParams : class, new()
         {
-            m_ParamsParser.SetParameters(m_Model, Feature, Feature.GetDefinition() as IMacroFeatureData, 
-                param, out Enums.CustomFeatureOutdateState_e _);
+            //TODO: resolve model
+            m_ParamsParser.SetParameters(m_Model, this, param, out Enums.CustomFeatureOutdateState_e _);
         }
     }
 }
