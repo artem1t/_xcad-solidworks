@@ -24,6 +24,7 @@ using Xarial.XCad.Utils.PageBuilder.Attributes;
 namespace Xarial.XCad.Sw.PMPage.Constructors
 {
     [DefaultType(typeof(IXSelObject))]
+    [DefaultType(typeof(IEnumerable<IXSelObject>))]
     internal class PropertyManagerPageSelectionBoxControlConstructor
         : PropertyManagerPageBaseControlConstructor<PropertyManagerPageSelectionBoxControl, IPropertyManagerPageSelectionbox>
     {

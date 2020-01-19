@@ -35,6 +35,7 @@ namespace Xarial.XCad.Sw
 
         public IXCustomFeature CreateCustomFeature<TDef, TParams>(TParams param)
             where TDef : class, IXCustomFeatureDefinition, new()
+            where TParams: class, new()
         {
             var feat = InsertComFeatureWithParameters(typeof(TDef), param);
 
@@ -43,7 +44,7 @@ namespace Xarial.XCad.Sw
                 throw new Exception();
             }
 
-            return new SwMacroFeature(m_Model, feat, m_ParamsParser);
+            return new SwMacroFeature<TParams>(m_Model, feat, m_ParamsParser);
         }
 
         private IFeature InsertComFeatureWithParameters(Type macroFeatType, object parameters)

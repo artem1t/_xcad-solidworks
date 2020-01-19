@@ -50,8 +50,7 @@ namespace Xarial.XCad.Sw
 
         private readonly string m_Provider;
         private readonly ILogger m_Logger;
-        private readonly MacroFeatureParametersParser m_ParamsParser;
-
+        
         public ILogger Logger
         {
             get
@@ -71,7 +70,6 @@ namespace Xarial.XCad.Sw
 
             m_Provider = provider;
             m_Logger = new TraceLogger("xCad.MacroFeature");
-            m_ParamsParser = new MacroFeatureParametersParser();
             TryCreateIcons();
         }
 
@@ -124,7 +122,7 @@ namespace Xarial.XCad.Sw
             LogOperation("Editing feature", app as ISldWorks, modelDoc as IModelDoc2, feature as IFeature);
 
             var doc = Application.SwDocuments[modelDoc as IModelDoc2];
-            return OnEditDefinition(Application, doc, new SwMacroFeature(doc, feature as IFeature, m_ParamsParser));
+            return OnEditDefinition(Application, doc, new SwMacroFeature(doc, feature as IFeature));
         }
 
         [Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]
@@ -136,7 +134,7 @@ namespace Xarial.XCad.Sw
 
             var doc = Application.SwDocuments[modelDoc as IModelDoc2];
 
-            var res = OnRebuild(Application, doc, new SwMacroFeature(doc, feature as IFeature, m_ParamsParser));
+            var res = OnRebuild(Application, doc, new SwMacroFeature(doc, feature as IFeature));
 
             if (res != null)
             {
@@ -152,7 +150,7 @@ namespace Xarial.XCad.Sw
         public object Security(object app, object modelDoc, object feature)
         {
             var doc = Application.SwDocuments[modelDoc as IModelDoc2];
-            return OnUpdateState(Application, doc, new SwMacroFeature(doc, feature as IFeature, m_ParamsParser));
+            return OnUpdateState(Application, doc, new SwMacroFeature(doc, feature as IFeature));
         }
 
         private void SetProvider(ISldWorks app, IFeature feature)
@@ -283,6 +281,84 @@ namespace Xarial.XCad.Sw
             {
                 throw new ArgumentNullException(nameof(bodies));
             }
+        }
+    }
+
+    public abstract class SwMacroFeatureDefinition<TParams> : SwMacroFeatureDefinition, IXCustomFeatureDefinition<TParams>
+        where TParams : class, new()
+    {
+        private readonly MacroFeatureParametersParser m_ParamsParser;
+
+        public SwMacroFeatureDefinition() : base() 
+        {
+            m_ParamsParser = new MacroFeatureParametersParser();
+        }
+
+        public void AlignDimension(IXDimension dim, Structures.Point originPt, Vector dir, Vector extDir)
+        {
+            var length = dim.GetValue();
+
+            var dimDirVec = m_ParamsParser.MathUtils.CreateVector(dir.ToArray()) as MathVector;
+            var startPt = m_ParamsParser.MathUtils.CreatePoint(originPt.ToArray()) as IMathPoint;
+            var endPt = m_ParamsParser.MathUtils.CreatePoint(originPt.Move(dir, length).ToArray()) as IMathPoint;
+
+            var refPts = new IMathPoint[]
+            {
+                startPt,
+                endPt,
+                m_ParamsParser.MathUtils.CreatePoint(new double[3]) as IMathPoint
+            };
+
+            if (extDir == null)
+            {
+                var yVec = new Vector(0, 1, 0);
+                if (dir.IsSame(yVec))
+                {
+                    extDir = new Vector(1, 0, 0);
+                }
+                else
+                {
+                    extDir = yVec.Cross(dir);
+                }
+            }
+
+            var extDirVec = m_ParamsParser.MathUtils.CreateVector(extDir.ToArray()) as MathVector;
+
+            ((SwDimension)dim).Dimension.DimensionLineDirection = dimDirVec;
+            ((SwDimension)dim).Dimension.ExtensionLineDirection = extDirVec;
+            ((SwDimension)dim).Dimension.ReferencePoints = refPts;
+        }
+
+        public abstract CustomFeatureRebuildResult OnRebuild(IXApplication app, IXDocument model, IXCustomFeature feature,
+            TParams parameters, out AlignDimensionDelegate alignDim);
+
+        public override CustomFeatureRebuildResult OnRebuild(IXApplication app, IXDocument model, IXCustomFeature feature)
+        {
+            IXDimension[] dims;
+            string[] dimParamNames;
+            var param = (TParams)m_ParamsParser.GetParameters(feature, model, typeof(TParams), out dims, out dimParamNames, 
+                out IXBody[] _, out IXSelObject[] _, out CustomFeatureOutdateState_e _);
+
+            AlignDimensionDelegate alignDimsDel;
+            var res = OnRebuild(app, model, feature, param, out alignDimsDel);
+
+            m_ParamsParser.SetParameters(model, feature, param, out CustomFeatureOutdateState_e _);
+
+            if (dims?.Any() == true) 
+            {
+                if (alignDimsDel != null) 
+                {
+                    for (int i = 0; i < dims.Length; i++) 
+                    {
+                        alignDimsDel.Invoke(dimParamNames[i], dims[i]);
+
+                        //IMPORTANT: need to dispose otherwise SW will crash once document is closed
+                        ((IDisposable)dims[i]).Dispose();
+                    }
+                }
+            }
+
+            return res;
         }
     }
 }

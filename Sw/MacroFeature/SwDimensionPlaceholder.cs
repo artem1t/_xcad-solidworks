@@ -22,7 +22,7 @@ namespace Xarial.XCad.Sw.MacroFeature
         {
         }
 
-        public override double GetValue(string confName)
+        public override double GetValue(string confName = "")
         {
             return double.NaN;
         }

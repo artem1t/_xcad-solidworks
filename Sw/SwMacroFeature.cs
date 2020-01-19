@@ -9,41 +9,62 @@ using SolidWorks.Interop.sldworks;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Xarial.XCad.Structures;
 using Xarial.XCad.Sw.MacroFeature;
 
 namespace Xarial.XCad.Sw
 {
     public class SwMacroFeature : SwFeature, IXCustomFeature
-    {
-        private readonly MacroFeatureParametersParser m_ParamsParser;
-        private readonly SwDocument m_Model;
+    {   
+        protected readonly SwDocument m_Model;
 
         private IMacroFeatureData m_FeatData;
 
         public IMacroFeatureData FeatureData => m_FeatData ?? (m_FeatData = Feature.GetDefinition() as IMacroFeatureData);
 
-        internal SwMacroFeature(SwDocument model, IFeature feat, MacroFeatureParametersParser paramsParser) 
+        internal SwMacroFeature(SwDocument model, IFeature feat) 
             : base(model.Model, feat)
         {
-            m_ParamsParser = paramsParser;
             m_Model = model;
         }
 
+        //TODO: check constant context disconnection exception
         public IXConfiguration Configuration => new SwConfiguration((Feature.GetDefinition() as IMacroFeatureData).CurrentConfiguration);
-
-        public TParams GetParameters<TParams>()
+        
+        public SwMacroFeature<TParams> ToParameters<TParams>()
             where TParams : class, new()
         {
-            //TODO: resolve model
+            return ToParameters<TParams>(new MacroFeatureParametersParser());
+        }
+
+        internal SwMacroFeature<TParams> ToParameters<TParams>(MacroFeatureParametersParser paramsParser)
+            where TParams : class, new()
+        {
+            return new SwMacroFeature<TParams>(m_Model, Feature, paramsParser);
+        }
+    }
+
+    public class SwMacroFeature<TParams> : SwMacroFeature, IXCustomFeature<TParams>
+        where TParams : class, new()
+    {
+        private readonly MacroFeatureParametersParser m_ParamsParser;
+
+        internal SwMacroFeature(SwDocument model, IFeature feat, MacroFeatureParametersParser paramsParser) 
+            : base(model, feat)
+        {
+            m_ParamsParser = paramsParser;
+        }
+
+        public TParams GetParameters()
+        {
             return (TParams)m_ParamsParser.GetParameters(this, m_Model, typeof(TParams),
                 out IXDimension[] _, out string[] _, out IXBody[] _, out IXSelObject[] sels, out Enums.CustomFeatureOutdateState_e _);
         }
 
-        public void SetParameters<TParams>(TParams param)
-            where TParams : class, new()
+        public void SetParameters(TParams param)
         {
-            //TODO: resolve model
             m_ParamsParser.SetParameters(m_Model, this, param, out Enums.CustomFeatureOutdateState_e _);
+            //TODO: call modify deinition
         }
     }
 }

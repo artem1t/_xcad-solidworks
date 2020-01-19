@@ -19,6 +19,13 @@ namespace Xarial.XCad.Sw.MacroFeature
 {
     internal class MacroFeatureParametersParser : CustomFeatureParametersParser
     {
+        internal IMathUtility MathUtils { get; }
+
+        internal MacroFeatureParametersParser() 
+        {
+            MathUtils = SwMacroFeatureDefinition.Application.Application.IGetMathUtility();
+        }
+
         protected override void ExtractRawParameters(IXCustomFeature feat, out Dictionary<string, object> parameters,
             out IXDimension[] dimensions, out IXSelObject[] selection, out IXBody[] editBodies)
         {
@@ -197,7 +204,7 @@ namespace Xarial.XCad.Sw.MacroFeature
                 {
                     for (int i = 0; i < dims.Length; i++)
                     {
-                        dims[i].SetValue(dimValues[i], feat.Configuration.Name);
+                        dims[i].SetValue(dimValues[i]);
                         ((SwDimension)dims[i]).Dispose();
                     }
                 }

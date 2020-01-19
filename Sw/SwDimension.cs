@@ -11,36 +11,48 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
+using Xarial.XCad.Structures;
 
 namespace Xarial.XCad.Sw
 {
     public class SwDimension : SwSelObject, IXDimension, IDisposable
     {
-        public IDisplayDimension DisplayDimension { get; private set; }
-
         private IDimension m_Dimension;
-
         public IDimension Dimension => m_Dimension ?? (m_Dimension = DisplayDimension.GetDimension2(0));
-
-        internal SwDimension(IDisplayDimension dispDim) : base(null, dispDim) 
+        public IDisplayDimension DisplayDimension { get; private set; }
+        
+        internal SwDimension(IDisplayDimension dispDim) 
+            : base(null, dispDim) 
         {
             DisplayDimension = dispDim;
         }
 
-        public virtual double GetValue(string confName)
+        public virtual double GetValue(string confName = "")
         {
             var dim = DisplayDimension.GetDimension2(0);
-            var val = (dim.GetSystemValue3(
-                (int)swInConfigurationOpts_e.swSpecifyConfiguration,
-                new string[] { confName }) as double[])[0];
+
+            swInConfigurationOpts_e opts;
+            string[] confs;
+            GetDimensionParameters(confName, out opts, out confs);
+
+            var val = (dim.GetSystemValue3((int)opts, confs) as double[])[0];
 
             return val;
+        }
+
+        public void SetValue(double val, string confName = "")
+        {
+            swInConfigurationOpts_e opts;
+            string[] confs;
+            GetDimensionParameters(confName, out opts, out confs);
+
+            Dimension.SetSystemValue3(val, (int)opts, confs);
         }
 
         public void Dispose()
         {
             Dispose(true);
-            
+
             //NOTE: releasing the pointers as unreleased pointer might cause crash
             if (m_Dimension != null && Marshal.IsComObject(m_Dimension))
             {
@@ -59,15 +71,20 @@ namespace Xarial.XCad.Sw
             GC.WaitForPendingFinalizers();
         }
 
-        protected virtual void Dispose(bool disposing) 
+        protected virtual void Dispose(bool disposing)
         {
         }
 
-        public void SetValue(double val, string confName)
+        private void GetDimensionParameters(string confName, out swInConfigurationOpts_e opts, out string[] confs)
         {
-            Dimension.SetSystemValue3(val,
-                (int)swSetValueInConfiguration_e.swSetValue_InSpecificConfigurations,
-                new string[] { confName });
+            opts = swInConfigurationOpts_e.swThisConfiguration;
+            confs = null;
+
+            if (!string.IsNullOrEmpty(confName))
+            {
+                confs = new string[] { confName };
+                opts = swInConfigurationOpts_e.swSpecifyConfiguration;
+            }
         }
     }
 }
