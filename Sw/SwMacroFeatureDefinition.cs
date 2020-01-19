@@ -294,34 +294,25 @@ namespace Xarial.XCad.Sw
             m_ParamsParser = new MacroFeatureParametersParser();
         }
 
-        public void AlignDimension(IXDimension dim, Structures.Point originPt, Vector dir, Vector extDir)
-        {
-            var length = dim.GetValue();
-
-            var dimDirVec = m_ParamsParser.MathUtils.CreateVector(dir.ToArray()) as MathVector;
-            var startPt = m_ParamsParser.MathUtils.CreatePoint(originPt.ToArray()) as IMathPoint;
-            var endPt = m_ParamsParser.MathUtils.CreatePoint(originPt.Move(dir, length).ToArray()) as IMathPoint;
-
-            var refPts = new IMathPoint[]
+        public void AlignDimension(IXDimension dim, Structures.Point[] pts, Vector dir, Vector extDir)
+        {   
+            if (pts != null) 
             {
-                startPt,
-                endPt,
-                m_ParamsParser.MathUtils.CreatePoint(new double[3]) as IMathPoint
-            };
+                if (pts.Length == 2) 
+                {
+                    var newPts = new Structures.Point[3]
+                    {
+                        pts[0],
+                        pts[1],
+                        new Structures.Point(0, 0, 0)//3 points required for SOLIDWORKS even if not used
+                    };
 
-            if (extDir == null)
-            {
-                var yVec = new Vector(0, 1, 0);
-                if (dir.IsSame(yVec))
-                {
-                    extDir = new Vector(1, 0, 0);
-                }
-                else
-                {
-                    extDir = yVec.Cross(dir);
                 }
             }
 
+            var refPts = pts.Select(p => m_ParamsParser.MathUtils.CreatePoint(p.ToArray()) as IMathPoint).ToArray();
+
+            var dimDirVec = m_ParamsParser.MathUtils.CreateVector(dir.ToArray()) as MathVector;
             var extDirVec = m_ParamsParser.MathUtils.CreateVector(extDir.ToArray()) as MathVector;
 
             ((SwDimension)dim).Dimension.DimensionLineDirection = dimDirVec;

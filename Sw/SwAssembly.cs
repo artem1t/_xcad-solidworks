@@ -6,11 +6,13 @@
 //*********************************************************************
 
 using SolidWorks.Interop.sldworks;
+using SolidWorks.Interop.swconst;
+using Xarial.XCad.Structures;
 using Xarial.XCad.Utils.Diagnostics;
 
 namespace Xarial.XCad.Sw
 {
-    public class SwAssembly : SwDocument, IXPart
+    public class SwAssembly : SwDocument3D, IXPart
     {
         public IAssemblyDoc Assembly { get; }
 
@@ -18,6 +20,15 @@ namespace Xarial.XCad.Sw
             : base((IModelDoc2)assembly, app, logger)
         {
             Assembly = assembly;
+        }
+
+        public override Box3D CalculateBoundingBox()
+        {
+            const int NO_REF_GEOM = 0;
+
+            var box = Assembly.GetBox(NO_REF_GEOM) as double[];
+
+            return new Box3D(box[0], box[1], box[2], box[3], box[4], box[5]);
         }
     }
 }
