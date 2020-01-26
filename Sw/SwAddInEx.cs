@@ -18,6 +18,9 @@ using Xarial.XCad.Utils.Reflection;
 using Xarial.XCad.Sw;
 using Xarial.XCad.Sw.Utils;
 using Xarial.XCad.Sw.PMPage;
+using Xarial.XCad.Utils.CustomFeature;
+using Xarial.XCad.Sw.MacroFeature;
+using Xarial.XCad.Delegates;
 
 namespace Xarial.XCad.SolidWorks
 {
@@ -195,6 +198,19 @@ namespace Xarial.XCad.SolidWorks
         private PropertyManagerPageEx<TData> CreatePropertyManagerPage<TData>(Type handlerType)
         {
             return new PropertyManagerPageEx<TData>(m_Application.Application, m_Logger, handlerType);
+        }
+
+        public IXCustomFeatureEditor<TCustomFeatureDef, TData, TPage> CreateCustomFeatureEditor<TCustomFeatureDef, TData, TPage>(
+            DataConverterDelegate<TPage, TData> pageToDataConv,
+            DataConverterDelegate<TData, TPage> dataToPageConv,
+            CreateGeometryDelegate<TData> geomCreator)
+            where TCustomFeatureDef : class, IXCustomFeatureDefinition<TData>, new()
+            where TData : class, new()
+            where TPage : class, new()
+        {
+            return new SwMacroFeatureEditor<TCustomFeatureDef, TData, TPage>(
+                Application, this, new MacroFeatureParametersParser(), 
+                pageToDataConv, dataToPageConv, geomCreator);
         }
     }
 }

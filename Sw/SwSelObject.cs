@@ -32,5 +32,17 @@ namespace Xarial.XCad.Sw
                 throw new Exception("Failed to select");
             }
         }
+
+        public virtual bool IsSame(IXObject other)
+        {
+            if (other is SwSelObject)
+            {
+                return Dispatch == (other as SwSelObject).Dispatch;
+            }
+            else 
+            {
+                return false;
+            }
+        }
     }
 }

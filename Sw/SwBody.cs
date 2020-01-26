@@ -15,6 +15,15 @@ namespace Xarial.XCad.Sw
     public class SwBody : SwSelObject, IXBody
     {
         public IBody2 Body { get; }
+        
+        public bool Visible 
+        {
+            get => Body.Visible;
+            set 
+            {
+                Body.HideBody(!value);
+            }
+        }
 
         internal SwBody(IBody2 body) : base(null, body)
         {

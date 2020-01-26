@@ -57,14 +57,32 @@ namespace Xarial.XCad.Sw
 
         public TParams GetParameters()
         {
-            return (TParams)m_ParamsParser.GetParameters(this, m_Model, typeof(TParams),
-                out IXDimension[] _, out string[] _, out IXBody[] _, out IXSelObject[] sels, out Enums.CustomFeatureOutdateState_e _);
+            if (FeatureData.AccessSelections(m_Model.Model, null))
+            {
+                return (TParams)m_ParamsParser.GetParameters(this, m_Model, typeof(TParams),
+                    out IXDimension[] _, out string[] _, out IXBody[] _, out IXSelObject[] sels, out Enums.CustomFeatureOutdateState_e _);
+            }
+            else 
+            {
+                throw new Exception("Failed to edit feature");
+            }
         }
 
         public void SetParameters(TParams param)
         {
-            m_ParamsParser.SetParameters(m_Model, this, param, out Enums.CustomFeatureOutdateState_e _);
-            //TODO: call modify deinition
+            if (param == null)
+            {
+                FeatureData.ReleaseSelectionAccess();
+            }
+            else 
+            {
+                m_ParamsParser.SetParameters(m_Model, this, param, out Enums.CustomFeatureOutdateState_e _);
+
+                if (!Feature.ModifyDefinition(FeatureData, m_Model.Model, null)) 
+                {
+                    throw new Exception("Failed to update parameters");
+                }
+            }
         }
     }
 }

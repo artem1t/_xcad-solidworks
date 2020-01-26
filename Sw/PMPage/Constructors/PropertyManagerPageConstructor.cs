@@ -69,7 +69,7 @@ namespace Xarial.XCad.Sw.PMPage.Constructors
             else
             {
                 //TODO: implement conversion
-                opts = (swPropertyManagerPageOptions_e)PageOptions_e.OkayButton;
+                opts = (swPropertyManagerPageOptions_e)(PageOptions_e.OkayButton | PageOptions_e.CancelButton);
             }
 
             var helpLink = "";

@@ -57,8 +57,8 @@ namespace Xarial.XCad.Sw
 
                 var orientation = m_MathUtils.CreateTransform(data) as MathTransform;
 
-                View.Scale2 = scale;
                 View.Orientation3 = orientation;
+                View.Scale2 = scale;
                 View.Translation3 = (MathVector)transVecObj;
             }
         }
