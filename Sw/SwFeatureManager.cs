@@ -33,11 +33,10 @@ namespace Xarial.XCad.Sw
             m_FeatMgr = featMgr;
         }
 
-        public IXCustomFeature CreateCustomFeature<TDef, TParams>(TParams param)
-            where TDef : class, IXCustomFeatureDefinition, new()
+        public IXCustomFeature CreateCustomFeature<TParams>(Type defType, TParams param)
             where TParams: class, new()
         {
-            var feat = InsertComFeatureWithParameters(typeof(TDef), param);
+            var feat = InsertComFeatureWithParameters(defType, param);
 
             if (feat == null)
             {

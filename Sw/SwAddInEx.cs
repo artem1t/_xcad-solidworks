@@ -200,16 +200,16 @@ namespace Xarial.XCad.SolidWorks
             return new PropertyManagerPageEx<TData>(m_Application.Application, m_Logger, handlerType);
         }
 
-        public IXCustomFeatureEditor<TCustomFeatureDef, TData, TPage> CreateCustomFeatureEditor<TCustomFeatureDef, TData, TPage>(
+        public IXCustomFeatureEditor<TData, TPage> CreateCustomFeatureEditor<TData, TPage>(
+            Type defType,
             DataConverterDelegate<TPage, TData> pageToDataConv,
             DataConverterDelegate<TData, TPage> dataToPageConv,
             CreateGeometryDelegate<TData> geomCreator)
-            where TCustomFeatureDef : class, IXCustomFeatureDefinition<TData>, new()
             where TData : class, new()
             where TPage : class, new()
         {
-            return new SwMacroFeatureEditor<TCustomFeatureDef, TData, TPage>(
-                Application, this, new MacroFeatureParametersParser(), 
+            return new SwMacroFeatureEditor<TData, TPage>(
+                Application, this, defType, new MacroFeatureParametersParser(), 
                 pageToDataConv, dataToPageConv, geomCreator);
         }
     }

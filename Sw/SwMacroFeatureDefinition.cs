@@ -15,6 +15,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Xarial.XCad.Attributes;
+using Xarial.XCad.Delegates;
 using Xarial.XCad.Enums;
 using Xarial.XCad.Structures;
 using Xarial.XCad.Sw.MacroFeature;
@@ -289,9 +290,13 @@ namespace Xarial.XCad.Sw
     {
         private readonly MacroFeatureParametersParser m_ParamsParser;
 
-        public SwMacroFeatureDefinition() : base() 
+        public SwMacroFeatureDefinition() : this(new MacroFeatureParametersParser())
         {
-            m_ParamsParser = new MacroFeatureParametersParser();
+        }
+
+        internal SwMacroFeatureDefinition(MacroFeatureParametersParser paramsParser) : base() 
+        {
+            m_ParamsParser = paramsParser;
         }
 
         public void AlignDimension(IXDimension dim, Structures.Point[] pts, Vector dir, Vector extDir)
@@ -312,16 +317,23 @@ namespace Xarial.XCad.Sw
 
             var refPts = pts.Select(p => m_ParamsParser.MathUtils.CreatePoint(p.ToArray()) as IMathPoint).ToArray();
 
-            var dimDirVec = m_ParamsParser.MathUtils.CreateVector(dir.ToArray()) as MathVector;
-            var extDirVec = m_ParamsParser.MathUtils.CreateVector(extDir.ToArray()) as MathVector;
+            if (dir != null)
+            {
+                var dimDirVec = m_ParamsParser.MathUtils.CreateVector(dir.ToArray()) as MathVector;
+                ((SwDimension)dim).Dimension.DimensionLineDirection = dimDirVec;
+            }
 
-            ((SwDimension)dim).Dimension.DimensionLineDirection = dimDirVec;
-            ((SwDimension)dim).Dimension.ExtensionLineDirection = extDirVec;
+            if (extDir != null)
+            {
+                var extDirVec = m_ParamsParser.MathUtils.CreateVector(extDir.ToArray()) as MathVector;
+                ((SwDimension)dim).Dimension.ExtensionLineDirection = extDirVec;
+            }
+
             ((SwDimension)dim).Dimension.ReferencePoints = refPts;
         }
 
         public abstract CustomFeatureRebuildResult OnRebuild(IXApplication app, IXDocument model, IXCustomFeature feature,
-            TParams parameters, out AlignDimensionDelegate alignDim);
+            TParams parameters, out AlignDimensionDelegate<TParams> alignDim);
 
         public override CustomFeatureRebuildResult OnRebuild(IXApplication app, IXDocument model, IXCustomFeature feature)
         {
@@ -330,7 +342,7 @@ namespace Xarial.XCad.Sw
             var param = (TParams)m_ParamsParser.GetParameters(feature, model, typeof(TParams), out dims, out dimParamNames, 
                 out IXBody[] _, out IXSelObject[] _, out CustomFeatureOutdateState_e _);
 
-            AlignDimensionDelegate alignDimsDel;
+            AlignDimensionDelegate<TParams> alignDimsDel;
             var res = OnRebuild(app, model, feature, param, out alignDimsDel);
 
             m_ParamsParser.SetParameters(model, feature, param, out CustomFeatureOutdateState_e _);
@@ -341,7 +353,7 @@ namespace Xarial.XCad.Sw
                 {
                     for (int i = 0; i < dims.Length; i++) 
                     {
-                        alignDimsDel.Invoke(dimParamNames[i], dims[i]);
+                        alignDimsDel.Invoke(this, dimParamNames[i], dims[i]);
 
                         //IMPORTANT: need to dispose otherwise SW will crash once document is closed
                         ((IDisposable)dims[i]).Dispose();
@@ -353,27 +365,38 @@ namespace Xarial.XCad.Sw
         }
     }
 
-    //public abstract class SwMacroFeatureDefinition<TParams, TPage>  : SwMacroFeatureDefinition<TParams>
-    //    where TParams : class, new()
-    //    where TPage : class, new()
-    //{
-    //    public abstract IXCustomFeatureEditor<SwMacroFeatureDefinition<TParams, TPage>, TParams, TPage> Editor { get; }
+    public abstract class SwMacroFeatureDefinition<TParams, TPage> : SwMacroFeatureDefinition<TParams>
+        where TParams : class, new()
+        where TPage : class, new()
+    {
+        private readonly MacroFeatureParametersParser m_ParamsParser;
 
-    //    public override bool OnEditDefinition(IXApplication app, IXDocument model, IXCustomFeature feature)
-    //    {
-    //        Editor.Edit(model, ((SwMacroFeature)feature).ToParameters<TParams>(m_pa);
-    //        return true;
-    //    }
+        public SwMacroFeatureDefinition() : this(new MacroFeatureParametersParser())
+        {
+        }
 
-    //    public override CustomFeatureRebuildResult OnRebuild(IXApplication app, IXDocument model,
-    //        IXCustomFeature feature, ShaftChamferData parameters, out AlignDimensionDelegate alignDim)
-    //    {
-    //        alignDim = null;
+        internal SwMacroFeatureDefinition(MacroFeatureParametersParser parser) : base(parser)
+        {
+            m_ParamsParser = parser;
+        }
 
-    //        return new CustomFeatureBodyRebuildResult()
-    //        {
-    //            Bodies = Editor.CreateGeometry(parameters)
-    //        };
-    //    }
-    //}
+        public abstract IXCustomFeatureEditor<TParams, TPage> Editor { get; }
+
+        public override bool OnEditDefinition(IXApplication app, IXDocument model, IXCustomFeature feature)
+        {
+            Editor.Edit(model, ((SwMacroFeature)feature).ToParameters<TParams>(m_ParamsParser));
+            return true;
+        }
+
+        public override CustomFeatureRebuildResult OnRebuild(IXApplication app, IXDocument model,
+            IXCustomFeature feature, TParams parameters, out AlignDimensionDelegate<TParams> alignDim)
+        {
+            alignDim = null;
+            
+            return new CustomFeatureBodyRebuildResult()
+            {
+                Bodies = Editor.CreateGeometry(this, parameters, out alignDim)
+            };
+        }
+    }
 }

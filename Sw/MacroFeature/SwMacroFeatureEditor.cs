@@ -17,14 +17,13 @@ using Xarial.XCad.Utils.CustomFeature;
 
 namespace Xarial.XCad.Sw.MacroFeature
 {
-    public class SwMacroFeatureEditor<TCustomFeatureDef, TData, TPage> : BaseCustomFeatureEditor<TCustomFeatureDef, TData, TPage>
-        where TCustomFeatureDef : class, IXCustomFeatureDefinition<TData>, new()
+    public class SwMacroFeatureEditor<TData, TPage> : BaseCustomFeatureEditor<TData, TPage>
         where TData : class, new()
         where TPage : class, new()
     {
-        internal SwMacroFeatureEditor(IXApplication app, IXExtension ext, CustomFeatureParametersParser paramsParser,
+        internal SwMacroFeatureEditor(IXApplication app, IXExtension ext, Type defType, CustomFeatureParametersParser paramsParser,
             DataConverterDelegate<TPage, TData> pageToDataConv, DataConverterDelegate<TData, TPage> dataToPageConv, 
-            CreateGeometryDelegate<TData> geomCreator) : base(app, ext, paramsParser, pageToDataConv, dataToPageConv, geomCreator)
+            CreateGeometryDelegate<TData> geomCreator) : base(app, ext, defType, paramsParser, pageToDataConv, dataToPageConv, geomCreator)
         {
         }
 
