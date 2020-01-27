@@ -352,4 +352,28 @@ namespace Xarial.XCad.Sw
             return res;
         }
     }
+
+    //public abstract class SwMacroFeatureDefinition<TParams, TPage>  : SwMacroFeatureDefinition<TParams>
+    //    where TParams : class, new()
+    //    where TPage : class, new()
+    //{
+    //    public abstract IXCustomFeatureEditor<SwMacroFeatureDefinition<TParams, TPage>, TParams, TPage> Editor { get; }
+
+    //    public override bool OnEditDefinition(IXApplication app, IXDocument model, IXCustomFeature feature)
+    //    {
+    //        Editor.Edit(model, ((SwMacroFeature)feature).ToParameters<TParams>(m_pa);
+    //        return true;
+    //    }
+
+    //    public override CustomFeatureRebuildResult OnRebuild(IXApplication app, IXDocument model,
+    //        IXCustomFeature feature, ShaftChamferData parameters, out AlignDimensionDelegate alignDim)
+    //    {
+    //        alignDim = null;
+
+    //        return new CustomFeatureBodyRebuildResult()
+    //        {
+    //            Bodies = Editor.CreateGeometry(parameters)
+    //        };
+    //    }
+    //}
 }

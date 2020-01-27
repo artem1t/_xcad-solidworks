@@ -15,7 +15,25 @@ namespace Xarial.XCad.Sw
 {
     public class SwSelObject : IXSelObject
     {
-        public object Dispatch { get; }
+        public static SwSelObject FromDispatch(object disp, IModelDoc2 model = null) 
+        {
+            switch (disp)
+            {
+                //TODO: make this automatic
+                case IEdge edge:
+                    return new SwEdge(edge);
+                case IFeature feat:
+                    return new SwFeature(model, feat);
+                case IBody2 body:
+                    return new SwBody(body);
+                case IDisplayDimension dispDim:
+                    return new SwDimension(dispDim);
+                default:
+                    return new SwSelObject(model, disp);
+            }
+        }
+
+        public virtual object Dispatch { get; }
 
         private readonly IModelDoc2 m_Model;
 

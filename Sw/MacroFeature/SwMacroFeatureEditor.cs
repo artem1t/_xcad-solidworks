@@ -51,7 +51,11 @@ namespace Xarial.XCad.Sw.MacroFeature
             {
                 for (int i = 0; i < bodies.Length; i++)
                 {
-                    Marshal.ReleaseComObject(bodies[i]);
+                    if (bodies[i] is IDisposable) 
+                    {
+                        (bodies[i] as IDisposable).Dispose();
+                    }
+                    
                     bodies[i] = null;
                 }
             }

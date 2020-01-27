@@ -24,19 +24,26 @@ namespace Xarial.XCad.Sw
             m_MathUtils = mathUtils;
         }
 
-        public IXBody CreateBox()
+        public IXBody CreateBox(Point center, Vector dir, Vector refDir,
+            double width, double length, double height)
         {
-            var body = CreateBox(new Point(0, 0, 0), new Vector(1, 0, 0), 0.1, 0.1, 0.1);
+            var body = CreateBoxBody(center, dir, refDir, width, length, height);
+            return new SwTempBody(body);
+        }
+
+        public IXBody CreateCylinder(Point center, Vector axis, Vector refDir, double radius, double height) 
+        {
+            var body = CreateCylinderBody(center, axis, refDir, radius, height);
             return new SwTempBody(body);
         }
 
         /// <inheritdoc cref="CreateBox(IModeler, Point, Vector, double, double, double)"/>
         /// <param name="refDir">Input or output direction of ref axis which corresponds to X. Specify null to auto calculate</param>
-        private IBody2 CreateBox(Point center, Vector dir, ref Vector refDir,
+        private IBody2 CreateBoxBody(Point center, Vector dir, Vector refDir,
             double width, double length, double height)
         {
             IMathVector refVec;
-            var surf = CreatePlanarSurface(center, dir, ref refDir, out refVec);
+            var surf = CreatePlanarSurface(center, dir, refDir, out refVec);
 
             var xVec = new Vector(refVec.ArrayData as double[]);
             var yVec = xVec.Cross(dir);
@@ -90,13 +97,13 @@ namespace Xarial.XCad.Sw
         /// <remarks>Use this method instead of built-in <see href="http://help.solidworks.com/2016/english/api/sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IModeler~CreateBodyFromBox3.html">IModeler::CreateBodyFromBox</see>
         /// If you need to preserve entity ids as the body generated using the built-in method won't allow to set user id,
         /// which means any reference geometry generated in relation to box entities will become dangling upon rebuild</remarks>
-        private IBody2 CreateBox(Point center, Vector dir,
-            double width, double length, double height)
-        {
-            Vector refDir = null;
+        //private IBody2 CreateBoxBody(Point center, Vector dir,
+        //    double width, double length, double height)
+        //{
+        //    Vector refDir = null;
 
-            return CreateBox(center, dir, ref refDir, width, length, height);
-        }
+        //    return CreateBoxBody(center, dir, ref refDir, width, length, height);
+        //}
 
         /// <summary>
         /// Creates the cylindrical body
@@ -110,12 +117,11 @@ namespace Xarial.XCad.Sw
         /// <remarks>Use this method instead of built-in <see href="http://help.solidworks.com/2016/english/api/sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IModeler~CreateBodyFromCyl.html">IModeler::CreateBodyFromCyl</see>
         /// If you need to preserve entity ids as the body generated using the built-in method won't allow to set user id,
         /// which means any reference geometry generated in relation to cylinder entities will become dangling upon rebuild</remarks>
-        private IBody2 CreateCylinder(Point center, Vector axis, double radius, double height)
+        private IBody2 CreateCylinderBody(Point center, Vector axis, Vector refDir, double radius, double height)
         {
             IMathVector refVec;
-            Vector refDir = null;
-
-            var surf = CreatePlanarSurface(center, axis, ref refDir, out refVec);
+            
+            var surf = CreatePlanarSurface(center, axis, refDir, out refVec);
 
             var radDir = new Vector(refVec.ArrayData as double[]);
             var refPt = center.Move(radDir, radius);
@@ -136,43 +142,28 @@ namespace Xarial.XCad.Sw
         }
 
         private ISurface CreatePlanarSurface(Point center, Vector dir,
-            ref Vector refDir, out IMathVector refVec)
+            Vector refDir, out IMathVector refVec)
         {
-            if (refDir == null)
-            {
-                var transform = GetTransformBetweenVectors(new Vector(0, 0, 1), dir, center);
-
-                refVec = (m_MathUtils.CreateVector(
-                    new double[] { 1, 0, 0 }) as IMathVector)
-                    .MultiplyTransform(transform) as IMathVector;
-
-                refDir = new Vector(refVec.ArrayData as double[]);
-            }
-            else
-            {
-                refVec = m_MathUtils.CreateVector(refDir.ToArray()) as IMathVector;
-            }
+            refVec = m_MathUtils.CreateVector(refDir.ToArray()) as IMathVector;
 
             return m_Modeler.CreatePlanarSurface2(center.ToArray(), dir.ToArray(), refVec.ArrayData) as ISurface;
         }
 
-        private IMathTransform GetTransformBetweenVectors(Vector firstVector, Vector secondVector, Point point)
+        public IXBody CreateCone(Point center, Vector axis, Vector refDir, double baseRadius, double topRadius, double height)
         {
-            var mathVec1 = (m_MathUtils.CreateVector(firstVector.ToArray()) as IMathVector).Normalise();
-            var mathVec2 = (m_MathUtils.CreateVector(secondVector.ToArray()) as IMathVector).Normalise();
-            var crossVec = (mathVec1.Cross(mathVec2) as IMathVector).Normalise();
+            var coneBody = m_Modeler.CreateBodyFromCone(new double[]
+            {
+                center.X, center.Y, center.Z,
+                axis.X, axis.Y, axis.Z,
+                baseRadius, topRadius, height
+            }) as IBody2;
 
-            var dot = mathVec1.Dot(mathVec2);
-            var vec1Len = mathVec1.GetLength();
-            var vec2Len = mathVec2.GetLength();
+            if (coneBody == null) 
+            {
+                throw new NullReferenceException("Failed to generate cone body");
+            }
 
-            var angle = Math.Acos(dot / vec1Len * vec2Len);
-
-            var mathPt = m_MathUtils.CreatePoint(point.ToArray()) as IMathPoint;
-
-            var mathTransform = m_MathUtils.CreateTransformRotateAxis(mathPt, crossVec, angle) as IMathTransform;
-
-            return mathTransform;
+            return new SwTempBody(coneBody);
         }
     }
 }

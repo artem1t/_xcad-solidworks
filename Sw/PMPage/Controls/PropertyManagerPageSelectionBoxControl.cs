@@ -58,9 +58,7 @@ namespace Xarial.XCad.Sw.PMPage.Controls
 
         private SwSelObject ToSelObject(object disp) 
         {
-            //TODO: create specific sel object from disp
-
-            return new SwSelObject(m_App.IActiveDoc2, disp);
+            return SwSelObject.FromDispatch(disp, m_App.IActiveDoc2);
         }
 
         private void OnSubmitSelection(int Id, object Selection, int SelType, ref string ItemText, ref bool res)

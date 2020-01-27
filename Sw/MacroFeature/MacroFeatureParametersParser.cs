@@ -77,7 +77,7 @@ namespace Xarial.XCad.Sw.MacroFeature
 
             if (selObjects != null)
             {
-                selection = selObjects.Select(s => new SwSelObject(null, s)).ToArray();
+                selection = selObjects.Select(s => SwSelObject.FromDispatch(s)).ToArray();
             }
             else 
             {
