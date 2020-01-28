@@ -16,6 +16,16 @@ namespace Xarial.XCad.Sw
 {
     public class SwBody : SwSelObject, IXBody
     {
+        public static SwBody operator -(SwBody firstBody, SwBody secondBody)
+        {
+            return (SwBody)firstBody.Substract(secondBody).First();
+        }
+
+        public static SwBody operator +(SwBody firstBody, SwBody secondBody)
+        {
+            return (SwBody)firstBody.Add(secondBody);
+        }
+
         public virtual IBody2 Body { get; }
         
         public bool Visible 
@@ -47,23 +57,18 @@ namespace Xarial.XCad.Sw
             return PerformOperation(other, swBodyOperationType_e.SWBODYINTERSECT);
         }
 
+        public SwTempBody ToTempBody() 
+        {
+            return new SwTempBody(Body);
+        }
+
         private IXBody[] PerformOperation(IXBody other, swBodyOperationType_e op) 
         {
             if (other is SwBody)
             {
                 var thisBody = Body;
                 var otherBody = (other as SwBody).Body;
-
-                if (!thisBody.IsTemporaryBody()) 
-                {
-                    thisBody = thisBody.ICopy();
-                }
-
-                if (!otherBody.IsTemporaryBody())
-                {
-                    otherBody = otherBody.ICopy();
-                }
-
+                
                 int errs;
                 var res = thisBody.Operations2((int)op, otherBody, out errs) as object[];
 

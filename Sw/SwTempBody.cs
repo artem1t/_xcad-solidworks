@@ -15,15 +15,15 @@ namespace Xarial.XCad.Sw
 {
     public class SwTempBody : SwBody, IDisposable
     {
+        private IBody2 m_TempBody;
+        
         public override IBody2 Body => m_TempBody;
         public override object Dispatch => m_TempBody;
-
-        private IBody2 m_TempBody;
 
         internal SwTempBody(IBody2 body) : base(null)
         {
             //TODO: validate if temp body and/or convert
-            m_TempBody = body;
+            m_TempBody = ConvertToTempIfNeeded(body);
         }
 
         public void Dispose()
@@ -31,14 +31,26 @@ namespace Xarial.XCad.Sw
             Dispose(true);
         }
 
-        protected virtual void Dispose(bool disposing) 
+        protected virtual void Dispose(bool disposing)
         {
-            if (disposing) 
+            if (disposing)
             {
                 Marshal.ReleaseComObject(m_TempBody);
             }
 
             m_TempBody = null;
+        }
+
+        private IBody2 ConvertToTempIfNeeded(IBody2 body)
+        {
+            if (body.IsTemporaryBody())
+            {
+                return body;
+            }
+            else 
+            {
+                return body.ICopy();
+            }
         }
     }
 }

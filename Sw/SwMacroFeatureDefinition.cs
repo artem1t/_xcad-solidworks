@@ -395,7 +395,7 @@ namespace Xarial.XCad.Sw
             
             return new CustomFeatureBodyRebuildResult()
             {
-                Bodies = Editor.CreateGeometry(this, parameters, out alignDim)
+                Bodies = Editor.CreateGeometry(this, parameters, false, out alignDim)
             };
         }
     }

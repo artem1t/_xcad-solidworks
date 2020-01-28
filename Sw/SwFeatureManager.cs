@@ -119,5 +119,10 @@ namespace Xarial.XCad.Sw
                 return feat;
             }
         }
+
+        public IXSketch CreateSketch(SketchType_e type)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
