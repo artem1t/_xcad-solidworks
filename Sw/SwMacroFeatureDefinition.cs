@@ -123,7 +123,7 @@ namespace Xarial.XCad.Sw
             LogOperation("Editing feature", app as ISldWorks, modelDoc as IModelDoc2, feature as IFeature);
 
             var doc = Application.SwDocuments[modelDoc as IModelDoc2];
-            return OnEditDefinition(Application, doc, new SwMacroFeature(doc, feature as IFeature));
+            return OnEditDefinition(Application, doc, new SwMacroFeature(doc, (modelDoc as IModelDoc2).FeatureManager, feature as IFeature, true));
         }
 
         [Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]
@@ -135,7 +135,7 @@ namespace Xarial.XCad.Sw
 
             var doc = Application.SwDocuments[modelDoc as IModelDoc2];
 
-            var res = OnRebuild(Application, doc, new SwMacroFeature(doc, feature as IFeature));
+            var res = OnRebuild(Application, doc, new SwMacroFeature(doc, (modelDoc as IModelDoc2).FeatureManager, feature as IFeature, true));
 
             if (res != null)
             {
@@ -151,7 +151,7 @@ namespace Xarial.XCad.Sw
         public object Security(object app, object modelDoc, object feature)
         {
             var doc = Application.SwDocuments[modelDoc as IModelDoc2];
-            return OnUpdateState(Application, doc, new SwMacroFeature(doc, feature as IFeature));
+            return OnUpdateState(Application, doc, new SwMacroFeature(doc, (modelDoc as IModelDoc2).FeatureManager, feature as IFeature, true));
         }
 
         private void SetProvider(ISldWorks app, IFeature feature)

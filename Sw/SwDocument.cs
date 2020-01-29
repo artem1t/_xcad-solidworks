@@ -36,7 +36,7 @@ namespace Xarial.XCad.Sw
         public string Path => Model.GetPathName();
         public string Title => Model.GetTitle();
 
-        public IXFeatureManager FeatureManager { get; }
+        public IXFeatureCollection Features { get; }
 
         internal SwDocument(IModelDoc2 model, ISldWorks app, ILogger logger) 
         {
@@ -45,7 +45,7 @@ namespace Xarial.XCad.Sw
             m_App = app;
             m_Logger = logger;
 
-            FeatureManager = new SwFeatureManager(this, model.FeatureManager);
+            Features = new SwFeatureManager(this, model.FeatureManager, m_App);
 
             AttachEvents();
         }

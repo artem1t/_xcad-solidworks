@@ -8,9 +8,16 @@
 using SolidWorks.Interop.sldworks;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Text;
+using Xarial.XCad.Attributes;
+using Xarial.XCad.Enums;
 using Xarial.XCad.Structures;
 using Xarial.XCad.Sw.MacroFeature;
+using Xarial.XCad.Sw.Utils;
+using Xarial.XCad.Utils.CustomFeature;
+using Xarial.XCad.Utils.Reflection;
 
 namespace Xarial.XCad.Sw
 {
@@ -20,12 +27,17 @@ namespace Xarial.XCad.Sw
 
         private IMacroFeatureData m_FeatData;
 
+        public Type DefinitionType { get; set; }
+
         public IMacroFeatureData FeatureData => m_FeatData ?? (m_FeatData = Feature.GetDefinition() as IMacroFeatureData);
 
-        internal SwMacroFeature(SwDocument model, IFeature feat) 
-            : base(model.Model, feat)
+        private readonly IFeatureManager m_FeatMgr;
+
+        internal SwMacroFeature(SwDocument model, IFeatureManager featMgr, IFeature feat, bool created) 
+            : base(model.Model, feat, created)
         {
             m_Model = model;
+            m_FeatMgr = featMgr;
         }
 
         //TODO: check constant context disconnection exception
@@ -40,7 +52,58 @@ namespace Xarial.XCad.Sw
         internal SwMacroFeature<TParams> ToParameters<TParams>(MacroFeatureParametersParser paramsParser)
             where TParams : class, new()
         {
-            return new SwMacroFeature<TParams>(m_Model, Feature, paramsParser);
+            return new SwMacroFeature<TParams>(m_Model, m_FeatMgr, Feature, paramsParser, IsCreated);
+        }
+
+        protected override IFeature CreateFeature()
+        {
+            return InsertComFeatureBase(null, null, null, null, null, null, null);
+        }
+
+        protected IFeature InsertComFeatureBase(string[] paramNames, int[] paramTypes, string[] paramValues,
+            int[] dimTypes, double[] dimValues, object[] selection, object[] editBodies)
+        {
+            if (!typeof(SwMacroFeatureDefinition).IsAssignableFrom(DefinitionType))
+            {
+                throw new InvalidCastException($"{DefinitionType.FullName} must inherit {typeof(SwMacroFeatureDefinition).FullName}");
+            }
+
+            var options = CustomFeatureOptions_e.Default;
+            var provider = "";
+
+            DefinitionType.TryGetAttribute<CustomFeatureOptionsAttribute>(a =>
+            {
+                options = a.Flags;
+                provider = a.Provider;
+            });
+
+            var baseName = MacroFeatureInfo.GetBaseName(DefinitionType);
+
+            var progId = MacroFeatureInfo.GetProgId(DefinitionType);
+
+            if (string.IsNullOrEmpty(progId))
+            {
+                throw new NullReferenceException("Prog id for macro feature cannot be extracted");
+            }
+
+            var icons = MacroFeatureIconInfo.GetIcons(DefinitionType,
+                CompatibilityUtils.SupportsHighResIcons(SwMacroFeatureDefinition.Application.Application, CompatibilityUtils.HighResIconsScope_e.MacroFeature));
+
+            using (var selSet = new SelectionGroup(m_FeatMgr.Document.ISelectionManager))
+            {
+                if (selection != null && selection.Any())
+                {
+                    var selRes = selSet.AddRange(selection);
+
+                    Debug.Assert(selRes);
+                }
+
+                var feat = m_FeatMgr.InsertMacroFeature3(baseName,
+                    progId, null, paramNames, paramTypes,
+                    paramValues, dimTypes, dimValues, editBodies, icons, (int)options) as IFeature;
+
+                return feat;
+            }
         }
     }
 
@@ -49,40 +112,90 @@ namespace Xarial.XCad.Sw
     {
         private readonly MacroFeatureParametersParser m_ParamsParser;
 
-        internal SwMacroFeature(SwDocument model, IFeature feat, MacroFeatureParametersParser paramsParser) 
-            : base(model, feat)
+        internal SwMacroFeature(SwDocument model, IFeatureManager featMgr, IFeature feat, MacroFeatureParametersParser paramsParser, bool created) 
+            : base(model, featMgr, feat, created)
         {
             m_ParamsParser = paramsParser;
         }
 
-        public TParams GetParameters()
-        {
-            if (FeatureData.AccessSelections(m_Model.Model, null))
-            {
-                return (TParams)m_ParamsParser.GetParameters(this, m_Model, typeof(TParams),
-                    out IXDimension[] _, out string[] _, out IXBody[] _, out IXSelObject[] sels, out Enums.CustomFeatureOutdateState_e _);
-            }
-            else 
-            {
-                throw new Exception("Failed to edit feature");
-            }
-        }
+        private TParams m_ParametersCache;
 
-        public void SetParameters(TParams param)
+        public TParams Parameters
         {
-            if (param == null)
+            get
             {
-                FeatureData.ReleaseSelectionAccess();
-            }
-            else 
-            {
-                m_ParamsParser.SetParameters(m_Model, this, param, out Enums.CustomFeatureOutdateState_e _);
-
-                if (!Feature.ModifyDefinition(FeatureData, m_Model.Model, null)) 
+                if (IsCreated)
                 {
-                    throw new Exception("Failed to update parameters");
+                    if (FeatureData.AccessSelections(m_Model.Model, null))
+                    {
+                        return (TParams)m_ParamsParser.GetParameters(this, m_Model, typeof(TParams),
+                            out IXDimension[] _, out string[] _, out IXBody[] _, out IXSelObject[] sels, out Enums.CustomFeatureOutdateState_e _);
+                    }
+                    else
+                    {
+                        throw new Exception("Failed to edit feature");
+                    }
+                }
+                else
+                {
+                    return m_ParametersCache;
                 }
             }
+            set
+            {
+                if (IsCreated)
+                {
+                    if (value == null)
+                    {
+                        FeatureData.ReleaseSelectionAccess();
+                    }
+                    else
+                    {
+                        m_ParamsParser.SetParameters(m_Model, this, value, out Enums.CustomFeatureOutdateState_e _);
+
+                        if (!Feature.ModifyDefinition(FeatureData, m_Model.Model, null))
+                        {
+                            throw new Exception("Failed to update parameters");
+                        }
+                    }
+                }
+                else 
+                {
+                    m_ParametersCache = value;
+                }
+            }
+        }
+        
+        protected override IFeature CreateFeature()
+        {
+            return InsertComFeatureWithParameters();
+        }
+
+        private IFeature InsertComFeatureWithParameters()
+        {
+            CustomFeatureParameter[] atts;
+            IXSelObject[] selection;
+            CustomFeatureDimensionType_e[] dimTypes;
+            double[] dimValues;
+            IXBody[] editBodies;
+
+            m_ParamsParser.Parse(Parameters,
+                out atts, out selection, out dimTypes, out dimValues,
+                out editBodies);
+
+            string[] paramNames;
+            string[] paramValues;
+            int[] paramTypes;
+
+            m_ParamsParser.ConvertParameters(atts, out paramNames, out paramTypes, out paramValues);
+
+            //TODO: add dim types conversion
+
+            return InsertComFeatureBase(
+                paramNames, paramTypes, paramValues,
+                dimTypes?.Select(d => (int)d)?.ToArray(), dimValues,
+                selection?.Cast<SwSelObject>()?.Select(s => s.Dispatch)?.ToArray(),
+                editBodies?.Cast<SwBody>()?.Select(b => b.Body)?.ToArray());
         }
     }
 }

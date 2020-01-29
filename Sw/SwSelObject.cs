@@ -23,7 +23,7 @@ namespace Xarial.XCad.Sw
                 case IEdge edge:
                     return new SwEdge(edge);
                 case IFeature feat:
-                    return new SwFeature(model, feat);
+                    return new SwFeature(model, feat, true);
                 case IBody2 body:
                     return new SwBody(body);
                 case IDisplayDimension dispDim:
@@ -35,7 +35,7 @@ namespace Xarial.XCad.Sw
 
         public virtual object Dispatch { get; }
 
-        private readonly IModelDoc2 m_Model;
+        protected readonly IModelDoc2 m_Model;
 
         internal SwSelObject(IModelDoc2 model, object disp) 
         {

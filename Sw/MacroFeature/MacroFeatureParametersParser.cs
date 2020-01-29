@@ -21,9 +21,13 @@ namespace Xarial.XCad.Sw.MacroFeature
     {
         internal IMathUtility MathUtils { get; }
 
-        internal MacroFeatureParametersParser() 
+        internal MacroFeatureParametersParser() : this(SwMacroFeatureDefinition.Application.Application) 
         {
-            MathUtils = SwMacroFeatureDefinition.Application.Application.IGetMathUtility();
+        }
+
+        internal MacroFeatureParametersParser(ISldWorks app)
+        {
+            MathUtils = app.IGetMathUtility();
         }
 
         protected override void ExtractRawParameters(IXCustomFeature feat, out Dictionary<string, object> parameters,

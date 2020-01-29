@@ -15,6 +15,11 @@ namespace Xarial.XCad.Sw
 {
     public class SwApplication : IXApplication
     {
+        public static SwApplication FromPointer(ISldWorks app) 
+        {
+            return new SwApplication(app, new TraceLogger(""));
+        }
+
         public ISldWorks Application { get; }
 
         public IXDocumentCollection Documents => SwDocuments;
