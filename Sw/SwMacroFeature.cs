@@ -13,6 +13,7 @@ using System.Linq;
 using System.Text;
 using Xarial.XCad.Attributes;
 using Xarial.XCad.Enums;
+using Xarial.XCad.Reflection;
 using Xarial.XCad.Structures;
 using Xarial.XCad.Sw.MacroFeature;
 using Xarial.XCad.Sw.Utils;

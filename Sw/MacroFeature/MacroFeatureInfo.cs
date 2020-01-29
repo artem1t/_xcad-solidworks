@@ -11,6 +11,7 @@ using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Text;
 using Xarial.XCad.Attributes;
+using Xarial.XCad.Reflection;
 using Xarial.XCad.Utils.Reflection;
 
 namespace Xarial.XCad.Sw.MacroFeature

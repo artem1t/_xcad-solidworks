@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\base\Base\Base.csproj" />
+    <ProjectReference Include="..\..\toolkit\Toolkit\Toolkit.csproj" />
   </ItemGroup>
 
   <ItemGroup>
