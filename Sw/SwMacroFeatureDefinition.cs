@@ -10,15 +10,19 @@ using SolidWorks.Interop.swpublished;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Xarial.XCad.Attributes;
-using Xarial.XCad.Delegates;
-using Xarial.XCad.Enums;
+using Xarial.XCad.Annotations;
+using Xarial.XCad.Base.Attributes;
+using Xarial.XCad.Documents;
+using Xarial.XCad.Features.CustomFeature;
+using Xarial.XCad.Features.CustomFeature.Delegates;
+using Xarial.XCad.Features.CustomFeature.Enums;
+using Xarial.XCad.Features.CustomFeature.Structures;
+using Xarial.XCad.Geometry;
+using Xarial.XCad.Geometry.Structures;
 using Xarial.XCad.Reflection;
-using Xarial.XCad.Structures;
 using Xarial.XCad.Sw.MacroFeature;
 using Xarial.XCad.Sw.MacroFeature.Icons;
 using Xarial.XCad.Sw.Utils;
@@ -80,7 +84,7 @@ namespace Xarial.XCad.Sw
             var iconsConverter = new IconsConverter(
                 MacroFeatureIconInfo.GetLocation(this.GetType()), false);
 
-            Image icon = null;
+            System.Drawing.Image icon = null;
 
             this.GetType().TryGetAttribute<IconAttribute>(a =>
             {
@@ -300,17 +304,17 @@ namespace Xarial.XCad.Sw
             m_ParamsParser = paramsParser;
         }
 
-        public void AlignDimension(IXDimension dim, Structures.Point[] pts, Vector dir, Vector extDir)
+        public void AlignDimension(IXDimension dim, Point[] pts, Vector dir, Vector extDir)
         {   
             if (pts != null) 
             {
                 if (pts.Length == 2) 
                 {
-                    var newPts = new Structures.Point[3]
+                    var newPts = new Point[3]
                     {
                         pts[0],
                         pts[1],
-                        new Structures.Point(0, 0, 0)//3 points required for SOLIDWORKS even if not used
+                        new Point(0, 0, 0)//3 points required for SOLIDWORKS even if not used
                     };
 
                 }

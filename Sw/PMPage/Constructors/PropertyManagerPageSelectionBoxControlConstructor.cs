@@ -16,10 +16,11 @@ using SolidWorks.Interop.sldworks;
 using System.Collections;
 using Xarial.XCad.Utils.Diagnostics;
 using Xarial.XCad.Sw.Utils;
-using Xarial.XCad.Attributes;
 using Xarial.XCad.Utils.PageBuilder.Base;
 using Xarial.XCad.Services;
 using Xarial.XCad.Utils.PageBuilder.Attributes;
+using Xarial.XCad.UI.PropertyPage;
+using Xarial.XCad.UI.PropertyPage.Attributes;
 
 namespace Xarial.XCad.Sw.PMPage.Constructors
 {

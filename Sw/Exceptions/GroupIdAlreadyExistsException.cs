@@ -6,8 +6,8 @@
 //*********************************************************************
 
 using System;
-using Xarial.XCad.Attributes;
-using Xarial.XCad.Structures;
+using Xarial.XCad.UI.Commands.Attributes;
+using Xarial.XCad.UI.Commands.Structures;
 
 namespace Xarial.XCad.Sw.Exceptions
 {

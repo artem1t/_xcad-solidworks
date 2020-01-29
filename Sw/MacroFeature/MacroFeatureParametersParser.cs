@@ -12,7 +12,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
-using Xarial.XCad.Enums;
+using Xarial.XCad.Annotations;
+using Xarial.XCad.Documents;
+using Xarial.XCad.Features;
+using Xarial.XCad.Features.CustomFeature;
+using Xarial.XCad.Features.CustomFeature.Enums;
+using Xarial.XCad.Geometry;
 using Xarial.XCad.Utils.CustomFeature;
 
 namespace Xarial.XCad.Sw.MacroFeature

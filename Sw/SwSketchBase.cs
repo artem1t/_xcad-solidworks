@@ -10,8 +10,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using Xarial.XCad.Features;
+using Xarial.XCad.Geometry.Structures;
 using Xarial.XCad.Services;
-using Xarial.XCad.Structures;
+using Xarial.XCad.Sketch;
 
 namespace Xarial.XCad.Sw
 {

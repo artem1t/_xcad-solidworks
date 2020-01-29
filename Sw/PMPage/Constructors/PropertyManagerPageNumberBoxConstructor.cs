@@ -16,7 +16,7 @@ using SolidWorks.Interop.sldworks;
 using Xarial.XCad.Utils.PageBuilder.Attributes;
 using Xarial.XCad.Sw.Utils;
 using Xarial.XCad.Utils.PageBuilder.Base;
-using Xarial.XCad.Attributes;
+using Xarial.XCad.UI.PropertyPage.Attributes;
 
 namespace Xarial.XCad.Sw.PMPage.Constructors
 {

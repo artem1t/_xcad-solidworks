@@ -12,9 +12,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using Xarial.XCad.Delegates;
 using Xarial.XCad.Utils.Diagnostics;
-using Xarial.XCad.Structures;
+using Xarial.XCad.Documents;
+using Xarial.XCad.Documents.Delegates;
+using Xarial.XCad.Documents.Structures;
 
 namespace Xarial.XCad.Sw
 {

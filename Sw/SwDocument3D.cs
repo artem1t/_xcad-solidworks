@@ -9,7 +9,9 @@ using SolidWorks.Interop.sldworks;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Xarial.XCad.Structures;
+using Xarial.XCad.Documents;
+using Xarial.XCad.Documents.Drawings;
+using Xarial.XCad.Geometry.Structures;
 using Xarial.XCad.Utils.Diagnostics;
 
 namespace Xarial.XCad.Sw

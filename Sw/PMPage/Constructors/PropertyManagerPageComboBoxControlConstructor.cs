@@ -17,8 +17,8 @@ using Xarial.XCad.Utils.PageBuilder.Attributes;
 using Xarial.XCad.Utils.PageBuilder.Core;
 using Xarial.XCad.Sw.Utils;
 using Xarial.XCad.Utils.PageBuilder.Base;
-using Xarial.XCad.Attributes;
 using Xarial.XCad.Utils.Reflection;
+using Xarial.XCad.UI.PropertyPage.Attributes;
 
 namespace Xarial.XCad.Sw.PMPage.Constructors
 {

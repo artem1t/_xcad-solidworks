@@ -14,8 +14,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
-using Xarial.XCad.Delegates;
-using Xarial.XCad.Structures;
+using Xarial.XCad.UI.PropertyPage.Structures;
 
 namespace Xarial.XCad.Sw.PMPage
 {

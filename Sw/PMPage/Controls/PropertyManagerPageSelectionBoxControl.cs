@@ -13,9 +13,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
-using Xarial.XCad.Attributes;
-using Xarial.XCad.Enums;
+using Xarial.XCad.Base.Enums;
 using Xarial.XCad.Services;
+using Xarial.XCad.UI.PropertyPage;
 using Xarial.XCad.Utils.PageBuilder.PageElements;
 
 namespace Xarial.XCad.Sw.PMPage.Controls

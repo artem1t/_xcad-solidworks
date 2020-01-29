@@ -7,7 +7,8 @@
 
 using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
-using Xarial.XCad.Structures;
+using Xarial.XCad.Documents;
+using Xarial.XCad.Geometry.Structures;
 using Xarial.XCad.Utils.Diagnostics;
 
 namespace Xarial.XCad.Sw

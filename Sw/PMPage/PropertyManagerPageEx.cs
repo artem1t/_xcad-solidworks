@@ -16,9 +16,11 @@ using Xarial.XCad.Utils.Diagnostics;
 using Xarial.XCad.Sw.Utils;
 using Xarial.XCad.Utils.PageBuilder.Base;
 using Xarial.XCad;
-using Xarial.XCad.Delegates;
-using Xarial.XCad.Enums;
 using SolidWorks.Interop.swconst;
+using Xarial.XCad.UI.PropertyPage.Delegates;
+using Xarial.XCad.UI.PropertyPage;
+using Xarial.XCad.UI.PropertyPage.Enums;
+using Xarial.XCad.UI.PropertyPage.Structures;
 
 namespace Xarial.XCad.Sw.PMPage
 {
@@ -140,7 +142,7 @@ namespace Xarial.XCad.Sw.PMPage
             Closed?.Invoke(ConvertReason(reason));
         }
 
-        private void OnClosing(swPropertyManagerPageCloseReasons_e reason, Xarial.XCad.Structures.PageClosingArg arg)
+        private void OnClosing(swPropertyManagerPageCloseReasons_e reason, PageClosingArg arg)
         {
             Closing?.Invoke(ConvertReason(reason), arg);
         }

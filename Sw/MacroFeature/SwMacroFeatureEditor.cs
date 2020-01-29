@@ -11,7 +11,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Text;
-using Xarial.XCad.Delegates;
+using Xarial.XCad.Extensions;
+using Xarial.XCad.Features.CustomFeature.Delegates;
+using Xarial.XCad.Geometry;
 using Xarial.XCad.SolidWorks;
 using Xarial.XCad.Utils.CustomFeature;
 

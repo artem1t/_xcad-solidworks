@@ -11,10 +11,13 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using Xarial.XCad.Attributes;
-using Xarial.XCad.Enums;
+using Xarial.XCad.Annotations;
+using Xarial.XCad.Documents;
+using Xarial.XCad.Features.CustomFeature;
+using Xarial.XCad.Features.CustomFeature.Attributes;
+using Xarial.XCad.Features.CustomFeature.Enums;
+using Xarial.XCad.Geometry;
 using Xarial.XCad.Reflection;
-using Xarial.XCad.Structures;
 using Xarial.XCad.Sw.MacroFeature;
 using Xarial.XCad.Sw.Utils;
 using Xarial.XCad.Utils.CustomFeature;
@@ -130,7 +133,7 @@ namespace Xarial.XCad.Sw
                     if (FeatureData.AccessSelections(m_Model.Model, null))
                     {
                         return (TParams)m_ParamsParser.GetParameters(this, m_Model, typeof(TParams),
-                            out IXDimension[] _, out string[] _, out IXBody[] _, out IXSelObject[] sels, out Enums.CustomFeatureOutdateState_e _);
+                            out IXDimension[] _, out string[] _, out IXBody[] _, out IXSelObject[] sels, out CustomFeatureOutdateState_e _);
                     }
                     else
                     {
@@ -152,7 +155,7 @@ namespace Xarial.XCad.Sw
                     }
                     else
                     {
-                        m_ParamsParser.SetParameters(m_Model, this, value, out Enums.CustomFeatureOutdateState_e _);
+                        m_ParamsParser.SetParameters(m_Model, this, value, out CustomFeatureOutdateState_e _);
 
                         if (!Feature.ModifyDefinition(FeatureData, m_Model.Model, null))
                         {

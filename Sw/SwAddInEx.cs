@@ -12,7 +12,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Text;
-using Xarial.XCad.Attributes;
 using Xarial.XCad.Utils.Diagnostics;
 using Xarial.XCad.Utils.Reflection;
 using Xarial.XCad.Sw;
@@ -20,7 +19,12 @@ using Xarial.XCad.Sw.Utils;
 using Xarial.XCad.Sw.PMPage;
 using Xarial.XCad.Utils.CustomFeature;
 using Xarial.XCad.Sw.MacroFeature;
-using Xarial.XCad.Delegates;
+using Xarial.XCad.Extensions;
+using Xarial.XCad.Features.CustomFeature.Delegates;
+using Xarial.XCad.Features.CustomFeature;
+using Xarial.XCad.UI.PropertyPage;
+using Xarial.XCad.UI.Commands;
+using Xarial.XCad.Extensions.Attributes;
 
 namespace Xarial.XCad.SolidWorks
 {

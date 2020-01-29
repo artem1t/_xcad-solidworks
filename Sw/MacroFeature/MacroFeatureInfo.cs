@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Text;
-using Xarial.XCad.Attributes;
+using Xarial.XCad.Features.CustomFeature.Attributes;
 using Xarial.XCad.Reflection;
 using Xarial.XCad.Utils.Reflection;
 

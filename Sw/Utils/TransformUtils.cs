@@ -9,7 +9,7 @@ using SolidWorks.Interop.sldworks;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Xarial.XCad.Structures;
+using Xarial.XCad.Geometry.Structures;
 
 namespace Xarial.XCad.Sw.Utils
 {

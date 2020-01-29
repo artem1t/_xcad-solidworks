@@ -15,10 +15,11 @@ using SolidWorks.Interop.swconst;
 using Xarial.XCad.Sw.Utils;
 using Xarial.XCad.Utils.PageBuilder.Constructors;
 using Xarial.XCad.Utils.PageBuilder.Base;
-using Xarial.XCad.Attributes;
 using Xarial.XCad.Utils.Reflection;
 using Xarial.XCad.Sw.PMPage.Icons;
-using Xarial.XCad.Enums;
+using Xarial.XCad.Base.Attributes;
+using Xarial.XCad.UI.PropertyPage.Attributes;
+using Xarial.XCad.UI.PropertyPage.Enums;
 
 namespace Xarial.XCad.Sw.PMPage.Constructors
 {

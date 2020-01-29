@@ -15,12 +15,13 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using Xarial.XCad.Utils.Diagnostics;
-using Xarial.XCad.Enums;
 using Xarial.XCad.SolidWorks;
-using Xarial.XCad.Structures;
 using Xarial.XCad.Sw.Core;
 using Xarial.XCad.Sw.Exceptions;
 using Xarial.XCad.Sw.Utils;
+using Xarial.XCad.UI.Commands.Structures;
+using Xarial.XCad.UI.Commands.Enums;
+using Xarial.XCad.UI.Commands;
 
 namespace Xarial.XCad.Sw
 {
