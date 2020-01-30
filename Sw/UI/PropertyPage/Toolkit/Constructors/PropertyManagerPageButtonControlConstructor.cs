@@ -29,7 +29,7 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Constructors
         }
 
         protected override PropertyManagerPageButtonControl CreateControl(
-            IPropertyManagerPageButton swCtrl, IAttributeSet atts, PropertyManagerPageHandlerEx handler, short height)
+            IPropertyManagerPageButton swCtrl, IAttributeSet atts, SwPropertyManagerPageHandler handler, short height)
         {
             swCtrl.Caption = atts.Name;
 

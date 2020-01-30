@@ -48,5 +48,13 @@ namespace Xarial.XCad.Sw.Features
         {
             throw new NotSupportedException("Creation of this feature is not supported");
         }
+
+        public override void Select(bool append)
+        {
+            if (!Feature.Select2(append, 0)) 
+            {
+                throw new Exception("Faile to select feature");
+            }
+        }
     }
 }

@@ -23,7 +23,7 @@ using Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Constructors;
 namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit
 {
     internal class PropertyManagerPageBuilder
-        : Builder<PropertyManagerPagePage, PropertyManagerPageGroupBase, IPropertyManagerPageControlEx>
+        : PageBuilderBase<PropertyManagerPagePage, PropertyManagerPageGroupBase, IPropertyManagerPageControlEx>
     {
         private class PmpTypeDataBinder : TypeDataBinder
         {
@@ -100,7 +100,7 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit
         private readonly PmpTypeDataBinder m_DataBinder;
         private readonly IPageSpec m_PageSpec;
 
-        internal PropertyManagerPageBuilder(ISldWorks app, IconsConverter iconsConv, PropertyManagerPageHandlerEx handler, IPageSpec pageSpec, ILogger logger)
+        internal PropertyManagerPageBuilder(ISldWorks app, IconsConverter iconsConv, SwPropertyManagerPageHandler handler, IPageSpec pageSpec, ILogger logger)
             : this(new PmpTypeDataBinder(), 
                   new PropertyManagerPageConstructor(app, iconsConv, handler),
                   new PropertyManagerPageGroupControlConstructor(),

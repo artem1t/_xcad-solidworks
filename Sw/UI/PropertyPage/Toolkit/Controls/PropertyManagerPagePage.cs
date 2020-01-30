@@ -18,14 +18,14 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls
     internal class PropertyManagerPagePage : Page
     {
         internal IPropertyManagerPage2 Page { get; private set; }
-        internal PropertyManagerPageHandlerEx Handler { get; private set; }
+        internal SwPropertyManagerPageHandler Handler { get; private set; }
         internal ISldWorks App { get; private set; }
 
         private string m_HelpLink;
         private string m_WhatsNewLink;
 
         internal PropertyManagerPagePage(IPropertyManagerPage2 page,
-            PropertyManagerPageHandlerEx handler, ISldWorks app, string helpLink, string whatsNewLink)
+            SwPropertyManagerPageHandler handler, ISldWorks app, string helpLink, string whatsNewLink)
         {
             Page = page;
             Handler = handler;

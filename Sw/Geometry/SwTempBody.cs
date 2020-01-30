@@ -22,7 +22,6 @@ namespace Xarial.XCad.Sw.Geometry
 
         internal SwTempBody(IBody2 body) : base(null)
         {
-            //TODO: validate if temp body and/or convert
             m_TempBody = ConvertToTempIfNeeded(body);
         }
 

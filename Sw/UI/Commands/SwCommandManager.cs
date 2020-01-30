@@ -68,7 +68,7 @@ namespace Xarial.XCad.Sw.UI.Commands
         /// Pointer to command group which holding the add-in commands
         /// </summary>
         public ICommandManager CmdMgr { get; private set; }
-        public IEnumerable<IXCommandBar> CommandBars => m_CommandBars;
+        public IEnumerable<IXCommandGroup> CommandGroups => m_CommandBars;
 
         internal SwCommandManager(SwApplication app, int addinCookie, ILogger logger)
         {
@@ -81,7 +81,7 @@ namespace Xarial.XCad.Sw.UI.Commands
             m_CommandBars = new List<SwCommandBar>();
         }
 
-        public IXCommandBar AddCommandBar(CommandBarSpec cmdBar)
+        public IXCommandGroup AddCommandBar(CommandBarSpec cmdBar)
         {
             return AddCommandGroupOrContextMenu(cmdBar, false, 0);
         }

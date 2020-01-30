@@ -33,7 +33,7 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls
 
         public PropertyManagerPageSelectionBoxControl(ISldWorks app, int id, object tag,
             IPropertyManagerPageSelectionbox selBox,
-            PropertyManagerPageHandlerEx handler, Type objType, ISelectionCustomFilter customFilter = null)
+            SwPropertyManagerPageHandler handler, Type objType, ISelectionCustomFilter customFilter = null)
             : base(selBox, id, tag, handler)
         {
             m_App = app;
@@ -58,7 +58,7 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls
 
         private SwSelObject ToSelObject(object disp) 
         {
-            return SwSelObject.FromDispatch(disp, m_App.IActiveDoc2);
+            return (SwSelObject)SwObject.FromDispatch(disp, m_App.IActiveDoc2);
         }
 
         private void OnSubmitSelection(int Id, object Selection, int SelType, ref string ItemText, ref bool res)

@@ -23,5 +23,13 @@ namespace Xarial.XCad.Sw.Geometry
         {
             Entity = entity;
         }
+
+        public override void Select(bool append)
+        {
+            if (!Entity.Select4(append, null)) 
+            {
+                throw new Exception("Failed to select entity");
+            }
+        }
     }
 }

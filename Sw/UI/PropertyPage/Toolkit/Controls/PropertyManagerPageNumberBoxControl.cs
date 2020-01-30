@@ -20,7 +20,7 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls
 
         public PropertyManagerPageNumberBoxControl(int id, object tag,
             IPropertyManagerPageNumberbox numberBox, 
-            PropertyManagerPageHandlerEx handler) : base(numberBox, id, tag, handler)
+            SwPropertyManagerPageHandler handler) : base(numberBox, id, tag, handler)
         {
             m_Handler.NumberChanged += OnNumberChanged;
         }

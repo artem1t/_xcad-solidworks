@@ -32,7 +32,7 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Constructors
         }
 
         protected override PropertyManagerPageComboBoxControl CreateControl(
-            IPropertyManagerPageCombobox swCtrl, IAttributeSet atts, PropertyManagerPageHandlerEx handler, short height)
+            IPropertyManagerPageCombobox swCtrl, IAttributeSet atts, SwPropertyManagerPageHandler handler, short height)
         {
             var items = EnumExtension.GetEnumFields(atts.BoundType);
 

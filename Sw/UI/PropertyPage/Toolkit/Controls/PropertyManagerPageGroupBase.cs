@@ -17,14 +17,14 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls
     internal abstract class PropertyManagerPageGroupBase : Group, IPropertyManagerPageElementEx
     {
         public ISldWorks App { get; private set; }
-        internal PropertyManagerPageHandlerEx Handler { get; private set; }
+        internal SwPropertyManagerPageHandler Handler { get; private set; }
 
         internal PropertyManagerPagePage ParentPage { get; private set; }
 
         public abstract bool Enabled { get; set; }
         public abstract bool Visible { get; set; }
 
-        internal PropertyManagerPageGroupBase(int id, object tag, PropertyManagerPageHandlerEx handler,
+        internal PropertyManagerPageGroupBase(int id, object tag, SwPropertyManagerPageHandler handler,
             ISldWorks app, PropertyManagerPagePage parentPage) : base(id, tag)
         {
             Handler = handler;

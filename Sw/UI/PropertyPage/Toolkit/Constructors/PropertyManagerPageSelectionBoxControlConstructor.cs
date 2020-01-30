@@ -38,7 +38,7 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Constructors
         }
 
         protected override PropertyManagerPageSelectionBoxControl CreateControl(
-            IPropertyManagerPageSelectionbox swCtrl, IAttributeSet atts, PropertyManagerPageHandlerEx handler, short height)
+            IPropertyManagerPageSelectionbox swCtrl, IAttributeSet atts, SwPropertyManagerPageHandler handler, short height)
         {
             swCtrl.SingleEntityOnly = !(typeof(IList).IsAssignableFrom(atts.BoundType));
             

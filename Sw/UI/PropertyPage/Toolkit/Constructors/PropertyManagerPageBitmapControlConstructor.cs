@@ -33,7 +33,7 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Constructors
         }
 
         protected override PropertyManagerPageBitmapControl CreateControl(
-            IPropertyManagerPageBitmap swCtrl, IAttributeSet atts, PropertyManagerPageHandlerEx handler, short height)
+            IPropertyManagerPageBitmap swCtrl, IAttributeSet atts, SwPropertyManagerPageHandler handler, short height)
         {
             Size? size = null;
 

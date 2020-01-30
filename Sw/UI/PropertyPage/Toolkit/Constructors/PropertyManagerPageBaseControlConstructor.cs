@@ -140,7 +140,7 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Constructors
             }
         }
 
-        protected abstract TControl CreateControl(TControlSw swCtrl, IAttributeSet atts, PropertyManagerPageHandlerEx handler, short height);
+        protected abstract TControl CreateControl(TControlSw swCtrl, IAttributeSet atts, SwPropertyManagerPageHandler handler, short height);
 
         private ControlOptionsAttribute GetControlOptions(IAttributeSet atts)
         {

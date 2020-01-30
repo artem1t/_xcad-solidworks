@@ -42,7 +42,7 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Constructors
         }
 
         protected override PropertyManagerPageOptionBoxControl CreateControl(
-            PropertyManagerPageOptionBox swCtrl, IAttributeSet atts, PropertyManagerPageHandlerEx handler, short height)
+            PropertyManagerPageOptionBox swCtrl, IAttributeSet atts, SwPropertyManagerPageHandler handler, short height)
         {
             var options = EnumExtension.GetEnumFields(atts.BoundType);
             

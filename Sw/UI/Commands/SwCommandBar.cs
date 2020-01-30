@@ -16,7 +16,7 @@ using Xarial.XCad.UI.Commands.Structures;
 
 namespace Xarial.XCad.Sw.UI.Commands
 {
-    public class SwCommandBar : IXCommandBar
+    public class SwCommandBar : IXCommandGroup
     {
         public event CommandClickDelegate CommandClick;
         public event CommandStateDelegate CommandStateResolve;

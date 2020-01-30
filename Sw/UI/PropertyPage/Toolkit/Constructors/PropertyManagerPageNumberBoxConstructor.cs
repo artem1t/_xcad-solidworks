@@ -31,7 +31,7 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Constructors
         }
 
         protected override PropertyManagerPageNumberBoxControl CreateControl(
-            IPropertyManagerPageNumberbox swCtrl, IAttributeSet atts, PropertyManagerPageHandlerEx handler, short height)
+            IPropertyManagerPageNumberbox swCtrl, IAttributeSet atts, SwPropertyManagerPageHandler handler, short height)
         {
             if (height != -1)
             {

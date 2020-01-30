@@ -27,9 +27,9 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Constructors
     {
         private readonly ISldWorks m_App;
         private readonly IconsConverter m_IconsConv;
-        private readonly PropertyManagerPageHandlerEx m_Handler;
+        private readonly SwPropertyManagerPageHandler m_Handler;
 
-        internal PropertyManagerPageConstructor(ISldWorks app, IconsConverter iconsConv, PropertyManagerPageHandlerEx handler)
+        internal PropertyManagerPageConstructor(ISldWorks app, IconsConverter iconsConv, SwPropertyManagerPageHandler handler)
         {
             m_App = app;
             m_IconsConv = iconsConv;
@@ -61,11 +61,6 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Constructors
 
                 //TODO: implement conversion
                 opts = (swPropertyManagerPageOptions_e)optsAtt.Options;
-
-                //if (optsAtt.Icon != null)
-                //{
-                //    titleIcon = optsAtt.Icon;
-                //}
             }
             else
             {

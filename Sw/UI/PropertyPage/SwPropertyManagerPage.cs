@@ -26,7 +26,7 @@ using Xarial.XCad.Sw.UI.PropertyPage.Toolkit;
 namespace Xarial.XCad.Sw.UI.PropertyPage
 {
     /// <inheritdoc/>
-    public class PropertyManagerPageEx<TModel> : IXNativePage<TModel>, IDisposable
+    public class SwPropertyManagerPage<TModel> : IXPropertyPage<TModel>, IDisposable
     {
         public event PageClosedDelegate Closed;
 
@@ -43,7 +43,7 @@ namespace Xarial.XCad.Sw.UI.PropertyPage
         public IEnumerable<IPropertyManagerPageControlEx> Controls { get; private set; }
 
         /// <inheritdoc/>
-        public PropertyManagerPageHandlerEx Handler { get; private set; }
+        public SwPropertyManagerPageHandler Handler { get; private set; }
 
         public ILogger Logger { get; }
 
@@ -52,13 +52,13 @@ namespace Xarial.XCad.Sw.UI.PropertyPage
 
         /// <summary>Creates instance of property manager page</summary>
         /// <param name="app">Pointer to session of SOLIDWORKS where the property manager page to be created</param>
-        public PropertyManagerPageEx(ISldWorks app, ILogger logger, Type handlerType)
+        public SwPropertyManagerPage(ISldWorks app, ILogger logger, Type handlerType)
             : this(app, null, logger, handlerType)
         {
             
         }
 
-        public PropertyManagerPageEx(ISldWorks app, IPageSpec pageSpec, ILogger logger, Type handlerType)
+        public SwPropertyManagerPage(ISldWorks app, IPageSpec pageSpec, ILogger logger, Type handlerType)
         {
             m_App = app;
 
@@ -67,7 +67,7 @@ namespace Xarial.XCad.Sw.UI.PropertyPage
             m_IconsConv = new IconsConverter();
 
             //TODO: validate that handlerType inherits PropertyManagerPageHandlerEx and it is COM visible with parameterless constructor
-            Handler = (PropertyManagerPageHandlerEx)Activator.CreateInstance(handlerType);
+            Handler = (SwPropertyManagerPageHandler)Activator.CreateInstance(handlerType);
 
             Handler.DataChanged += OnDataChanged;
             Handler.Closed += OnClosed;

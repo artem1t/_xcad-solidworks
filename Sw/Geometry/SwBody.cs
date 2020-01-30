@@ -92,5 +92,13 @@ namespace Xarial.XCad.Sw.Geometry
                 throw new InvalidCastException();
             }
         }
+
+        public override void Select(bool append)
+        {
+            if (!Body.Select2(append, null)) 
+            {
+                throw new Exception("Failed to select body");
+            }
+        }
     }
 }

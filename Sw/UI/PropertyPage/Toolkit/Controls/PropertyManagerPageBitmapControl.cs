@@ -27,7 +27,7 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls
         public PropertyManagerPageBitmapControl(IconsConverter iconsConv,
             int id, object tag, Size? size,
             IPropertyManagerPageBitmap bitmap,
-            PropertyManagerPageHandlerEx handler) : base(bitmap, id, tag, handler)
+            SwPropertyManagerPageHandler handler) : base(bitmap, id, tag, handler)
         {
             m_Size = size.HasValue ? size.Value : new Size(18, 18);
             m_IconsConv = iconsConv;
@@ -42,8 +42,7 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls
         {
             if (value == null)
             {
-                //TODO: use default
-                //value = Resources.DefaultBitmap;
+                value = Defaults.Icon;
             }
             
             var icons = m_IconsConv.ConvertIcon(new ControlIcon(value, m_Size));

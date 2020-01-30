@@ -53,7 +53,7 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls
             }
         }
 
-        internal PropertyManagerPageGroupControl(int id, object tag, PropertyManagerPageHandlerEx handler,
+        internal PropertyManagerPageGroupControl(int id, object tag, SwPropertyManagerPageHandler handler,
             IPropertyManagerPageGroup group,
             ISldWorks app, PropertyManagerPagePage parentPage) : base(id, tag, handler, app, parentPage)
         {

@@ -190,20 +190,20 @@ namespace Xarial.XCad.Sw
             GC.WaitForPendingFinalizers();
         }
 
-        public IXNativePage<TData> CreatePage<TData>()
+        public IXPropertyPage<TData> CreatePage<TData>()
         {
             return CreatePropertyManagerPage<TData>(typeof(TData));
         }
 
-        public PropertyManagerPageEx<TData> CreatePropertyManagerPage<TData, THandler>()
-            where THandler : PropertyManagerPageHandlerEx, new()
+        public SwPropertyManagerPage<TData> CreatePropertyManagerPage<TData, THandler>()
+            where THandler : SwPropertyManagerPageHandler, new()
         {
             return CreatePropertyManagerPage<TData>(typeof(THandler));
         }
 
-        private PropertyManagerPageEx<TData> CreatePropertyManagerPage<TData>(Type handlerType)
+        private SwPropertyManagerPage<TData> CreatePropertyManagerPage<TData>(Type handlerType)
         {
-            return new PropertyManagerPageEx<TData>(m_Application.Application, m_Logger, handlerType);
+            return new SwPropertyManagerPage<TData>(m_Application.Application, m_Logger, handlerType);
         }
 
         public IXCustomFeatureEditor<TData, TPage> CreateCustomFeatureEditor<TData, TPage>(

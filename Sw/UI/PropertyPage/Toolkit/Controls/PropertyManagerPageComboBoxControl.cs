@@ -23,7 +23,7 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls
 
         public PropertyManagerPageComboBoxControl(int id, object tag,
             IPropertyManagerPageCombobox comboBox, ReadOnlyCollection<Enum> values,
-            PropertyManagerPageHandlerEx handler) : base(comboBox, id, tag, handler)
+            SwPropertyManagerPageHandler handler) : base(comboBox, id, tag, handler)
         {
             m_Values = values;
             m_Handler.ComboBoxChanged += OnComboBoxChanged;

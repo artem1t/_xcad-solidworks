@@ -16,34 +16,13 @@ using Xarial.XCad.Sw.Geometry;
 
 namespace Xarial.XCad.Sw
 {
-    public class SwSelObject : IXSelObject
+    public class SwSelObject : SwObject, IXSelObject
     {
-        public static SwSelObject FromDispatch(object disp, IModelDoc2 model = null) 
-        {
-            switch (disp)
-            {
-                //TODO: make this automatic
-                case IEdge edge:
-                    return new SwEdge(edge);
-                case IFeature feat:
-                    return new SwFeature(model, feat, true);
-                case IBody2 body:
-                    return new SwBody(body);
-                case IDisplayDimension dispDim:
-                    return new SwDimension(dispDim);
-                default:
-                    return new SwSelObject(model, disp);
-            }
-        }
-
-        public virtual object Dispatch { get; }
-
         protected readonly IModelDoc2 m_Model;
 
-        internal SwSelObject(IModelDoc2 model, object disp) 
+        internal SwSelObject(IModelDoc2 model, object disp) : base(disp)
         {
             m_Model = model;
-            Dispatch = disp;
         }
 
         public virtual void Select(bool append)
@@ -51,18 +30,6 @@ namespace Xarial.XCad.Sw
             if (m_Model.Extension.MultiSelect2(new DispatchWrapper[] { new DispatchWrapper(Dispatch) }, append, null) != 1) 
             {
                 throw new Exception("Failed to select");
-            }
-        }
-
-        public virtual bool IsSame(IXObject other)
-        {
-            if (other is SwSelObject)
-            {
-                return Dispatch == (other as SwSelObject).Dispatch;
-            }
-            else 
-            {
-                return false;
             }
         }
     }

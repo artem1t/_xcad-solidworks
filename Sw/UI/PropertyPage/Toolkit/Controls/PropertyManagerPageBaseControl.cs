@@ -31,9 +31,9 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls
         : Control<TVal>, IPropertyManagerPageControlEx
         where TSwControl : class
     {
-        protected PropertyManagerPageHandlerEx m_Handler;
+        protected SwPropertyManagerPageHandler m_Handler;
 
-        protected PropertyManagerPageBaseControl(TSwControl ctrl, int id, object tag, PropertyManagerPageHandlerEx handler)
+        protected PropertyManagerPageBaseControl(TSwControl ctrl, int id, object tag, SwPropertyManagerPageHandler handler)
             : base(id, tag)
         {
             SwSpecificControl = ctrl;

@@ -20,7 +20,7 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls
         
         internal PropertyManagerPageTextBoxControl(int id, object tag,
             IPropertyManagerPageTextbox textBox,
-            PropertyManagerPageHandlerEx handler) : base(textBox, id, tag, handler)
+            SwPropertyManagerPageHandler handler) : base(textBox, id, tag, handler)
         {
             m_Handler.TextChanged += OnTextChanged;
         }

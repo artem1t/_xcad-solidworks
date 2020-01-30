@@ -20,7 +20,7 @@ namespace Xarial.XCad.Sw.UI.PropertyPage
 {
     /// <inheritdoc/>
     [ComVisible(true)]
-    public abstract class PropertyManagerPageHandlerEx : IPropertyManagerPage2Handler9
+    public abstract class SwPropertyManagerPageHandler : IPropertyManagerPage2Handler9
     {
         internal delegate void SubmitSelectionDelegate(int Id, object Selection, int SelType, ref string ItemText, ref bool res);
         internal delegate void PropertyManagerPageClosingDelegate(swPropertyManagerPageCloseReasons_e reason, PageClosingArg arg);

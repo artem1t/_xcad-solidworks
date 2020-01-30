@@ -16,7 +16,7 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls
         
         public PropertyManagerPageCheckBoxControl(int id, object tag,
             IPropertyManagerPageCheckbox checkBox,
-            PropertyManagerPageHandlerEx handler) : base(checkBox, id, tag, handler)
+            SwPropertyManagerPageHandler handler) : base(checkBox, id, tag, handler)
         {
             m_Handler.CheckChanged += OnCheckChanged;
         }

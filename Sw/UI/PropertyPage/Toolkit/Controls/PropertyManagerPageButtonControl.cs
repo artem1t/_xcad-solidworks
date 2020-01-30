@@ -21,7 +21,7 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls
 
         public PropertyManagerPageButtonControl(int id, object tag,
             IPropertyManagerPageButton button,
-            PropertyManagerPageHandlerEx handler) : base(button, id, tag, handler)
+            SwPropertyManagerPageHandler handler) : base(button, id, tag, handler)
         {
             m_Handler.ButtonPressed += OnButtonPressed;
         }

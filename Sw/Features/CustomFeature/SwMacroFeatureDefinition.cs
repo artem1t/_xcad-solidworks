@@ -96,8 +96,7 @@ namespace Xarial.XCad.Sw.Features.CustomFeature
 
             if (icon == null)
             {
-                //TODO: add default icon
-                //icon = Resources.default_icon;
+                icon = Defaults.Icon;
             }
 
             //TODO: create different icons for highlighted and suppressed

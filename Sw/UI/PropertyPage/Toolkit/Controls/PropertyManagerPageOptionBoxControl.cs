@@ -225,7 +225,7 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls
 
         public PropertyManagerPageOptionBoxControl(int id, object tag,
             PropertyManagerPageOptionBox optionBox, ReadOnlyCollection<Enum> values,
-            PropertyManagerPageHandlerEx handler) : base(optionBox, id, tag, handler)
+            SwPropertyManagerPageHandler handler) : base(optionBox, id, tag, handler)
         {
             m_Values = values;
             m_Handler.OptionChecked += OnOptionChecked;

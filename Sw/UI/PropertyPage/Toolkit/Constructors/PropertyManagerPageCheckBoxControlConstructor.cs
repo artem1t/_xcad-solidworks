@@ -29,7 +29,7 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Constructors
         }
 
         protected override PropertyManagerPageCheckBoxControl CreateControl(
-            IPropertyManagerPageCheckbox swCtrl, IAttributeSet atts, PropertyManagerPageHandlerEx handler, short height)
+            IPropertyManagerPageCheckbox swCtrl, IAttributeSet atts, SwPropertyManagerPageHandler handler, short height)
         {
             swCtrl.Caption = atts.Name;
 

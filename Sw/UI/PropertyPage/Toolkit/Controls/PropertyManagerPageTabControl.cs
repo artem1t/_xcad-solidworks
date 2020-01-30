@@ -44,7 +44,7 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls
             }
         }
 
-        internal PropertyManagerPageTabControl(int id, object tag, PropertyManagerPageHandlerEx handler,
+        internal PropertyManagerPageTabControl(int id, object tag, SwPropertyManagerPageHandler handler,
             IPropertyManagerPageTab tab,
             ISldWorks app, PropertyManagerPagePage parentPage) : base(id, tag, handler, app, parentPage)
         {

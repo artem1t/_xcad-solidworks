@@ -88,7 +88,7 @@ namespace Xarial.XCad.Sw.Features.CustomFeature.Toolkit
 
             if (selObjects != null)
             {
-                selection = selObjects.Select(s => SwSelObject.FromDispatch(s)).ToArray();
+                selection = selObjects.Select(s => (SwSelObject)SwObject.FromDispatch(s)).ToArray();
             }
             else 
             {

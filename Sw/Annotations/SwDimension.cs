@@ -71,6 +71,14 @@ namespace Xarial.XCad.Sw.Annotations
             GC.WaitForPendingFinalizers();
         }
 
+        public override void Select(bool append)
+        {
+            if (!DisplayDimension.IGetAnnotation().Select3(append, null)) 
+            {
+                throw new Exception("Failed to select dimension");
+            }
+        }
+
         protected virtual void Dispose(bool disposing)
         {
         }
