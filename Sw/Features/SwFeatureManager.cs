@@ -2,7 +2,7 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad-solidworks/blob/master/LICENSE
+//License: https://github.com/xarial/xcad/blob/master/LICENSE
 //*********************************************************************
 
 using SolidWorks.Interop.sldworks;
@@ -23,7 +23,7 @@ using Xarial.XCad.Utils.Reflection;
 
 namespace Xarial.XCad.Sw.Features
 {
-    public class SwFeatureManager : IXFeatureCollection
+    public class SwFeatureManager : IXFeatureRepository
     {
         private readonly IFeatureManager m_FeatMgr;
         private readonly MacroFeatureParametersParser m_ParamsParser;
@@ -75,6 +75,11 @@ namespace Xarial.XCad.Sw.Features
             where TParams : class, new()
         {
             return new SwMacroFeature<TParams>(m_Model, m_FeatMgr, null, m_ParamsParser, false);
+        }
+
+        public void RemoveRange(IEnumerable<IXFeature> ents)
+        {
+            //TODO: implement deletion
         }
     }
 

@@ -2,7 +2,7 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad-solidworks/blob/master/LICENSE
+//License: https://github.com/xarial/xcad/blob/master/LICENSE
 //*********************************************************************
 
 using SolidWorks.Interop.sldworks;
@@ -36,7 +36,7 @@ namespace Xarial.XCad.Sw.Documents
         public string Path => Model.GetPathName();
         public string Title => Model.GetTitle();
 
-        public IXFeatureCollection Features { get; }
+        public IXFeatureRepository Features { get; }
 
         internal SwDocument(IModelDoc2 model, ISldWorks app, ILogger logger) 
         {
