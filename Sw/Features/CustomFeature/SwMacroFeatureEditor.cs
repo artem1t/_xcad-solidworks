@@ -14,10 +14,11 @@ using System.Text;
 using Xarial.XCad.Extensions;
 using Xarial.XCad.Features.CustomFeature.Delegates;
 using Xarial.XCad.Geometry;
-using Xarial.XCad.SolidWorks;
+using Xarial.XCad.Sw.Documents;
+using Xarial.XCad.Sw.Geometry;
 using Xarial.XCad.Utils.CustomFeature;
 
-namespace Xarial.XCad.Sw.MacroFeature
+namespace Xarial.XCad.Sw.Features.CustomFeature
 {
     public class SwMacroFeatureEditor<TData, TPage> : BaseCustomFeatureEditor<TData, TPage>
         where TData : class, new()

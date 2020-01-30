@@ -13,7 +13,7 @@ using System.Linq;
 using System.Text;
 using Xarial.XCad.Geometry;
 
-namespace Xarial.XCad.Sw
+namespace Xarial.XCad.Sw.Geometry
 {
     public class SwBody : SwSelObject, IXBody
     {

@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
 
-namespace Xarial.XCad.Sw.Core
+namespace Xarial.XCad.Sw.Base
 {
     /// <summary>
     /// Descriptor for the icon of a specific type

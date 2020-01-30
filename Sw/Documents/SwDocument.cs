@@ -15,12 +15,12 @@ using System.Text;
 using Xarial.XCad.Documents;
 using Xarial.XCad.Documents.Delegates;
 using Xarial.XCad.Features;
-using Xarial.XCad.Sw.MacroFeature;
+using Xarial.XCad.Sw.Features;
 using Xarial.XCad.Sw.Utils;
 using Xarial.XCad.Utils.Diagnostics;
 using Xarial.XCad.Utils.Reflection;
 
-namespace Xarial.XCad.Sw
+namespace Xarial.XCad.Sw.Documents
 {
     [DebuggerDisplay("{" + nameof(Title) + "}")]
     public abstract class SwDocument : IXDocument, IDisposable

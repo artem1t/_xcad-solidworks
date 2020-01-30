@@ -12,7 +12,7 @@ using System.Text;
 using Xarial.XCad.Geometry;
 using Xarial.XCad.Geometry.Structures;
 
-namespace Xarial.XCad.Sw
+namespace Xarial.XCad.Sw.Geometry
 {
     public class SwGeometryBuilder : IXGeometryBuilder
     {

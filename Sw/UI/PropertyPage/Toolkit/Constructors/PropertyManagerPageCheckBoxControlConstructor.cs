@@ -5,7 +5,7 @@
 //License: https://github.com/xarial/xcad-solidworks/blob/master/LICENSE
 //*********************************************************************
 
-using Xarial.XCad.Sw.PMPage.Controls;
+using Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +17,7 @@ using Xarial.XCad.Utils.PageBuilder.Attributes;
 using Xarial.XCad.Sw.Utils;
 using Xarial.XCad.Utils.PageBuilder.Base;
 
-namespace Xarial.XCad.Sw.PMPage.Constructors
+namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Constructors
 {
     [DefaultType(typeof(bool))]
     internal class PropertyManagerPageCheckBoxControlConstructor

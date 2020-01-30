@@ -9,8 +9,9 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
+using Xarial.XCad.Sw.Base;
 
-namespace Xarial.XCad.Sw.Core
+namespace Xarial.XCad.Sw.UI.Commands.Toolkit.Structures
 {
     internal class CommandGroupHighResIcon : CommandGroupIcon
     {

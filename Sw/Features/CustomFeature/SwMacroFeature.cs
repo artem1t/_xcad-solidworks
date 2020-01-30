@@ -18,12 +18,14 @@ using Xarial.XCad.Features.CustomFeature.Attributes;
 using Xarial.XCad.Features.CustomFeature.Enums;
 using Xarial.XCad.Geometry;
 using Xarial.XCad.Reflection;
-using Xarial.XCad.Sw.MacroFeature;
+using Xarial.XCad.Sw.Documents;
+using Xarial.XCad.Sw.Features.CustomFeature.Toolkit;
+using Xarial.XCad.Sw.Geometry;
 using Xarial.XCad.Sw.Utils;
 using Xarial.XCad.Utils.CustomFeature;
 using Xarial.XCad.Utils.Reflection;
 
-namespace Xarial.XCad.Sw
+namespace Xarial.XCad.Sw.Features.CustomFeature
 {
     public class SwMacroFeature : SwFeature, IXCustomFeature
     {   

@@ -23,13 +23,16 @@ using Xarial.XCad.Features.CustomFeature.Structures;
 using Xarial.XCad.Geometry;
 using Xarial.XCad.Geometry.Structures;
 using Xarial.XCad.Reflection;
-using Xarial.XCad.Sw.MacroFeature;
-using Xarial.XCad.Sw.MacroFeature.Icons;
+using Xarial.XCad.Sw.Annotations;
+using Xarial.XCad.Sw.Enums;
+using Xarial.XCad.Sw.Features.CustomFeature.Toolkit;
+using Xarial.XCad.Sw.Features.CustomFeature.Toolkit.Icons;
+using Xarial.XCad.Sw.Geometry;
 using Xarial.XCad.Sw.Utils;
 using Xarial.XCad.Utils.Diagnostics;
 using Xarial.XCad.Utils.Reflection;
 
-namespace Xarial.XCad.Sw
+namespace Xarial.XCad.Sw.Features.CustomFeature
 {
     public abstract class SwMacroFeatureDefinition : IXCustomFeatureDefinition, ISwComFeature
     {

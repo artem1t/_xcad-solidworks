@@ -18,9 +18,11 @@ using Xarial.XCad.Features;
 using Xarial.XCad.Features.CustomFeature;
 using Xarial.XCad.Features.CustomFeature.Enums;
 using Xarial.XCad.Geometry;
+using Xarial.XCad.Sw.Annotations;
+using Xarial.XCad.Sw.Geometry;
 using Xarial.XCad.Utils.CustomFeature;
 
-namespace Xarial.XCad.Sw.MacroFeature
+namespace Xarial.XCad.Sw.Features.CustomFeature.Toolkit
 {
     internal class MacroFeatureParametersParser : CustomFeatureParametersParser
     {

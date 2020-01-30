@@ -12,7 +12,7 @@ using System.Linq;
 using System.Text;
 using Xarial.XCad.Utils.PageBuilder.PageElements;
 
-namespace Xarial.XCad.Sw.PMPage.Controls
+namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls
 {
     internal class PropertyManagerPageTextBoxControl : PropertyManagerPageBaseControl<string, IPropertyManagerPageTextbox>
     {

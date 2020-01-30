@@ -14,7 +14,7 @@ using Xarial.XCad.Documents;
 using Xarial.XCad.Geometry.Structures;
 using Xarial.XCad.Sw.Utils;
 
-namespace Xarial.XCad.Sw
+namespace Xarial.XCad.Sw.Documents
 {
     public class SwModelView : IXView
     {

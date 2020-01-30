@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace Xarial.XCad.Sw
+namespace Xarial.XCad.Sw.Geometry
 {
     public class SwTempBody : SwBody, IDisposable
     {

@@ -11,10 +11,10 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Xarial.XCad.Sw.Core;
+using Xarial.XCad.Sw.Base;
 using Xarial.XCad.Utils.Reflection;
 
-namespace Xarial.XCad.Sw.MacroFeature
+namespace Xarial.XCad.Sw.Features.CustomFeature.Toolkit
 {
     internal static class MacroFeatureIconInfo
     {

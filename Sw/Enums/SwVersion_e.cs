@@ -5,7 +5,7 @@
 //License: https://github.com/xarial/xcad-solidworks/blob/master/LICENSE
 //*********************************************************************
 
-namespace Xarial.XCad.Sw.Utils
+namespace Xarial.XCad.Sw.Enums
 {
     public enum SwVersion_e
     {

@@ -14,12 +14,14 @@ using System.Linq;
 using System.Text;
 using Xarial.XCad.Features;
 using Xarial.XCad.Features.CustomFeature;
-using Xarial.XCad.Sw.MacroFeature;
+using Xarial.XCad.Sw.Documents;
+using Xarial.XCad.Sw.Features.CustomFeature;
+using Xarial.XCad.Sw.Features.CustomFeature.Toolkit;
 using Xarial.XCad.Sw.Utils;
 using Xarial.XCad.Utils.CustomFeature;
 using Xarial.XCad.Utils.Reflection;
 
-namespace Xarial.XCad.Sw
+namespace Xarial.XCad.Sw.Features
 {
     public class SwFeatureManager : IXFeatureCollection
     {

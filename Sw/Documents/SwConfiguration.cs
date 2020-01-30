@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xarial.XCad.Documents;
 
-namespace Xarial.XCad.Sw
+namespace Xarial.XCad.Sw.Documents
 {
     public class SwConfiguration : IXConfiguration
     {

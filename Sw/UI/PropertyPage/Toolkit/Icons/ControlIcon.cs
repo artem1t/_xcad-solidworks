@@ -8,10 +8,9 @@
 using System.Collections.Generic;
 using System.Drawing;
 using Xarial.XCad.Sw.Base;
-using Xarial.XCad.Sw.Core;
 using Xarial.XCad.Sw.Utils;
 
-namespace Xarial.XCad.Sw.PMPage.Icons
+namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Icons
 {
     internal class ControlIcon : IIcon
     {

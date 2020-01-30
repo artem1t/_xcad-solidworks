@@ -17,7 +17,7 @@ using Xarial.XCad.Documents;
 using Xarial.XCad.Documents.Delegates;
 using Xarial.XCad.Documents.Structures;
 
-namespace Xarial.XCad.Sw
+namespace Xarial.XCad.Sw.Documents
 {
     [DebuggerDisplay("Documents: {" + nameof(Count) + "}")]
     public class SwDocumentCollection : IXDocumentCollection

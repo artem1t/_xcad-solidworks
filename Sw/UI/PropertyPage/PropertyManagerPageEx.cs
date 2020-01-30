@@ -5,7 +5,7 @@
 //License: https://github.com/xarial/xcad-solidworks/blob/master/LICENSE
 //*********************************************************************
 
-using Xarial.XCad.Sw.PMPage.Controls;
+using Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls;
 using SolidWorks.Interop.sldworks;
 using System;
 using System.Collections;
@@ -21,8 +21,9 @@ using Xarial.XCad.UI.PropertyPage.Delegates;
 using Xarial.XCad.UI.PropertyPage;
 using Xarial.XCad.UI.PropertyPage.Enums;
 using Xarial.XCad.UI.PropertyPage.Structures;
+using Xarial.XCad.Sw.UI.PropertyPage.Toolkit;
 
-namespace Xarial.XCad.Sw.PMPage
+namespace Xarial.XCad.Sw.UI.PropertyPage
 {
     /// <inheritdoc/>
     public class PropertyManagerPageEx<TModel> : IXNativePage<TModel>, IDisposable

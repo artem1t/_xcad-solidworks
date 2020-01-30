@@ -18,7 +18,7 @@ using Xarial.XCad.Services;
 using Xarial.XCad.UI.PropertyPage;
 using Xarial.XCad.Utils.PageBuilder.PageElements;
 
-namespace Xarial.XCad.Sw.PMPage.Controls
+namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls
 {
     //TODO: think of a better way to work with type instead of object (can be either SwSelObject or List)
     internal class PropertyManagerPageSelectionBoxControl : PropertyManagerPageBaseControl<object, IPropertyManagerPageSelectionbox>

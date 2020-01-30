@@ -16,7 +16,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using Xarial.XCad.UI.PropertyPage.Structures;
 
-namespace Xarial.XCad.Sw.PMPage
+namespace Xarial.XCad.Sw.UI.PropertyPage
 {
     /// <inheritdoc/>
     [ComVisible(true)]

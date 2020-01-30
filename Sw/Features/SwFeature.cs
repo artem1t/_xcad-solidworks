@@ -12,7 +12,7 @@ using System.Text;
 using Xarial.XCad.Features;
 using Xarial.XCad.Services;
 
-namespace Xarial.XCad.Sw
+namespace Xarial.XCad.Sw.Features
 {
     public class SwFeature : SwSelObject, IXFeature
     {

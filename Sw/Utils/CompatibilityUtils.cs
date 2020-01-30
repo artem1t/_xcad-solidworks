@@ -9,6 +9,7 @@ using SolidWorks.Interop.sldworks;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Xarial.XCad.Sw.Enums;
 
 namespace Xarial.XCad.Sw.Utils
 {

@@ -14,7 +14,7 @@ using Xarial.XCad.UI.PropertyPage.Base;
 using Xarial.XCad.Utils.PageBuilder.Base;
 using Xarial.XCad.Utils.PageBuilder.PageElements;
 
-namespace Xarial.XCad.Sw.PMPage.Controls
+namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls
 {
     /// <summary>
     /// Base wrapper around native SOLIDWORKS Property Manager Page controls (i.e. TextBox, SelectionBox, NumberBox etc.)

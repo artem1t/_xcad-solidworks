@@ -5,7 +5,7 @@
 //License: https://github.com/xarial/xcad-solidworks/blob/master/LICENSE
 //*********************************************************************
 
-using Xarial.XCad.Sw.PMPage.Controls;
+using Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls;
 using System;
 using System.Linq;
 using SolidWorks.Interop.swconst;
@@ -15,8 +15,9 @@ using Xarial.XCad.Sw.Utils;
 using Xarial.XCad.Utils.PageBuilder.Base;
 using Xarial.XCad.Utils.Reflection;
 using Xarial.XCad.UI.PropertyPage.Attributes;
+using Xarial.XCad.Sw.Enums;
 
-namespace Xarial.XCad.Sw.PMPage.Constructors
+namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Constructors
 {
     internal class PropertyManagerPageOptionBoxConstructor
         : PropertyManagerPageBaseControlConstructor<PropertyManagerPageOptionBoxControl, PropertyManagerPageOptionBox>, IOptionBoxConstructor

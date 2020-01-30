@@ -15,7 +15,7 @@ using Xarial.XCad.Geometry.Structures;
 using Xarial.XCad.Services;
 using Xarial.XCad.Sketch;
 
-namespace Xarial.XCad.Sw
+namespace Xarial.XCad.Sw.Features
 {
     public class SwSketchEntityCollection : IXSketchEntityCollection
     {

@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
-using Xarial.XCad.Sw.Core;
 
 namespace Xarial.XCad.Sw.Base
 {

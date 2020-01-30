@@ -16,17 +16,19 @@ using Xarial.XCad.Utils.Diagnostics;
 using Xarial.XCad.Utils.Reflection;
 using Xarial.XCad.Sw;
 using Xarial.XCad.Sw.Utils;
-using Xarial.XCad.Sw.PMPage;
 using Xarial.XCad.Utils.CustomFeature;
-using Xarial.XCad.Sw.MacroFeature;
 using Xarial.XCad.Extensions;
 using Xarial.XCad.Features.CustomFeature.Delegates;
 using Xarial.XCad.Features.CustomFeature;
 using Xarial.XCad.UI.PropertyPage;
 using Xarial.XCad.UI.Commands;
 using Xarial.XCad.Extensions.Attributes;
+using Xarial.XCad.Sw.UI.PropertyPage;
+using Xarial.XCad.Sw.UI.Commands;
+using Xarial.XCad.Sw.Features.CustomFeature;
+using Xarial.XCad.Sw.Features.CustomFeature.Toolkit;
 
-namespace Xarial.XCad.SolidWorks
+namespace Xarial.XCad.Sw
 {
     [ComVisible(true)]
     public abstract class SwAddInEx : IXExtension, ISwAddin, IDisposable

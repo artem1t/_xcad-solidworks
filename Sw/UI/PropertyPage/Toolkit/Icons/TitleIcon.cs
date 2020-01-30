@@ -9,9 +9,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using Xarial.XCad.Sw.Base;
-using Xarial.XCad.Sw.Core;
 
-namespace Xarial.XCad.Sw.PMPage.Icons
+namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Icons
 {
     internal class TitleIcon : IIcon
     {

@@ -8,8 +8,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Xarial.XCad.Sw.Annotations;
 
-namespace Xarial.XCad.Sw.MacroFeature
+namespace Xarial.XCad.Sw.Features.CustomFeature.Toolkit
 {
     /// <summary>
     /// This is a mock implementation of display SOLIDWORKS dimension

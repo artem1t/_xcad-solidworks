@@ -5,7 +5,6 @@
 //License: https://github.com/xarial/xcad-solidworks/blob/master/LICENSE
 //*********************************************************************
 
-using Xarial.XCad.Sw.PMPage.Controls;
 using System.Linq;
 using System.Collections.Generic;
 using System;
@@ -13,14 +12,15 @@ using System.Reflection;
 using Xarial.XCad.Utils.PageBuilder;
 using Xarial.XCad.Utils.PageBuilder.Binders;
 using Xarial.XCad.Utils.PageBuilder.Base;
-using Xarial.XCad.Sw.PMPage.Constructors;
 using Xarial.XCad.Sw.Utils;
 using Xarial.XCad.Utils.Diagnostics;
 using Xarial.XCad.UI.PropertyPage.Attributes;
 using Xarial.XCad.UI.PropertyPage.Base;
 using SolidWorks.Interop.sldworks;
+using Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls;
+using Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Constructors;
 
-namespace Xarial.XCad.Sw.PMPage
+namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit
 {
     internal class PropertyManagerPageBuilder
         : Builder<PropertyManagerPagePage, PropertyManagerPageGroupBase, IPropertyManagerPageControlEx>
@@ -54,22 +54,22 @@ namespace Xarial.XCad.Sw.PMPage
             public object Tag => m_BaseAttSet.Tag;
             public MemberInfo BoundMemberInfo => m_BaseAttSet.BoundMemberInfo;
 
-            public void Add<TAtt>(TAtt att) where TAtt : UI.PropertyPage.Base.IAttribute
+            public void Add<TAtt>(TAtt att) where TAtt : XCad.UI.PropertyPage.Base.IAttribute
             {
                 m_BaseAttSet.Add<TAtt>(att);
             }
 
-            public TAtt Get<TAtt>() where TAtt : UI.PropertyPage.Base.IAttribute
+            public TAtt Get<TAtt>() where TAtt : XCad.UI.PropertyPage.Base.IAttribute
             {
                 return m_BaseAttSet.Get<TAtt>();
             }
 
-            public IEnumerable<TAtt> GetAll<TAtt>() where TAtt : UI.PropertyPage.Base.IAttribute
+            public IEnumerable<TAtt> GetAll<TAtt>() where TAtt : XCad.UI.PropertyPage.Base.IAttribute
             {
                 return m_BaseAttSet.GetAll<TAtt>();
             }
 
-            public bool Has<TAtt>() where TAtt : UI.PropertyPage.Base.IAttribute
+            public bool Has<TAtt>() where TAtt : XCad.UI.PropertyPage.Base.IAttribute
             {
                 return m_BaseAttSet.Has<TAtt>();
             }

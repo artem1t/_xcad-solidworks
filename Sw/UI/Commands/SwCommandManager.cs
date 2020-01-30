@@ -15,15 +15,15 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using Xarial.XCad.Utils.Diagnostics;
-using Xarial.XCad.SolidWorks;
-using Xarial.XCad.Sw.Core;
 using Xarial.XCad.Sw.Exceptions;
 using Xarial.XCad.Sw.Utils;
 using Xarial.XCad.UI.Commands.Structures;
 using Xarial.XCad.UI.Commands.Enums;
 using Xarial.XCad.UI.Commands;
+using Xarial.XCad.Sw.UI.Commands.Toolkit.Structures;
+using Xarial.XCad.Sw.UI.Commands.Toolkit.Enums;
 
-namespace Xarial.XCad.Sw
+namespace Xarial.XCad.Sw.UI.Commands
 {
     public class SwCommandManager : IXCommandManager, IDisposable
     {

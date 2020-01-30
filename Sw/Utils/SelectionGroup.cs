@@ -12,7 +12,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace Xarial.XCad.Sw.MacroFeature
+namespace Xarial.XCad.Sw.Utils
 {
     internal class SelectionGroup : IDisposable
     {

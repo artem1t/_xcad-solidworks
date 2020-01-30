@@ -13,7 +13,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using Xarial.XCad.Annotations;
 
-namespace Xarial.XCad.Sw
+namespace Xarial.XCad.Sw.Annotations
 {
     public class SwDimension : SwSelObject, IXDimension, IDisposable
     {

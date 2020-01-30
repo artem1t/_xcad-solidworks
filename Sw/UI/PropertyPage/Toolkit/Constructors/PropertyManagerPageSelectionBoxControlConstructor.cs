@@ -5,7 +5,6 @@
 //License: https://github.com/xarial/xcad-solidworks/blob/master/LICENSE
 //*********************************************************************
 
-using Xarial.XCad.Sw.PMPage.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,8 +20,9 @@ using Xarial.XCad.Services;
 using Xarial.XCad.Utils.PageBuilder.Attributes;
 using Xarial.XCad.UI.PropertyPage;
 using Xarial.XCad.UI.PropertyPage.Attributes;
+using Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls;
 
-namespace Xarial.XCad.Sw.PMPage.Constructors
+namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Constructors
 {
     [DefaultType(typeof(IXSelObject))]
     [DefaultType(typeof(IEnumerable<IXSelObject>))]

@@ -13,7 +13,7 @@ using System.Linq;
 using System.Text;
 using Xarial.XCad.Utils.PageBuilder.PageElements;
 
-namespace Xarial.XCad.Sw.PMPage.Controls
+namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls
 {
     /// <summary>
     /// Wrapper class around the group of <see href="http://help.solidworks.com/2016/english/api/sldworksapi/solidworks.interop.sldworks~solidworks.interop.sldworks.ipropertymanagerpageoption.html">IPropertyManagerPageOption </see> controls

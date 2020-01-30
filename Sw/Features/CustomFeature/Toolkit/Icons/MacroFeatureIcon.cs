@@ -11,9 +11,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using Xarial.XCad.Sw.Base;
-using Xarial.XCad.Sw.Core;
 
-namespace Xarial.XCad.Sw.MacroFeature.Icons
+namespace Xarial.XCad.Sw.Features.CustomFeature.Toolkit.Icons
 {
     internal class MacroFeatureIcon : IIcon
     {

@@ -11,7 +11,7 @@ using Xarial.XCad.Documents;
 using Xarial.XCad.Geometry.Structures;
 using Xarial.XCad.Utils.Diagnostics;
 
-namespace Xarial.XCad.Sw
+namespace Xarial.XCad.Sw.Documents
 {
     public class SwAssembly : SwDocument3D, IXPart
     {

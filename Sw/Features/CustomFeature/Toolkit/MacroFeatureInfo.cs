@@ -14,7 +14,7 @@ using Xarial.XCad.Features.CustomFeature.Attributes;
 using Xarial.XCad.Reflection;
 using Xarial.XCad.Utils.Reflection;
 
-namespace Xarial.XCad.Sw.MacroFeature
+namespace Xarial.XCad.Sw.Features.CustomFeature.Toolkit
 {
     internal static class MacroFeatureInfo
     {

@@ -8,7 +8,7 @@
 using SolidWorks.Interop.sldworks;
 using System.ComponentModel;
 
-namespace Xarial.XCad.Sw.PMPage.Controls
+namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls
 {
     /// <summary>
     /// Represents the group box control

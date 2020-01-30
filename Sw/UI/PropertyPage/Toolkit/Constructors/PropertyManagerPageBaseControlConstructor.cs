@@ -5,7 +5,6 @@
 //License: https://github.com/xarial/xcad-solidworks/blob/master/LICENSE
 //*********************************************************************
 
-using Xarial.XCad.Sw.PMPage.Controls;
 using SolidWorks.Interop.swconst;
 using System;
 using System.Collections.Generic;
@@ -19,11 +18,13 @@ using Xarial.XCad.Utils.PageBuilder.Base;
 using Xarial.XCad.Utils.PageBuilder.Constructors;
 using Xarial.XCad.Sw.Utils;
 using Xarial.XCad.Utils.Reflection;
-using Xarial.XCad.Sw.PMPage.Icons;
 using Xarial.XCad.UI.PropertyPage.Attributes;
 using Xarial.XCad.Base.Attributes;
+using Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls;
+using Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Icons;
+using Xarial.XCad.Sw.Enums;
 
-namespace Xarial.XCad.Sw.PMPage.Constructors
+namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Constructors
 {
     internal interface IPropertyManagerPageElementConstructor
         : IPageElementConstructor<PropertyManagerPageGroupBase, PropertyManagerPagePage>

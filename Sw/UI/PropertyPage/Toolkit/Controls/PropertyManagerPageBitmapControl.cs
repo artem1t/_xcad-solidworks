@@ -7,11 +7,11 @@
 
 using SolidWorks.Interop.sldworks;
 using System.Drawing;
-using Xarial.XCad.Sw.PMPage.Icons;
+using Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Icons;
 using Xarial.XCad.Sw.Utils;
 using Xarial.XCad.Utils.PageBuilder.PageElements;
 
-namespace Xarial.XCad.Sw.PMPage.Controls
+namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls
 {
     internal class PropertyManagerPageBitmapControl : PropertyManagerPageBaseControl<Image, IPropertyManagerPageBitmap>
     {

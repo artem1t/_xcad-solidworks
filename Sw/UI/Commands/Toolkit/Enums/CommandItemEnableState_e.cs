@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Xarial.XCad.Sw.Core
+namespace Xarial.XCad.Sw.UI.Commands.Toolkit.Enums
 {
     /// <summary>
     /// Enumerates the possible states of the command (toolbar button or menu item) in SOLIDWORKS
