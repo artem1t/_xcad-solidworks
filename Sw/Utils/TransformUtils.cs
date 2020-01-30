@@ -13,14 +13,14 @@ using Xarial.XCad.Geometry.Structures;
 
 namespace Xarial.XCad.Sw.Utils
 {
-    public static class TransformUtils
+    internal static class TransformUtils
     {
         internal static TransformMatrix ToTransformMatrix(IMathTransform transform) 
         {
             return ToTransformMatrix(transform.ArrayData as double[]);
         }
 
-        public static TransformMatrix ToTransformMatrix(double[] data)
+        internal static TransformMatrix ToTransformMatrix(double[] data)
         {
             return new TransformMatrix(
                 data[0] * data[12], data[1], data[2], data[13],
