@@ -82,7 +82,7 @@ namespace Xarial.XCad.SolidWorks.UI.Commands
             m_CommandBars = new List<SwCommandGroup>();
         }
 
-        public IXCommandGroup AddCommandBar(CommandGroupSpec cmdBar)
+        public IXCommandGroup AddCommandGroup(CommandGroupSpec cmdBar)
         {
             return AddCommandGroupOrContextMenu(cmdBar, false, 0);
         }
