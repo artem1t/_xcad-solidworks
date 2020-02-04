@@ -160,7 +160,7 @@ namespace Xarial.XCad.SolidWorks
 
         public virtual bool OnDisconnect()
         {
-            return false;
+            return true;
         }
 
         protected virtual void Dispose(bool disposing)

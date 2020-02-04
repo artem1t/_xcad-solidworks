@@ -75,7 +75,7 @@ namespace Xarial.XCad.SolidWorks.Utils
         /// <param name="servicePack">Target minimum service pack version or null to ignore</param>
         /// <param name="servicePackRev">Target minimum revision of service pack version or null to ignore</param>
         /// <returns>True of version of the SOLIDWORKS is the same or newer</returns>
-        public static bool IsVersionNewerOrEqual(this ISldWorks app, SwVersion_e version, int? servicePack = null, int? servicePackRev = null)
+        internal static bool IsVersionNewerOrEqual(this ISldWorks app, SwVersion_e version, int? servicePack = null, int? servicePackRev = null)
         {
             if (!servicePack.HasValue && servicePackRev.HasValue)
             {

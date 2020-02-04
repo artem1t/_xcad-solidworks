@@ -9,7 +9,9 @@ using SolidWorks.Interop.sldworks;
 using Xarial.XCad.Documents;
 using Xarial.XCad.Geometry;
 using Xarial.XCad.SolidWorks.Documents;
+using Xarial.XCad.SolidWorks.Enums;
 using Xarial.XCad.SolidWorks.Geometry;
+using Xarial.XCad.SolidWorks.Utils;
 using Xarial.XCad.Utils.Diagnostics;
 
 namespace Xarial.XCad.SolidWorks
@@ -34,6 +36,15 @@ namespace Xarial.XCad.SolidWorks
             Application = app;
             SwDocuments = new SwDocumentCollection(app, logger);
             GeometryBuilder = new SwGeometryBuilder(app.IGetMathUtility(), app.IGetModeler());
+        }
+    }
+
+    public static class SwApplicationExtension 
+    {
+        public static bool IsVersionNewerOrEqual(this SwApplication app, SwVersion_e version, 
+            int? servicePack = null, int? servicePackRev = null) 
+        {
+            return app.Application.IsVersionNewerOrEqual(version, servicePack, servicePackRev);
         }
     }
 }
