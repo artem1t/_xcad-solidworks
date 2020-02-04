@@ -2,7 +2,7 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad/blob/master/LICENSE
+//License: https://xcad.xarial.com/license/
 //*********************************************************************
 
 using SolidWorks.Interop.sldworks;
@@ -10,9 +10,7 @@ using SolidWorks.Interop.swpublished;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
-using System.Text;
 using Xarial.XCad.Annotations;
 using Xarial.XCad.Base.Attributes;
 using Xarial.XCad.Documents;
@@ -23,20 +21,20 @@ using Xarial.XCad.Features.CustomFeature.Structures;
 using Xarial.XCad.Geometry;
 using Xarial.XCad.Geometry.Structures;
 using Xarial.XCad.Reflection;
-using Xarial.XCad.Sw.Annotations;
-using Xarial.XCad.Sw.Enums;
-using Xarial.XCad.Sw.Features.CustomFeature.Toolkit;
-using Xarial.XCad.Sw.Features.CustomFeature.Toolkit.Icons;
-using Xarial.XCad.Sw.Geometry;
-using Xarial.XCad.Sw.Utils;
+using Xarial.XCad.SolidWorks.Annotations;
+using Xarial.XCad.SolidWorks.Enums;
+using Xarial.XCad.SolidWorks.Features.CustomFeature.Toolkit;
+using Xarial.XCad.SolidWorks.Features.CustomFeature.Toolkit.Icons;
+using Xarial.XCad.SolidWorks.Geometry;
+using Xarial.XCad.SolidWorks.Utils;
 using Xarial.XCad.Utils.Diagnostics;
 using Xarial.XCad.Utils.Reflection;
 
-namespace Xarial.XCad.Sw.Features.CustomFeature
+namespace Xarial.XCad.SolidWorks.Features.CustomFeature
 {
     public abstract class SwMacroFeatureDefinition : IXCustomFeatureDefinition, ISwComFeature
     {
-        static SwApplication m_Application;
+        private static SwApplication m_Application;
 
         internal static SwApplication Application
         {
@@ -59,7 +57,7 @@ namespace Xarial.XCad.Sw.Features.CustomFeature
 
         private readonly string m_Provider;
         private readonly ILogger m_Logger;
-        
+
         public ILogger Logger
         {
             get
@@ -120,7 +118,7 @@ namespace Xarial.XCad.Sw.Features.CustomFeature
             }
         }
 
-        #endregion
+        #endregion Initiation
 
         #region Overrides
 
@@ -182,14 +180,14 @@ namespace Xarial.XCad.Sw.Features.CustomFeature
             Logger.Log($"{operName}: {feature?.Name} in {modelDoc?.GetTitle()} of SOLIDWORKS session: {app?.GetProcessID()}");
         }
 
-        #endregion
+        #endregion Overrides
 
-        public virtual bool OnEditDefinition(IXApplication app, IXDocument model, IXCustomFeature feature) 
+        public virtual bool OnEditDefinition(IXApplication app, IXDocument model, IXCustomFeature feature)
         {
             return true;
         }
 
-        public virtual CustomFeatureRebuildResult OnRebuild(IXApplication app, IXDocument model, IXCustomFeature feature) 
+        public virtual CustomFeatureRebuildResult OnRebuild(IXApplication app, IXDocument model, IXCustomFeature feature)
         {
             return null;
         }
@@ -199,9 +197,9 @@ namespace Xarial.XCad.Sw.Features.CustomFeature
             return CustomFeatureState_e.Default;
         }
 
-        private object ParseMacroFeatureResult(CustomFeatureRebuildResult res, ISldWorks app, IMacroFeatureData featData) 
+        private object ParseMacroFeatureResult(CustomFeatureRebuildResult res, ISldWorks app, IMacroFeatureData featData)
         {
-            switch (res) 
+            switch (res)
             {
                 case CustomFeatureBodyRebuildResult bodyRes:
                     //TODO: validate if any non SwBody in the array
@@ -248,7 +246,7 @@ namespace Xarial.XCad.Sw.Features.CustomFeature
                         throw new ArgumentNullException(nameof(featData));
                     }
 
-                    foreach(var body in bodies)
+                    foreach (var body in bodies)
                     {
                         object faces;
                         object edges;
@@ -301,16 +299,16 @@ namespace Xarial.XCad.Sw.Features.CustomFeature
         {
         }
 
-        internal SwMacroFeatureDefinition(MacroFeatureParametersParser paramsParser) : base() 
+        internal SwMacroFeatureDefinition(MacroFeatureParametersParser paramsParser) : base()
         {
             m_ParamsParser = paramsParser;
         }
 
         public void AlignDimension(IXDimension dim, Point[] pts, Vector dir, Vector extDir)
-        {   
-            if (pts != null) 
+        {
+            if (pts != null)
             {
-                if (pts.Length == 2) 
+                if (pts.Length == 2)
                 {
                     var newPts = new Point[3]
                     {
@@ -318,7 +316,6 @@ namespace Xarial.XCad.Sw.Features.CustomFeature
                         pts[1],
                         new Point(0, 0, 0)//3 points required for SOLIDWORKS even if not used
                     };
-
                 }
             }
 
@@ -346,7 +343,7 @@ namespace Xarial.XCad.Sw.Features.CustomFeature
         {
             IXDimension[] dims;
             string[] dimParamNames;
-            var param = (TParams)m_ParamsParser.GetParameters(feature, model, typeof(TParams), out dims, out dimParamNames, 
+            var param = (TParams)m_ParamsParser.GetParameters(feature, model, typeof(TParams), out dims, out dimParamNames,
                 out IXBody[] _, out IXSelObject[] _, out CustomFeatureOutdateState_e _);
 
             AlignDimensionDelegate<TParams> alignDimsDel;
@@ -354,11 +351,11 @@ namespace Xarial.XCad.Sw.Features.CustomFeature
 
             m_ParamsParser.SetParameters(model, feature, param, out CustomFeatureOutdateState_e _);
 
-            if (dims?.Any() == true) 
+            if (dims?.Any() == true)
             {
-                if (alignDimsDel != null) 
+                if (alignDimsDel != null)
                 {
-                    for (int i = 0; i < dims.Length; i++) 
+                    for (int i = 0; i < dims.Length; i++)
                     {
                         alignDimsDel.Invoke(this, dimParamNames[i], dims[i]);
 
@@ -399,7 +396,7 @@ namespace Xarial.XCad.Sw.Features.CustomFeature
             IXCustomFeature feature, TParams parameters, out AlignDimensionDelegate<TParams> alignDim)
         {
             alignDim = null;
-            
+
             return new CustomFeatureBodyRebuildResult()
             {
                 Bodies = Editor.CreateGeometry(this, parameters, false, out alignDim)

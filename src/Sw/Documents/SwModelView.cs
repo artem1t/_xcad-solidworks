@@ -2,25 +2,41 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad/blob/master/LICENSE
+//License: https://xcad.xarial.com/license/
 //*********************************************************************
 
 using SolidWorks.Interop.sldworks;
-using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Text;
 using Xarial.XCad.Documents;
 using Xarial.XCad.Geometry.Structures;
-using Xarial.XCad.Sw.Utils;
+using Xarial.XCad.SolidWorks.Utils;
 
-namespace Xarial.XCad.Sw.Documents
+namespace Xarial.XCad.SolidWorks.Documents
 {
     public class SwModelView : IXView
     {
-        public TransformMatrix Transform 
+        private readonly IMathUtility m_MathUtils;
+
+        private readonly IModelDoc2 m_Model;
+
+        public Rectangle ScreenRect
         {
-            get 
+            get
+            {
+                var box = View.GetVisibleBox() as int[];
+
+                //TODO: potential issue if feature manager is not docked on left
+                var featMgrWidth = m_Model.GetFeatureManagerWidth();
+
+                return new Rectangle(box[0] + featMgrWidth, box[1], box[2] - box[0] - featMgrWidth, box[3] - box[1]);
+            }
+        }
+
+        public TransformMatrix ScreenTransform => TransformUtils.ToTransformMatrix(View.Transform);
+
+        public TransformMatrix Transform
+        {
+            get
             {
                 var origOr = View.Orientation3;
                 var origScale = View.Scale2;
@@ -38,7 +54,7 @@ namespace Xarial.XCad.Sw.Documents
 
                 return TransformUtils.ToTransformMatrix(data);
             }
-            set 
+            set
             {
                 var matrix = m_MathUtils.ToMathTransform(value);
 
@@ -64,27 +80,9 @@ namespace Xarial.XCad.Sw.Documents
             }
         }
 
-        public TransformMatrix ScreenTransform => TransformUtils.ToTransformMatrix(View.Transform);
-
         public IModelView View { get; }
 
-        public Rectangle ScreenRect 
-        {
-            get 
-            {
-                var box = View.GetVisibleBox() as int[];
-
-                //TODO: potential issue if feature manager is not docked on left
-                var featMgrWidth = m_Model.GetFeatureManagerWidth();
-
-                return new Rectangle(box[0] + featMgrWidth, box[1], box[2] - box[0] - featMgrWidth, box[3] - box[1]);
-            }
-        }
-
-        private readonly IModelDoc2 m_Model;
-        private readonly IMathUtility m_MathUtils;
-
-        internal SwModelView(IModelDoc2 model, IModelView view, IMathUtility mathUtils) 
+        internal SwModelView(IModelDoc2 model, IModelView view, IMathUtility mathUtils)
         {
             View = view;
             m_Model = model;

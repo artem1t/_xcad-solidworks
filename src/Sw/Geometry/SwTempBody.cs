@@ -2,21 +2,19 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad/blob/master/LICENSE
+//License: https://xcad.xarial.com/license/
 //*********************************************************************
 
 using SolidWorks.Interop.sldworks;
 using System;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Text;
 
-namespace Xarial.XCad.Sw.Geometry
+namespace Xarial.XCad.SolidWorks.Geometry
 {
     public class SwTempBody : SwBody, IDisposable
     {
         private IBody2 m_TempBody;
-        
+
         public override IBody2 Body => m_TempBody;
         public override object Dispatch => m_TempBody;
 
@@ -46,7 +44,7 @@ namespace Xarial.XCad.Sw.Geometry
             {
                 return body;
             }
-            else 
+            else
             {
                 return body.ICopy();
             }

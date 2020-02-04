@@ -2,25 +2,20 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad/blob/master/LICENSE
+//License: https://xcad.xarial.com/license/
 //*********************************************************************
 
 using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using Xarial.XCad.Documents;
 using Xarial.XCad.Documents.Delegates;
 using Xarial.XCad.Features;
-using Xarial.XCad.Sw.Features;
-using Xarial.XCad.Sw.Utils;
+using Xarial.XCad.SolidWorks.Features;
 using Xarial.XCad.Utils.Diagnostics;
-using Xarial.XCad.Utils.Reflection;
 
-namespace Xarial.XCad.Sw.Documents
+namespace Xarial.XCad.SolidWorks.Documents
 {
     [DebuggerDisplay("{" + nameof(Title) + "}")]
     public abstract class SwDocument : IXDocument, IDisposable
@@ -38,7 +33,7 @@ namespace Xarial.XCad.Sw.Documents
 
         public IXFeatureRepository Features { get; }
 
-        internal SwDocument(IModelDoc2 model, ISldWorks app, ILogger logger) 
+        internal SwDocument(IModelDoc2 model, ISldWorks app, ILogger logger)
         {
             Model = model;
 
@@ -70,7 +65,7 @@ namespace Xarial.XCad.Sw.Documents
 
         private void AttachEvents()
         {
-            switch (Model) 
+            switch (Model)
             {
                 case PartDoc part:
                     part.DestroyNotify2 += OnDestroyNotify;

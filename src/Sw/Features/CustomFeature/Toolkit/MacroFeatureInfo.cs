@@ -2,19 +2,17 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad/blob/master/LICENSE
+//License: https://xcad.xarial.com/license/
 //*********************************************************************
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
-using System.Text;
 using Xarial.XCad.Features.CustomFeature.Attributes;
 using Xarial.XCad.Reflection;
 using Xarial.XCad.Utils.Reflection;
 
-namespace Xarial.XCad.Sw.Features.CustomFeature.Toolkit
+namespace Xarial.XCad.SolidWorks.Features.CustomFeature.Toolkit
 {
     internal static class MacroFeatureInfo
     {

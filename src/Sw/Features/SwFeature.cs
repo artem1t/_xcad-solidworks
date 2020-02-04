@@ -2,33 +2,31 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad/blob/master/LICENSE
+//License: https://xcad.xarial.com/license/
 //*********************************************************************
 
 using SolidWorks.Interop.sldworks;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Xarial.XCad.Features;
 using Xarial.XCad.Services;
 
-namespace Xarial.XCad.Sw.Features
+namespace Xarial.XCad.SolidWorks.Features
 {
     public class SwFeature : SwSelObject, IXFeature
     {
         private readonly ElementCreator<IFeature> m_Creator;
 
-        public IFeature Feature 
+        public IFeature Feature
         {
-            get 
+            get
             {
                 return m_Creator.Element;
             }
         }
 
-        internal bool IsCreated 
+        internal bool IsCreated
         {
-            get 
+            get
             {
                 return m_Creator.IsCreated;
             }
@@ -51,7 +49,7 @@ namespace Xarial.XCad.Sw.Features
 
         public override void Select(bool append)
         {
-            if (!Feature.Select2(append, 0)) 
+            if (!Feature.Select2(append, 0))
             {
                 throw new Exception("Faile to select feature");
             }

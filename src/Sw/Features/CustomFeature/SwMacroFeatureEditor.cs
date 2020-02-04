@@ -2,30 +2,27 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad/blob/master/LICENSE
+//License: https://xcad.xarial.com/license/
 //*********************************************************************
 
 using SolidWorks.Interop.swconst;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Runtime.InteropServices;
-using System.Text;
 using Xarial.XCad.Extensions;
 using Xarial.XCad.Features.CustomFeature.Delegates;
 using Xarial.XCad.Geometry;
-using Xarial.XCad.Sw.Documents;
-using Xarial.XCad.Sw.Geometry;
+using Xarial.XCad.SolidWorks.Documents;
+using Xarial.XCad.SolidWorks.Geometry;
 using Xarial.XCad.Utils.CustomFeature;
 
-namespace Xarial.XCad.Sw.Features.CustomFeature
+namespace Xarial.XCad.SolidWorks.Features.CustomFeature
 {
     public class SwMacroFeatureEditor<TData, TPage> : BaseCustomFeatureEditor<TData, TPage>
         where TData : class, new()
         where TPage : class, new()
     {
         internal SwMacroFeatureEditor(IXApplication app, IXExtension ext, Type defType, CustomFeatureParametersParser paramsParser,
-            DataConverterDelegate<TPage, TData> pageToDataConv, DataConverterDelegate<TData, TPage> dataToPageConv, 
+            DataConverterDelegate<TPage, TData> pageToDataConv, DataConverterDelegate<TData, TPage> dataToPageConv,
             CreateGeometryDelegate<TData> geomCreator) : base(app, ext, defType, paramsParser, pageToDataConv, dataToPageConv, geomCreator)
         {
         }
@@ -53,11 +50,11 @@ namespace Xarial.XCad.Sw.Features.CustomFeature
             {
                 for (int i = 0; i < bodies.Length; i++)
                 {
-                    if (bodies[i] is IDisposable) 
+                    if (bodies[i] is IDisposable)
                     {
                         (bodies[i] as IDisposable).Dispose();
                     }
-                    
+
                     bodies[i] = null;
                 }
             }

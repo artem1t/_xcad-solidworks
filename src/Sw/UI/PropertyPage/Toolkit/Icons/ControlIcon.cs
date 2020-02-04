@@ -2,15 +2,15 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad/blob/master/LICENSE
+//License: https://xcad.xarial.com/license/
 //*********************************************************************
 
 using System.Collections.Generic;
 using System.Drawing;
-using Xarial.XCad.Sw.Base;
-using Xarial.XCad.Sw.Utils;
+using Xarial.XCad.SolidWorks.Base;
+using Xarial.XCad.SolidWorks.Utils;
 
-namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Icons
+namespace Xarial.XCad.SolidWorks.UI.PropertyPage.Toolkit.Icons
 {
     internal class ControlIcon : IIcon
     {
@@ -26,10 +26,10 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Icons
         }
 
         private readonly Size m_Size;
-        
-        internal ControlIcon(Image icon) 
+
+        internal ControlIcon(Image icon)
             : this(icon, CreateMask(icon))
-        {   
+        {
         }
 
         internal ControlIcon(Image icon, Size size)
@@ -48,7 +48,7 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Icons
             Mask = mask;
             m_Size = size;
         }
-        
+
         public IEnumerable<IconSizeInfo> GetIconSizes()
         {
             yield return new IconSizeInfo(Icon, m_Size);
@@ -58,7 +58,7 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Icons
         private static Image CreateMask(Image icon)
         {
             return IconsConverter.ReplaceColor(icon,
-                new IconsConverter.ColorReplacerDelegate((ref byte r, ref byte g, ref byte b, ref byte a) => 
+                new IconsConverter.ColorReplacerDelegate((ref byte r, ref byte g, ref byte b, ref byte a) =>
                 {
                     var mask = (byte)(255 - a);
                     r = mask;

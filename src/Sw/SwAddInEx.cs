@@ -2,33 +2,29 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad/blob/master/LICENSE
+//License: https://xcad.xarial.com/license/
 //*********************************************************************
 
 using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swpublished;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
-using System.Text;
+using Xarial.XCad.Extensions;
+using Xarial.XCad.Extensions.Attributes;
+using Xarial.XCad.Features.CustomFeature;
+using Xarial.XCad.Features.CustomFeature.Delegates;
+using Xarial.XCad.SolidWorks.Features.CustomFeature;
+using Xarial.XCad.SolidWorks.Features.CustomFeature.Toolkit;
+using Xarial.XCad.SolidWorks.UI.Commands;
+using Xarial.XCad.SolidWorks.UI.PropertyPage;
+using Xarial.XCad.SolidWorks.Utils;
+using Xarial.XCad.UI.Commands;
+using Xarial.XCad.UI.PropertyPage;
 using Xarial.XCad.Utils.Diagnostics;
 using Xarial.XCad.Utils.Reflection;
-using Xarial.XCad.Sw;
-using Xarial.XCad.Sw.Utils;
-using Xarial.XCad.Utils.CustomFeature;
-using Xarial.XCad.Extensions;
-using Xarial.XCad.Features.CustomFeature.Delegates;
-using Xarial.XCad.Features.CustomFeature;
-using Xarial.XCad.UI.PropertyPage;
-using Xarial.XCad.UI.Commands;
-using Xarial.XCad.Extensions.Attributes;
-using Xarial.XCad.Sw.UI.PropertyPage;
-using Xarial.XCad.Sw.UI.Commands;
-using Xarial.XCad.Sw.Features.CustomFeature;
-using Xarial.XCad.Sw.Features.CustomFeature.Toolkit;
 
-namespace Xarial.XCad.Sw
+namespace Xarial.XCad.SolidWorks
 {
     [ComVisible(true)]
     public abstract class SwAddInEx : IXExtension, ISwAddin, IDisposable
@@ -67,7 +63,8 @@ namespace Xarial.XCad.Sw
         {
             return m_RegHelper ?? (m_RegHelper = new RegistrationHelper(new TraceLogger(moduleType.FullName)));
         }
-        #endregion
+
+        #endregion Registration
 
         private readonly ILogger m_Logger;
         private SwApplication m_Application;
@@ -160,7 +157,7 @@ namespace Xarial.XCad.Sw
         {
             return true;
         }
-        
+
         public virtual bool OnDisconnect()
         {
             return false;
@@ -215,7 +212,7 @@ namespace Xarial.XCad.Sw
             where TPage : class, new()
         {
             return new SwMacroFeatureEditor<TData, TPage>(
-                Application, this, defType, new MacroFeatureParametersParser(), 
+                Application, this, defType, new MacroFeatureParametersParser(),
                 pageToDataConv, dataToPageConv, geomCreator);
         }
     }

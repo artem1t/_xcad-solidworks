@@ -2,10 +2,10 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad/blob/master/LICENSE
+//License: https://xcad.xarial.com/license/
 //*********************************************************************
 
-namespace Xarial.XCad.Sw.Enums
+namespace Xarial.XCad.SolidWorks.Enums
 {
     public enum SwVersion_e
     {

@@ -2,18 +2,18 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad/blob/master/LICENSE
+//License: https://xcad.xarial.com/license/
 //*********************************************************************
 
 using SolidWorks.Interop.sldworks;
 using Xarial.XCad.Utils.PageBuilder.PageElements;
 
-namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls
+namespace Xarial.XCad.SolidWorks.UI.PropertyPage.Toolkit.Controls
 {
     internal class PropertyManagerPageCheckBoxControl : PropertyManagerPageBaseControl<bool, IPropertyManagerPageCheckbox>
     {
         protected override event ControlValueChangedDelegate<bool> ValueChanged;
-        
+
         public PropertyManagerPageCheckBoxControl(int id, object tag,
             IPropertyManagerPageCheckbox checkBox,
             SwPropertyManagerPageHandler handler) : base(checkBox, id, tag, handler)

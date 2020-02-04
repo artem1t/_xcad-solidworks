@@ -2,18 +2,16 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad/blob/master/LICENSE
+//License: https://xcad.xarial.com/license/
 //*********************************************************************
 
 using SolidWorks.Interop.sldworks;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using Xarial.XCad.Utils.PageBuilder.PageElements;
 
-namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls
+namespace Xarial.XCad.SolidWorks.UI.PropertyPage.Toolkit.Controls
 {
     /// <summary>
     /// Wrapper class around the group of <see href="http://help.solidworks.com/2016/english/api/sldworksapi/solidworks.interop.sldworks~solidworks.interop.sldworks.ipropertymanagerpageoption.html">IPropertyManagerPageOption </see> controls
@@ -27,7 +25,7 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls
             {
                 throw new NullReferenceException("No controls");
             }
-            
+
             Controls = ctrls;
         }
 
@@ -220,7 +218,7 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls
     internal class PropertyManagerPageOptionBoxControl : PropertyManagerPageBaseControl<Enum, PropertyManagerPageOptionBox>
     {
         protected override event ControlValueChangedDelegate<Enum> ValueChanged;
-        
+
         private ReadOnlyCollection<Enum> m_Values;
 
         public PropertyManagerPageOptionBoxControl(int id, object tag,

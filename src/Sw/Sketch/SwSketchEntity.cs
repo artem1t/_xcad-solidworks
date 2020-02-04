@@ -2,14 +2,14 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad/blob/master/LICENSE
+//License: https://xcad.xarial.com/license/
 //*********************************************************************
 
 using SolidWorks.Interop.sldworks;
 using Xarial.XCad.Services;
 using Xarial.XCad.Sketch;
 
-namespace Xarial.XCad.Sw.Sketch
+namespace Xarial.XCad.SolidWorks.Sketch
 {
     public abstract class SwSketchEntity : SwSelObject, IXSketchEntity
     {

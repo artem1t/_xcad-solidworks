@@ -2,13 +2,13 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad/blob/master/LICENSE
+//License: https://xcad.xarial.com/license/
 //*********************************************************************
 
 using SolidWorks.Interop.sldworks;
 using Xarial.XCad.Features;
 
-namespace Xarial.XCad.Sw.Features
+namespace Xarial.XCad.SolidWorks.Features
 {
     public class SwSketch2D : SwSketchBase, IXSketch2D
     {
@@ -19,13 +19,13 @@ namespace Xarial.XCad.Sw.Features
         protected override ISketch CreateSketch()
         {
             //TODO: select the plane or face
-            m_Model.InsertSketch2(true);
-            return m_Model.SketchManager.ActiveSketch;
+            m_ModelDoc.InsertSketch2(true);
+            return m_ModelDoc.SketchManager.ActiveSketch;
         }
 
         protected override void ToggleEditSketch()
         {
-            m_Model.InsertSketch2(true);
+            m_ModelDoc.InsertSketch2(true);
         }
     }
 }

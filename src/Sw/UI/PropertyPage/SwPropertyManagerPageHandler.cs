@@ -2,40 +2,47 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad/blob/master/LICENSE
+//License: https://xcad.xarial.com/license/
 //*********************************************************************
 
 using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
 using SolidWorks.Interop.swpublished;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 using Xarial.XCad.UI.PropertyPage.Structures;
 
-namespace Xarial.XCad.Sw.UI.PropertyPage
+namespace Xarial.XCad.SolidWorks.UI.PropertyPage
 {
     /// <inheritdoc/>
     [ComVisible(true)]
     public abstract class SwPropertyManagerPageHandler : IPropertyManagerPage2Handler9
     {
         internal delegate void SubmitSelectionDelegate(int Id, object Selection, int SelType, ref string ItemText, ref bool res);
+
         internal delegate void PropertyManagerPageClosingDelegate(swPropertyManagerPageCloseReasons_e reason, PageClosingArg arg);
+
         internal delegate void PropertyManagerPageClosedDelegate(swPropertyManagerPageCloseReasons_e reason);
 
         internal event Action<int, string> TextChanged;
+
         internal event Action<int, double> NumberChanged;
+
         internal event Action<int, bool> CheckChanged;
+
         internal event Action<int, int> SelectionChanged;
+
         internal event Action<int, int> ComboBoxChanged;
+
         internal event Action<int> OptionChecked;
+
         internal event Action<int> ButtonPressed;
+
         internal event SubmitSelectionDelegate SubmitSelection;
 
         internal event Action HelpRequested;
+
         internal event Action WhatsNewRequested;
 
         /// <inheritdoc/>

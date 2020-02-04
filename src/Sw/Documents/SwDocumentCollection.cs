@@ -2,7 +2,7 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad/blob/master/LICENSE
+//License: https://xcad.xarial.com/license/
 //*********************************************************************
 
 using SolidWorks.Interop.sldworks;
@@ -11,13 +11,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using Xarial.XCad.Utils.Diagnostics;
 using Xarial.XCad.Documents;
 using Xarial.XCad.Documents.Delegates;
 using Xarial.XCad.Documents.Structures;
+using Xarial.XCad.Utils.Diagnostics;
 
-namespace Xarial.XCad.Sw.Documents
+namespace Xarial.XCad.SolidWorks.Documents
 {
     [DebuggerDisplay("Documents: {" + nameof(Count) + "}")]
     public class SwDocumentCollection : IXDocumentCollection
@@ -28,9 +27,9 @@ namespace Xarial.XCad.Sw.Documents
         private readonly Dictionary<IModelDoc2, SwDocument> m_Documents;
         private readonly ILogger m_Logger;
 
-        public IXDocument Active 
+        public IXDocument Active
         {
-            get 
+            get
             {
                 var activeDoc = m_App.IActiveDoc2;
 
@@ -38,7 +37,7 @@ namespace Xarial.XCad.Sw.Documents
                 {
                     return this[activeDoc];
                 }
-                else 
+                else
                 {
                     return null;
                 }
@@ -158,7 +157,7 @@ namespace Xarial.XCad.Sw.Documents
                 Debug.Assert(false, "Document was not unregistered");
             }
         }
-        
+
         private int OnDocumentLoadNotify2(string docTitle, string docPath)
         {
             const int S_OK = 0;

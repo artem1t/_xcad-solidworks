@@ -2,28 +2,25 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad/blob/master/LICENSE
+//License: https://xcad.xarial.com/license/
 //*********************************************************************
 
-using Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls;
 using SolidWorks.Interop.sldworks;
+using SolidWorks.Interop.swconst;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.ComponentModel;
-using Xarial.XCad.Utils.Diagnostics;
-using Xarial.XCad.Sw.Utils;
-using Xarial.XCad.Utils.PageBuilder.Base;
-using Xarial.XCad;
-using SolidWorks.Interop.swconst;
-using Xarial.XCad.UI.PropertyPage.Delegates;
+using Xarial.XCad.SolidWorks.UI.PropertyPage.Toolkit;
+using Xarial.XCad.SolidWorks.UI.PropertyPage.Toolkit.Controls;
+using Xarial.XCad.SolidWorks.Utils;
 using Xarial.XCad.UI.PropertyPage;
+using Xarial.XCad.UI.PropertyPage.Delegates;
 using Xarial.XCad.UI.PropertyPage.Enums;
 using Xarial.XCad.UI.PropertyPage.Structures;
-using Xarial.XCad.Sw.UI.PropertyPage.Toolkit;
+using Xarial.XCad.Utils.Diagnostics;
+using Xarial.XCad.Utils.PageBuilder.Base;
 
-namespace Xarial.XCad.Sw.UI.PropertyPage
+namespace Xarial.XCad.SolidWorks.UI.PropertyPage
 {
     /// <inheritdoc/>
     public class SwPropertyManagerPage<TModel> : IXPropertyPage<TModel>, IDisposable
@@ -55,7 +52,6 @@ namespace Xarial.XCad.Sw.UI.PropertyPage
         public SwPropertyManagerPage(ISldWorks app, ILogger logger, Type handlerType)
             : this(app, null, logger, handlerType)
         {
-            
         }
 
         public SwPropertyManagerPage(ISldWorks app, IPageSpec pageSpec, ILogger logger, Type handlerType)

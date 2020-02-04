@@ -2,26 +2,20 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad/blob/master/LICENSE
+//License: https://xcad.xarial.com/license/
 //*********************************************************************
 
 using SolidWorks.Interop.sldworks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using Xarial.XCad.Features;
 using Xarial.XCad.Features.CustomFeature;
-using Xarial.XCad.Sw.Documents;
-using Xarial.XCad.Sw.Features.CustomFeature;
-using Xarial.XCad.Sw.Features.CustomFeature.Toolkit;
-using Xarial.XCad.Sw.Utils;
-using Xarial.XCad.Utils.CustomFeature;
-using Xarial.XCad.Utils.Reflection;
+using Xarial.XCad.SolidWorks.Documents;
+using Xarial.XCad.SolidWorks.Features.CustomFeature;
+using Xarial.XCad.SolidWorks.Features.CustomFeature.Toolkit;
 
-namespace Xarial.XCad.Sw.Features
+namespace Xarial.XCad.SolidWorks.Features
 {
     public class SwFeatureManager : IXFeatureRepository
     {
@@ -31,21 +25,21 @@ namespace Xarial.XCad.Sw.Features
 
         public int Count => m_FeatMgr.GetFeatureCount(false);
 
-        internal SwFeatureManager(SwDocument model, IFeatureManager featMgr, ISldWorks app) 
+        internal SwFeatureManager(SwDocument model, IFeatureManager featMgr, ISldWorks app)
         {
             m_Model = model;
             m_ParamsParser = new MacroFeatureParametersParser(app);
             m_FeatMgr = featMgr;
         }
-                
+
         public void AddRange(IEnumerable<IXFeature> feats)
         {
-            if (feats == null) 
+            if (feats == null)
             {
                 throw new ArgumentNullException(nameof(feats));
             }
 
-            foreach (SwFeature feat in feats) 
+            foreach (SwFeature feat in feats)
             {
                 feat.Create();
             }
@@ -71,7 +65,7 @@ namespace Xarial.XCad.Sw.Features
             return GetEnumerator();
         }
 
-        public IXCustomFeature<TParams> NewCustomFeature<TParams>() 
+        public IXCustomFeature<TParams> NewCustomFeature<TParams>()
             where TParams : class, new()
         {
             return new SwMacroFeature<TParams>(m_Model, m_FeatMgr, null, m_ParamsParser, false);
@@ -94,7 +88,7 @@ namespace Xarial.XCad.Sw.Features
 
         //TODO: implement proper handling of sub features
 
-        internal FeatureEnumerator(IModelDoc2 model) 
+        internal FeatureEnumerator(IModelDoc2 model)
         {
             m_Model = model;
             Reset();

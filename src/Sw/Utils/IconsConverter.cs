@@ -2,21 +2,20 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad/blob/master/LICENSE
+//License: https://xcad.xarial.com/license/
 //*********************************************************************
 
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using Xarial.XCad.Sw.Base;
-using Xarial.XCad.Sw.Exceptions;
+using Xarial.XCad.SolidWorks.Base;
+using Xarial.XCad.SolidWorks.Exceptions;
 
-namespace Xarial.XCad.Sw.Utils
+namespace Xarial.XCad.SolidWorks.Utils
 {
     internal class IconsConverter : IDisposable
     {
@@ -39,6 +38,7 @@ namespace Xarial.XCad.Sw.Utils
             /// Required target size for the image
             /// </summary>
             internal Size TargetSize { get; set; }
+
             internal IconData(string iconsDir, Image sourceIcon, Size targetSize, string name)
             {
                 SourceIcon = sourceIcon;
@@ -118,6 +118,7 @@ namespace Xarial.XCad.Sw.Utils
 
             return maskImg;
         }
+
         internal string[] ConvertIcon(IIcon icon)
         {
             var iconsData = CreateIconData(icon);
@@ -181,6 +182,7 @@ namespace Xarial.XCad.Sw.Utils
 
             return iconsPaths;
         }
+
         protected virtual void Dispose(bool disposing)
         {
             if (m_DisposeIcons)

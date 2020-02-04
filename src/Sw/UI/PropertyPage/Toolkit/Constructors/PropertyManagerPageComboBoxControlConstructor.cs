@@ -2,31 +2,27 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad/blob/master/LICENSE
+//License: https://xcad.xarial.com/license/
 //*********************************************************************
 
-using Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using SolidWorks.Interop.swconst;
 using SolidWorks.Interop.sldworks;
-using System.ComponentModel;
-using Xarial.XCad.Utils.PageBuilder.Attributes;
-using Xarial.XCad.Utils.PageBuilder.Core;
-using Xarial.XCad.Sw.Utils;
-using Xarial.XCad.Utils.PageBuilder.Base;
-using Xarial.XCad.Utils.Reflection;
+using SolidWorks.Interop.swconst;
+using System.Linq;
+using Xarial.XCad.SolidWorks.UI.PropertyPage.Toolkit.Controls;
+using Xarial.XCad.SolidWorks.Utils;
 using Xarial.XCad.UI.PropertyPage.Attributes;
+using Xarial.XCad.Utils.PageBuilder.Attributes;
+using Xarial.XCad.Utils.PageBuilder.Base;
+using Xarial.XCad.Utils.PageBuilder.Core;
+using Xarial.XCad.Utils.Reflection;
 
-namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Constructors
+namespace Xarial.XCad.SolidWorks.UI.PropertyPage.Toolkit.Constructors
 {
     [DefaultType(typeof(SpecialTypes.EnumType))]
     internal class PropertyManagerPageComboBoxControlConstructor
         : PropertyManagerPageBaseControlConstructor<PropertyManagerPageComboBoxControl, IPropertyManagerPageCombobox>
     {
-        public PropertyManagerPageComboBoxControlConstructor(ISldWorks app, IconsConverter iconsConv) 
+        public PropertyManagerPageComboBoxControlConstructor(ISldWorks app, IconsConverter iconsConv)
             : base(app, swPropertyManagerPageControlType_e.swControlType_Combobox, iconsConv)
         {
         }

@@ -2,16 +2,14 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad/blob/master/LICENSE
+//License: https://xcad.xarial.com/license/
 //*********************************************************************
 
-using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Text;
-using Xarial.XCad.Sw.Base;
+using Xarial.XCad.SolidWorks.Base;
 
-namespace Xarial.XCad.Sw.UI.Commands.Toolkit.Structures
+namespace Xarial.XCad.SolidWorks.UI.Commands.Toolkit.Structures
 {
     internal class CommandGroupIcon : IIcon
     {
@@ -19,6 +17,7 @@ namespace Xarial.XCad.Sw.UI.Commands.Toolkit.Structures
 
         private static readonly Color m_CommandTransparencyKey
                     = Color.FromArgb(192, 192, 192);
+
         public virtual Color TransparencyKey
         {
             get
@@ -32,7 +31,7 @@ namespace Xarial.XCad.Sw.UI.Commands.Toolkit.Structures
             m_Icon = icon;
         }
 
-        public virtual IEnumerable<IconSizeInfo> GetIconSizes() 
+        public virtual IEnumerable<IconSizeInfo> GetIconSizes()
         {
             yield return new IconSizeInfo(m_Icon, new Size(16, 16));
             yield return new IconSizeInfo(m_Icon, new Size(24, 24));

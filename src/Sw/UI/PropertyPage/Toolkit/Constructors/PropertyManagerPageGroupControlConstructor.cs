@@ -2,26 +2,24 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad/blob/master/LICENSE
+//License: https://xcad.xarial.com/license/
 //*********************************************************************
 
+using SolidWorks.Interop.sldworks;
+using SolidWorks.Interop.swconst;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using SolidWorks.Interop.swconst;
+using Xarial.XCad.SolidWorks.UI.PropertyPage.Toolkit.Controls;
 using Xarial.XCad.Utils.PageBuilder.Attributes;
-using Xarial.XCad.Utils.PageBuilder.Core;
-using Xarial.XCad.Utils.PageBuilder.Constructors;
 using Xarial.XCad.Utils.PageBuilder.Base;
-using SolidWorks.Interop.sldworks;
-using Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls;
+using Xarial.XCad.Utils.PageBuilder.Constructors;
+using Xarial.XCad.Utils.PageBuilder.Core;
 
-namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Constructors
+namespace Xarial.XCad.SolidWorks.UI.PropertyPage.Toolkit.Constructors
 {
     [DefaultType(typeof(SpecialTypes.ComplexType))]
     internal class PropertyManagerPageGroupControlConstructor
-        : GroupConstructor<PropertyManagerPageGroupBase, PropertyManagerPagePage>, 
+        : GroupConstructor<PropertyManagerPageGroupBase, PropertyManagerPagePage>,
         IPropertyManagerPageElementConstructor
     {
         public Type ControlType

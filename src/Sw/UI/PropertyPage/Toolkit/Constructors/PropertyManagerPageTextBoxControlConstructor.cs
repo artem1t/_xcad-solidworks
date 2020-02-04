@@ -2,24 +2,18 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad/blob/master/LICENSE
+//License: https://xcad.xarial.com/license/
 //*********************************************************************
 
-using Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using SolidWorks.Interop.swconst;
-using System.Drawing;
 using SolidWorks.Interop.sldworks;
-using Xarial.XCad.Utils.PageBuilder.Attributes;
-using Xarial.XCad.Sw.Utils;
-using Xarial.XCad.Utils.PageBuilder.Base;
+using SolidWorks.Interop.swconst;
+using Xarial.XCad.SolidWorks.UI.PropertyPage.Toolkit.Controls;
+using Xarial.XCad.SolidWorks.Utils;
 using Xarial.XCad.UI.PropertyPage.Attributes;
-using Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls;
+using Xarial.XCad.Utils.PageBuilder.Attributes;
+using Xarial.XCad.Utils.PageBuilder.Base;
 
-namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Constructors
+namespace Xarial.XCad.SolidWorks.UI.PropertyPage.Toolkit.Constructors
 {
     [DefaultType(typeof(string))]
     internal class PropertyManagerPageTextBoxControlConstructor
@@ -41,7 +35,7 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Constructors
             if (atts.Has<TextBoxOptionsAttribute>())
             {
                 var style = atts.Get<TextBoxOptionsAttribute>();
-                
+
                 if (style.Style != 0)
                 {
                     swCtrl.Style = (int)style.Style;

@@ -2,15 +2,13 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad/blob/master/LICENSE
+//License: https://xcad.xarial.com/license/
 //*********************************************************************
 
-using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Text;
 
-namespace Xarial.XCad.Sw.Base
+namespace Xarial.XCad.SolidWorks.Base
 {
     /// <summary>
     /// Represents the specific icon descriptor

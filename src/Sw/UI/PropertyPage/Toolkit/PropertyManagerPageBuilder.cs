@@ -2,25 +2,24 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad/blob/master/LICENSE
+//License: https://xcad.xarial.com/license/
 //*********************************************************************
 
-using System.Linq;
-using System.Collections.Generic;
-using System;
-using System.Reflection;
-using Xarial.XCad.Utils.PageBuilder;
-using Xarial.XCad.Utils.PageBuilder.Binders;
-using Xarial.XCad.Utils.PageBuilder.Base;
-using Xarial.XCad.Sw.Utils;
-using Xarial.XCad.Utils.Diagnostics;
-using Xarial.XCad.UI.PropertyPage.Attributes;
-using Xarial.XCad.UI.PropertyPage.Base;
 using SolidWorks.Interop.sldworks;
-using Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls;
-using Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Constructors;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using Xarial.XCad.SolidWorks.UI.PropertyPage.Toolkit.Constructors;
+using Xarial.XCad.SolidWorks.UI.PropertyPage.Toolkit.Controls;
+using Xarial.XCad.SolidWorks.Utils;
+using Xarial.XCad.UI.PropertyPage.Attributes;
+using Xarial.XCad.Utils.Diagnostics;
+using Xarial.XCad.Utils.PageBuilder;
+using Xarial.XCad.Utils.PageBuilder.Base;
+using Xarial.XCad.Utils.PageBuilder.Binders;
 
-namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit
+namespace Xarial.XCad.SolidWorks.UI.PropertyPage.Toolkit
 {
     internal class PropertyManagerPageBuilder
         : PageBuilderBase<PropertyManagerPagePage, PropertyManagerPageGroupBase, IPropertyManagerPageControlEx>
@@ -28,7 +27,9 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit
         private class PmpTypeDataBinder : TypeDataBinder
         {
             internal event Action<IEnumerable<IBinding>> BeforeControlsDataLoad;
+
             internal event Func<IAttributeSet, IAttributeSet> GetPageAttributeSet;
+
             protected override void OnBeforeControlsDataLoad(IEnumerable<IBinding> bindings)
             {
                 base.OnBeforeControlsDataLoad(bindings);
@@ -73,7 +74,7 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit
             {
                 return m_BaseAttSet.Has<TAtt>();
             }
-            
+
             internal PmpAttributeSet(IAttributeSet baseAttSet, IPageSpec pageSpec)
             {
                 m_BaseAttSet = baseAttSet;
@@ -84,7 +85,7 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit
                     Add(new PageOptionsAttribute(pageSpec.Options));
                 }
 
-                if (string.IsNullOrEmpty(baseAttSet.Name) 
+                if (string.IsNullOrEmpty(baseAttSet.Name)
                     || baseAttSet.Name == BoundType.Name)
                 {
                     m_Title = pageSpec.Title;
@@ -101,7 +102,7 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit
         private readonly IPageSpec m_PageSpec;
 
         internal PropertyManagerPageBuilder(ISldWorks app, IconsConverter iconsConv, SwPropertyManagerPageHandler handler, IPageSpec pageSpec, ILogger logger)
-            : this(new PmpTypeDataBinder(), 
+            : this(new PmpTypeDataBinder(),
                   new PropertyManagerPageConstructor(app, iconsConv, handler),
                   new PropertyManagerPageGroupControlConstructor(),
                   new PropertyManagerPageTextBoxControlConstructor(app, iconsConv),

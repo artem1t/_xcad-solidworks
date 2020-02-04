@@ -2,14 +2,10 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad/blob/master/LICENSE
+//License: https://xcad.xarial.com/license/
 //*********************************************************************
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Xarial.XCad.Sw.UI.Commands.Toolkit.Enums
+namespace Xarial.XCad.SolidWorks.UI.Commands.Toolkit.Enums
 {
     /// <summary>
     /// Enumerates the possible states of the command (toolbar button or menu item) in SOLIDWORKS
@@ -32,7 +28,7 @@ namespace Xarial.XCad.Sw.UI.Commands.Toolkit.Enums
         SelectDisable = 2,
 
         /// <summary>
-        /// Selects and enables the item 
+        /// Selects and enables the item
         /// </summary>
         SelectEnable = 3
     }

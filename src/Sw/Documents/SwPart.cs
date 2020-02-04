@@ -2,7 +2,7 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad/blob/master/LICENSE
+//License: https://xcad.xarial.com/license/
 //*********************************************************************
 
 using SolidWorks.Interop.sldworks;
@@ -12,14 +12,14 @@ using Xarial.XCad.Documents;
 using Xarial.XCad.Geometry.Structures;
 using Xarial.XCad.Utils.Diagnostics;
 
-namespace Xarial.XCad.Sw.Documents
+namespace Xarial.XCad.SolidWorks.Documents
 {
     public class SwPart : SwDocument3D, IXPart
     {
         public IPartDoc Part { get; }
 
-        internal SwPart(IPartDoc part, ISldWorks app, ILogger logger) 
-            : base((IModelDoc2)part, app, logger) 
+        internal SwPart(IPartDoc part, ISldWorks app, ILogger logger)
+            : base((IModelDoc2)part, app, logger)
         {
             Part = part;
         }
@@ -34,7 +34,7 @@ namespace Xarial.XCad.Sw.Documents
             double maxX = double.MinValue;
             double maxY = double.MinValue;
             double maxZ = double.MinValue;
-            
+
             if (bodies?.Any() == true)
             {
                 foreach (IBody2 swBody in bodies)

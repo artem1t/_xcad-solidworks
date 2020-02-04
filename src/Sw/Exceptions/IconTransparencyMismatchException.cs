@@ -2,12 +2,12 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad/blob/master/LICENSE
+//License: https://xcad.xarial.com/license/
 //*********************************************************************
 
 using System;
 
-namespace Xarial.XCad.Sw.Exceptions
+namespace Xarial.XCad.SolidWorks.Exceptions
 {
     /// <summary>
     /// Exception indicates that the transparency key <see cref="Base.IIcon.TransparencyKey"/> is different for

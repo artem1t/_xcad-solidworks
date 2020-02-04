@@ -1,12 +1,16 @@
-﻿using SolidWorks.Interop.sldworks;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Xarial.XCad.Sw.Annotations;
-using Xarial.XCad.Sw.Features;
-using Xarial.XCad.Sw.Geometry;
+﻿//*********************************************************************
+//xCAD
+//Copyright(C) 2020 Xarial Pty Limited
+//Product URL: https://www.xcad.net
+//License: https://xcad.xarial.com/license/
+//*********************************************************************
 
-namespace Xarial.XCad.Sw
+using SolidWorks.Interop.sldworks;
+using Xarial.XCad.SolidWorks.Annotations;
+using Xarial.XCad.SolidWorks.Features;
+using Xarial.XCad.SolidWorks.Geometry;
+
+namespace Xarial.XCad.SolidWorks
 {
     public class SwObject : IXObject
     {
@@ -17,12 +21,16 @@ namespace Xarial.XCad.Sw
                 //TODO: make this automatic
                 case IEdge edge:
                     return new SwEdge(edge);
+
                 case IFeature feat:
                     return new SwFeature(model, feat, true);
+
                 case IBody2 body:
                     return new SwBody(body);
+
                 case IDisplayDimension dispDim:
                     return new SwDimension(dispDim);
+
                 default:
                     return new SwObject(disp);
             }
@@ -30,7 +38,7 @@ namespace Xarial.XCad.Sw
 
         public virtual object Dispatch { get; }
 
-        internal SwObject(object dispatch) 
+        internal SwObject(object dispatch)
         {
             Dispatch = dispatch;
         }

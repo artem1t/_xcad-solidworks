@@ -2,16 +2,13 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad/blob/master/LICENSE
+//License: https://xcad.xarial.com/license/
 //*********************************************************************
 
 using SolidWorks.Interop.sldworks;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xarial.XCad.Documents;
 
-namespace Xarial.XCad.Sw.Documents
+namespace Xarial.XCad.SolidWorks.Documents
 {
     public class SwConfiguration : IXConfiguration
     {
@@ -19,7 +16,7 @@ namespace Xarial.XCad.Sw.Documents
 
         public string Name => m_Conf.Name;
 
-        internal SwConfiguration(IConfiguration conf) 
+        internal SwConfiguration(IConfiguration conf)
         {
             m_Conf = conf;
         }

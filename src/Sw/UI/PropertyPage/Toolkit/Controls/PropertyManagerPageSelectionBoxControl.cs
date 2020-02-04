@@ -2,7 +2,7 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad/blob/master/LICENSE
+//License: https://xcad.xarial.com/license/
 //*********************************************************************
 
 using SolidWorks.Interop.sldworks;
@@ -10,15 +10,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 using Xarial.XCad.Base.Enums;
-using Xarial.XCad.Services;
 using Xarial.XCad.UI.PropertyPage;
 using Xarial.XCad.Utils.PageBuilder.PageElements;
 
-namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls
+namespace Xarial.XCad.SolidWorks.UI.PropertyPage.Toolkit.Controls
 {
     //TODO: think of a better way to work with type instead of object (can be either SwSelObject or List)
     internal class PropertyManagerPageSelectionBoxControl : PropertyManagerPageBaseControl<object, IPropertyManagerPageSelectionbox>
@@ -56,7 +53,7 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls
             }
         }
 
-        private SwSelObject ToSelObject(object disp) 
+        private SwSelObject ToSelObject(object disp)
         {
             return (SwSelObject)SwObject.FromDispatch(disp, m_App.IActiveDoc2);
         }
@@ -136,14 +133,14 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls
                 }
 
                 var selMgr = m_App.IActiveDoc2.ISelectionManager;
-                
+
                 var selData = selMgr.CreateSelectData();
                 selData.Mark = SwSpecificControl.Mark;
 
                 m_App.IActiveDoc2.Extension.MultiSelect2(disps.ToArray(), true, selData);
             }
         }
-        
+
         private bool SupportsMultiEntities
         {
             get

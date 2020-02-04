@@ -2,27 +2,25 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad/blob/master/LICENSE
+//License: https://xcad.xarial.com/license/
 //*********************************************************************
 
 using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
 using System;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Text;
 using Xarial.XCad.Annotations;
 
-namespace Xarial.XCad.Sw.Annotations
+namespace Xarial.XCad.SolidWorks.Annotations
 {
     public class SwDimension : SwSelObject, IXDimension, IDisposable
     {
         private IDimension m_Dimension;
         public IDimension Dimension => m_Dimension ?? (m_Dimension = DisplayDimension.GetDimension2(0));
         public IDisplayDimension DisplayDimension { get; private set; }
-        
-        internal SwDimension(IDisplayDimension dispDim) 
-            : base(null, dispDim) 
+
+        internal SwDimension(IDisplayDimension dispDim)
+            : base(null, dispDim)
         {
             DisplayDimension = dispDim;
         }
@@ -73,7 +71,7 @@ namespace Xarial.XCad.Sw.Annotations
 
         public override void Select(bool append)
         {
-            if (!DisplayDimension.IGetAnnotation().Select3(append, null)) 
+            if (!DisplayDimension.IGetAnnotation().Select3(append, null))
             {
                 throw new Exception("Failed to select dimension");
             }

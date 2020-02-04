@@ -2,24 +2,22 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad/blob/master/LICENSE
+//License: https://xcad.xarial.com/license/
 //*********************************************************************
 
 using SolidWorks.Interop.sldworks;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Xarial.XCad.Geometry;
 using Xarial.XCad.Geometry.Structures;
 
-namespace Xarial.XCad.Sw.Geometry
+namespace Xarial.XCad.SolidWorks.Geometry
 {
     public class SwGeometryBuilder : IXGeometryBuilder
     {
         private readonly IModeler m_Modeler;
         private readonly IMathUtility m_MathUtils;
 
-        internal SwGeometryBuilder(IMathUtility mathUtils, IModeler modeler) 
+        internal SwGeometryBuilder(IMathUtility mathUtils, IModeler modeler)
         {
             m_Modeler = modeler;
             m_MathUtils = mathUtils;
@@ -32,13 +30,12 @@ namespace Xarial.XCad.Sw.Geometry
             return new SwTempBody(body);
         }
 
-        public IXBody CreateCylinder(Point center, Vector axis, Vector refDir, double radius, double height) 
+        public IXBody CreateCylinder(Point center, Vector axis, Vector refDir, double radius, double height)
         {
             var body = CreateCylinderBody(center, axis, refDir, radius, height);
             return new SwTempBody(body);
         }
 
-        /// <inheritdoc cref="CreateBox(IModeler, Point, Vector, double, double, double)"/>
         /// <param name="refDir">Input or output direction of ref axis which corresponds to X. Specify null to auto calculate</param>
         private IBody2 CreateBoxBody(Point center, Vector dir, Vector refDir,
             double width, double length, double height)
@@ -86,27 +83,6 @@ namespace Xarial.XCad.Sw.Geometry
         }
 
         /// <summary>
-        /// Creates the box solid geometry
-        /// </summary>
-        /// <param name="modeler">Pointer to modeler</param>
-        /// <param name="center">Center coordinate of the box in meters</param>
-        /// <param name="dir">Direction of the box</param>
-        /// <param name="width">Width of the box in meters</param>
-        /// <param name="length">Length of the box in meters</param>
-        /// <param name="height">Height of the box in meters. This is a dimension parallel to <paramref name="dir"/></param>
-        /// <returns>Pointer to a temp body</returns>
-        /// <remarks>Use this method instead of built-in <see href="http://help.solidworks.com/2016/english/api/sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IModeler~CreateBodyFromBox3.html">IModeler::CreateBodyFromBox</see>
-        /// If you need to preserve entity ids as the body generated using the built-in method won't allow to set user id,
-        /// which means any reference geometry generated in relation to box entities will become dangling upon rebuild</remarks>
-        //private IBody2 CreateBoxBody(Point center, Vector dir,
-        //    double width, double length, double height)
-        //{
-        //    Vector refDir = null;
-
-        //    return CreateBoxBody(center, dir, ref refDir, width, length, height);
-        //}
-
-        /// <summary>
         /// Creates the cylindrical body
         /// </summary>
         /// <param name="modeler">Pointer to modeler</param>
@@ -121,7 +97,7 @@ namespace Xarial.XCad.Sw.Geometry
         private IBody2 CreateCylinderBody(Point center, Vector axis, Vector refDir, double radius, double height)
         {
             IMathVector refVec;
-            
+
             var surf = CreatePlanarSurface(center, axis, refDir, out refVec);
 
             var radDir = new Vector(refVec.ArrayData as double[]);
@@ -159,7 +135,7 @@ namespace Xarial.XCad.Sw.Geometry
                 baseRadius, topRadius, height
             }) as IBody2;
 
-            if (coneBody == null) 
+            if (coneBody == null)
             {
                 throw new NullReferenceException("Failed to generate cone body");
             }

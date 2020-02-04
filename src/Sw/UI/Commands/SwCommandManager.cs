@@ -2,7 +2,7 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad/blob/master/LICENSE
+//License: https://xcad.xarial.com/license/
 //*********************************************************************
 
 using SolidWorks.Interop.sldworks;
@@ -14,25 +14,25 @@ using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
-using Xarial.XCad.Utils.Diagnostics;
-using Xarial.XCad.Sw.Exceptions;
-using Xarial.XCad.Sw.Utils;
-using Xarial.XCad.UI.Commands.Structures;
-using Xarial.XCad.UI.Commands.Enums;
+using Xarial.XCad.SolidWorks.Exceptions;
+using Xarial.XCad.SolidWorks.UI.Commands.Toolkit.Enums;
+using Xarial.XCad.SolidWorks.UI.Commands.Toolkit.Structures;
+using Xarial.XCad.SolidWorks.Utils;
 using Xarial.XCad.UI.Commands;
-using Xarial.XCad.Sw.UI.Commands.Toolkit.Structures;
-using Xarial.XCad.Sw.UI.Commands.Toolkit.Enums;
+using Xarial.XCad.UI.Commands.Enums;
+using Xarial.XCad.UI.Commands.Structures;
+using Xarial.XCad.Utils.Diagnostics;
 
-namespace Xarial.XCad.Sw.UI.Commands
+namespace Xarial.XCad.SolidWorks.UI.Commands
 {
     public class SwCommandManager : IXCommandManager, IDisposable
     {
         private class CommandInfo
         {
-            internal SwCommandBar Grp { get; }
+            internal SwCommandGroup Grp { get; }
             internal CommandSpec Spec { get; }
 
-            internal CommandInfo(SwCommandBar grp, CommandSpec spec)
+            internal CommandInfo(SwCommandGroup grp, CommandSpec spec)
             {
                 Grp = grp;
                 Spec = spec;
@@ -58,7 +58,7 @@ namespace Xarial.XCad.Sw.UI.Commands
 
         private readonly SwApplication m_App;
 
-        private readonly List<SwCommandBar> m_CommandBars;
+        private readonly List<SwCommandGroup> m_CommandBars;
 
         private readonly Dictionary<string, CommandInfo> m_Commands;
 
@@ -68,6 +68,7 @@ namespace Xarial.XCad.Sw.UI.Commands
         /// Pointer to command group which holding the add-in commands
         /// </summary>
         public ICommandManager CmdMgr { get; private set; }
+
         public IEnumerable<IXCommandGroup> CommandGroups => m_CommandBars;
 
         internal SwCommandManager(SwApplication app, int addinCookie, ILogger logger)
@@ -78,7 +79,7 @@ namespace Xarial.XCad.Sw.UI.Commands
 
             m_Logger = logger;
             m_Commands = new Dictionary<string, CommandInfo>();
-            m_CommandBars = new List<SwCommandBar>();
+            m_CommandBars = new List<SwCommandGroup>();
         }
 
         public IXCommandGroup AddCommandBar(CommandGroupSpec cmdBar)
@@ -91,7 +92,7 @@ namespace Xarial.XCad.Sw.UI.Commands
             Dispose(true);
         }
 
-        internal SwCommandBar AddCommandGroupOrContextMenu(CommandGroupSpec cmdBar,
+        internal SwCommandGroup AddCommandGroupOrContextMenu(CommandGroupSpec cmdBar,
             bool isContextMenu, swSelectType_e contextMenuSelectType)
         {
             m_Logger.Log($"Creating command group: {cmdBar.Id}");
@@ -107,7 +108,7 @@ namespace Xarial.XCad.Sw.UI.Commands
                 cmdBar.Commands.Select(c => c.UserId).ToArray(), isContextMenu,
                 contextMenuSelectType);
 
-            var bar = new SwCommandBar(m_App, cmdBar, cmdGroup);
+            var bar = new SwCommandGroup(m_App, cmdBar, cmdGroup);
 
             m_CommandBars.Add(bar);
 
@@ -266,7 +267,7 @@ namespace Xarial.XCad.Sw.UI.Commands
             return cmdGroup;
         }
 
-        private Dictionary<CommandSpec, int> CreateCommandItems(SwCommandBar cmdGroup, int groupId, CommandSpec[] cmds)
+        private Dictionary<CommandSpec, int> CreateCommandItems(SwCommandGroup cmdGroup, int groupId, CommandSpec[] cmds)
         {
             var createdCmds = new Dictionary<CommandSpec, int>();
 

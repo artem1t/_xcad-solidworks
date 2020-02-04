@@ -2,23 +2,20 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad/blob/master/LICENSE
+//License: https://xcad.xarial.com/license/
 //*********************************************************************
 
 using SolidWorks.Interop.sldworks;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using Xarial.XCad.Utils.PageBuilder.PageElements;
 
-namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls
+namespace Xarial.XCad.SolidWorks.UI.PropertyPage.Toolkit.Controls
 {
     internal class PropertyManagerPageComboBoxControl : PropertyManagerPageBaseControl<Enum, IPropertyManagerPageCombobox>
     {
         protected override event ControlValueChangedDelegate<Enum> ValueChanged;
-        
+
         private ReadOnlyCollection<Enum> m_Values;
 
         public PropertyManagerPageComboBoxControl(int id, object tag,

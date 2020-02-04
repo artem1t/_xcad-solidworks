@@ -2,29 +2,28 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad/blob/master/LICENSE
+//License: https://xcad.xarial.com/license/
 //*********************************************************************
 
-using Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls;
+using SolidWorks.Interop.sldworks;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Drawing;
 using System.Drawing.Imaging;
-using Xarial.XCad.Utils.PageBuilder.Constructors;
-using Xarial.XCad.Sw.Utils;
-using Xarial.XCad.Utils.PageBuilder.Base;
-using Xarial.XCad.Utils.Reflection;
-using SolidWorks.Interop.sldworks;
-using Xarial.XCad.UI.PropertyPage.Attributes;
+using System.Linq;
 using Xarial.XCad.Base.Attributes;
-using Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Icons;
+using Xarial.XCad.SolidWorks.UI.PropertyPage.Toolkit.Controls;
+using Xarial.XCad.SolidWorks.UI.PropertyPage.Toolkit.Icons;
+using Xarial.XCad.SolidWorks.Utils;
+using Xarial.XCad.UI.PropertyPage.Attributes;
+using Xarial.XCad.Utils.PageBuilder.Base;
+using Xarial.XCad.Utils.PageBuilder.Constructors;
+using Xarial.XCad.Utils.Reflection;
 
-namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Constructors
+namespace Xarial.XCad.SolidWorks.UI.PropertyPage.Toolkit.Constructors
 {
     internal class PropertyManagerPageTabConstructor
-        : GroupConstructor<PropertyManagerPageGroupBase, PropertyManagerPagePage>, 
+        : GroupConstructor<PropertyManagerPageGroupBase, PropertyManagerPagePage>,
         IPropertyManagerPageElementConstructor, ITabConstructor
     {
         public Type ControlType
@@ -69,14 +68,14 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Constructors
             if (icon != null)
             {
                 iconPath = m_IconsConv.ConvertIcon(new TabIcon(icon)).First();
-                
+
                 //NOTE: tab icon must be in 256 color bitmap, otherwise it is not displayed
                 TryConvertIconTo8bit(iconPath);
             }
 
             var tab = page.Page.AddTab(atts.Id, atts.Name,
                 iconPath, OPTIONS_NOT_USED) as IPropertyManagerPageTab;
-            
+
             return new PropertyManagerPageTabControl(atts.Id, atts.Tag,
                 page.Handler, tab, page.App, page);
         }

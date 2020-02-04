@@ -2,33 +2,31 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad/blob/master/LICENSE
+//License: https://xcad.xarial.com/license/
 //*********************************************************************
 
-using Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls;
-using System;
-using System.Linq;
-using SolidWorks.Interop.swconst;
-using System.ComponentModel;
 using SolidWorks.Interop.sldworks;
-using Xarial.XCad.Sw.Utils;
+using SolidWorks.Interop.swconst;
+using System.Linq;
+using Xarial.XCad.SolidWorks.Enums;
+using Xarial.XCad.SolidWorks.UI.PropertyPage.Toolkit.Controls;
+using Xarial.XCad.SolidWorks.Utils;
+using Xarial.XCad.UI.PropertyPage.Attributes;
 using Xarial.XCad.Utils.PageBuilder.Base;
 using Xarial.XCad.Utils.Reflection;
-using Xarial.XCad.UI.PropertyPage.Attributes;
-using Xarial.XCad.Sw.Enums;
 
-namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Constructors
+namespace Xarial.XCad.SolidWorks.UI.PropertyPage.Toolkit.Constructors
 {
     internal class PropertyManagerPageOptionBoxConstructor
         : PropertyManagerPageBaseControlConstructor<PropertyManagerPageOptionBoxControl, PropertyManagerPageOptionBox>, IOptionBoxConstructor
     {
         private delegate IPropertyManagerPageOption ControlCreatorDelegate(int id, short controlType, string caption, short leftAlign, int options, string tip);
 
-        public PropertyManagerPageOptionBoxConstructor(ISldWorks app, IconsConverter iconsConv) 
+        public PropertyManagerPageOptionBoxConstructor(ISldWorks app, IconsConverter iconsConv)
             : base(app, swPropertyManagerPageControlType_e.swControlType_Option, iconsConv)
         {
         }
-        
+
         protected override PropertyManagerPageOptionBoxControl Create(PropertyManagerPagePage page, IAttributeSet atts, ref int idRange)
         {
             idRange = EnumExtension.GetEnumFields(atts.BoundType).Count;
@@ -45,7 +43,7 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Constructors
             PropertyManagerPageOptionBox swCtrl, IAttributeSet atts, SwPropertyManagerPageHandler handler, short height)
         {
             var options = EnumExtension.GetEnumFields(atts.BoundType);
-            
+
             if (atts.Has<OptionBoxOptionsAttribute>())
             {
                 var style = atts.Get<OptionBoxOptionsAttribute>();
@@ -63,7 +61,7 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Constructors
             ControlOptionsAttribute opts, IAttributeSet atts)
         {
             return CreateOptionBoxControl(opts, atts,
-                (int id, short controlType, string caption, short leftAlign, int options, string tip) => 
+                (int id, short controlType, string caption, short leftAlign, int options, string tip) =>
                 {
                     if (m_App.IsVersionNewerOrEqual(SwVersion_e.Sw2014, 1))
                     {
@@ -96,7 +94,7 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Constructors
         protected override PropertyManagerPageOptionBox CreateSwControlInTab(IPropertyManagerPageTab tab, ControlOptionsAttribute opts, IAttributeSet atts)
         {
             return CreateOptionBoxControl(opts, atts,
-                (int id, short controlType, string caption, short leftAlign, int options, string tip) => 
+                (int id, short controlType, string caption, short leftAlign, int options, string tip) =>
                 {
                     if (m_App.IsVersionNewerOrEqual(SwVersion_e.Sw2014, 1))
                     {

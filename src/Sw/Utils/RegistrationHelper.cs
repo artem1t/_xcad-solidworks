@@ -2,21 +2,17 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad/blob/master/LICENSE
+//License: https://xcad.xarial.com/license/
 //*********************************************************************
 
 using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.IO;
-using System.Text;
 using Xarial.XCad.Reflection;
 using Xarial.XCad.Utils.Diagnostics;
 using Xarial.XCad.Utils.Reflection;
 
-namespace Xarial.XCad.Sw.Utils
+namespace Xarial.XCad.SolidWorks.Utils
 {
     internal class RegistrationHelper
     {
@@ -37,7 +33,7 @@ namespace Xarial.XCad.Sw.Utils
             try
             {
                 m_Logger.Log($"Registering add-in");
-                
+
                 RegisterAddIn(type);
 
                 return true;
@@ -65,7 +61,7 @@ namespace Xarial.XCad.Sw.Utils
                 return false;
             }
         }
-        
+
         private void RegisterAddIn(Type type)
         {
             string title = "";

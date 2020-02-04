@@ -2,7 +2,7 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad/blob/master/LICENSE
+//License: https://xcad.xarial.com/license/
 //*********************************************************************
 
 using SolidWorks.Interop.sldworks;
@@ -11,24 +11,23 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 using Xarial.XCad.Annotations;
 using Xarial.XCad.Documents;
 using Xarial.XCad.Features;
 using Xarial.XCad.Features.CustomFeature;
 using Xarial.XCad.Features.CustomFeature.Enums;
 using Xarial.XCad.Geometry;
-using Xarial.XCad.Sw.Annotations;
-using Xarial.XCad.Sw.Geometry;
+using Xarial.XCad.SolidWorks.Annotations;
+using Xarial.XCad.SolidWorks.Geometry;
 using Xarial.XCad.Utils.CustomFeature;
 
-namespace Xarial.XCad.Sw.Features.CustomFeature.Toolkit
+namespace Xarial.XCad.SolidWorks.Features.CustomFeature.Toolkit
 {
     internal class MacroFeatureParametersParser : CustomFeatureParametersParser
     {
         internal IMathUtility MathUtils { get; }
 
-        internal MacroFeatureParametersParser() : this(SwMacroFeatureDefinition.Application.Application) 
+        internal MacroFeatureParametersParser() : this(SwMacroFeatureDefinition.Application.Application)
         {
         }
 
@@ -62,14 +61,14 @@ namespace Xarial.XCad.Sw.Features.CustomFeature.Toolkit
             {
                 editBodies = editBodiesObj.Cast<IBody2>().Select(b => new SwBody(b)).ToArray();
             }
-            else 
+            else
             {
                 editBodies = null;
             }
 
             var paramNames = retParamNames as string[];
             var paramValues = retParamValues as string[];
-            
+
             if (paramNames != null)
             {
                 parameters = new Dictionary<string, object>();
@@ -79,7 +78,7 @@ namespace Xarial.XCad.Sw.Features.CustomFeature.Toolkit
                     parameters.Add(paramNames[i], paramValues[i]);
                 }
             }
-            else 
+            else
             {
                 parameters = null;
             }
@@ -90,7 +89,7 @@ namespace Xarial.XCad.Sw.Features.CustomFeature.Toolkit
             {
                 selection = selObjects.Select(s => (SwSelObject)SwObject.FromDispatch(s)).ToArray();
             }
-            else 
+            else
             {
                 selection = null;
             }
@@ -157,7 +156,7 @@ namespace Xarial.XCad.Sw.Features.CustomFeature.Toolkit
             return dimsVersion;
         }
 
-        internal void ConvertParameters(CustomFeatureParameter[] param, out string[] paramNames, out int[] paramTypes, out string[] paramValues) 
+        internal void ConvertParameters(CustomFeatureParameter[] param, out string[] paramNames, out int[] paramTypes, out string[] paramValues)
         {
             if (param != null)
             {
@@ -184,7 +183,7 @@ namespace Xarial.XCad.Sw.Features.CustomFeature.Toolkit
 
                 paramValues = param.Select(p => (string)p.Value).ToArray();
             }
-            else 
+            else
             {
                 paramNames = null;
                 paramTypes = null;
@@ -245,7 +244,7 @@ namespace Xarial.XCad.Sw.Features.CustomFeature.Toolkit
                     UpdateParameters(featData, paramNames, paramTypes, paramValues);
                 }
             }
-            finally 
+            finally
             {
                 if (dims != null)
                 {
@@ -265,11 +264,11 @@ namespace Xarial.XCad.Sw.Features.CustomFeature.Toolkit
             {
                 return base.GetParameters(feat, model, paramsType, out dispDims, out dispDimParams, out editBodies, out sels, out state);
             }
-            catch 
+            catch
             {
-                if (dispDims != null) 
+                if (dispDims != null)
                 {
-                    foreach (SwDimension dim in dispDims) 
+                    foreach (SwDimension dim in dispDims)
                     {
                         dim.Dispose();
                     }

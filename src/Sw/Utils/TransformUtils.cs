@@ -2,20 +2,18 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad/blob/master/LICENSE
+//License: https://xcad.xarial.com/license/
 //*********************************************************************
 
 using SolidWorks.Interop.sldworks;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Xarial.XCad.Geometry.Structures;
 
-namespace Xarial.XCad.Sw.Utils
+namespace Xarial.XCad.SolidWorks.Utils
 {
     internal static class TransformUtils
     {
-        internal static TransformMatrix ToTransformMatrix(IMathTransform transform) 
+        internal static TransformMatrix ToTransformMatrix(IMathTransform transform)
         {
             return ToTransformMatrix(transform.ArrayData as double[]);
         }
@@ -29,9 +27,9 @@ namespace Xarial.XCad.Sw.Utils
                 data[9], data[10], data[11], 1);
         }
 
-        internal static IMathTransform ToMathTransform(this IMathUtility mathUtils, TransformMatrix matrix) 
+        internal static IMathTransform ToMathTransform(this IMathUtility mathUtils, TransformMatrix matrix)
         {
-            var data = new double[] 
+            var data = new double[]
             {
                 matrix.M11 / Math.Abs(matrix.M11), matrix.M12, matrix.M13,
                 matrix.M21, matrix.M22/ Math.Abs(matrix.M22), matrix.M23,

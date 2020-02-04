@@ -2,24 +2,21 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad/blob/master/LICENSE
+//License: https://xcad.xarial.com/license/
 //*********************************************************************
 
 using SolidWorks.Interop.sldworks;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xarial.XCad.Documents;
 using Xarial.XCad.Geometry;
-using Xarial.XCad.Sw.Documents;
-using Xarial.XCad.Sw.Geometry;
+using Xarial.XCad.SolidWorks.Documents;
+using Xarial.XCad.SolidWorks.Geometry;
 using Xarial.XCad.Utils.Diagnostics;
 
-namespace Xarial.XCad.Sw
+namespace Xarial.XCad.SolidWorks
 {
     public class SwApplication : IXApplication
     {
-        public static SwApplication FromPointer(ISldWorks app) 
+        public static SwApplication FromPointer(ISldWorks app)
         {
             return new SwApplication(app, new TraceLogger(""));
         }

@@ -2,24 +2,20 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad/blob/master/LICENSE
+//License: https://xcad.xarial.com/license/
 //*********************************************************************
 
 using SolidWorks.Interop.sldworks;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Xarial.XCad.Utils.PageBuilder.PageElements;
 
-namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls
+namespace Xarial.XCad.SolidWorks.UI.PropertyPage.Toolkit.Controls
 {
     internal class PropertyManagerPageNumberBoxControl : PropertyManagerPageBaseControl<double, IPropertyManagerPageNumberbox>
     {
         protected override event ControlValueChangedDelegate<double> ValueChanged;
 
         public PropertyManagerPageNumberBoxControl(int id, object tag,
-            IPropertyManagerPageNumberbox numberBox, 
+            IPropertyManagerPageNumberbox numberBox,
             SwPropertyManagerPageHandler handler) : base(numberBox, id, tag, handler)
         {
             m_Handler.NumberChanged += OnNumberChanged;
@@ -32,7 +28,7 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls
                 ValueChanged?.Invoke(this, value);
             }
         }
-        
+
         protected override double GetSpecificValue()
         {
             return SwSpecificControl.Value;
@@ -43,9 +39,9 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls
             SwSpecificControl.Value = value;
         }
 
-        protected override void Dispose(bool disposing) 
+        protected override void Dispose(bool disposing)
         {
-            if (disposing) 
+            if (disposing)
             {
                 m_Handler.NumberChanged -= OnNumberChanged;
             }

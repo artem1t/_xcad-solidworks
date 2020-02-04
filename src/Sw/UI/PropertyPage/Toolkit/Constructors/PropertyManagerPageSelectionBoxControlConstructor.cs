@@ -2,27 +2,24 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad/blob/master/LICENSE
+//License: https://xcad.xarial.com/license/
 //*********************************************************************
 
+using SolidWorks.Interop.sldworks;
+using SolidWorks.Interop.swconst;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using SolidWorks.Interop.swconst;
-using System.Drawing;
-using SolidWorks.Interop.sldworks;
-using System.Collections;
-using Xarial.XCad.Utils.Diagnostics;
-using Xarial.XCad.Sw.Utils;
-using Xarial.XCad.Utils.PageBuilder.Base;
-using Xarial.XCad.Services;
-using Xarial.XCad.Utils.PageBuilder.Attributes;
+using Xarial.XCad.SolidWorks.UI.PropertyPage.Toolkit.Controls;
+using Xarial.XCad.SolidWorks.Utils;
 using Xarial.XCad.UI.PropertyPage;
 using Xarial.XCad.UI.PropertyPage.Attributes;
-using Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls;
+using Xarial.XCad.Utils.Diagnostics;
+using Xarial.XCad.Utils.PageBuilder.Attributes;
+using Xarial.XCad.Utils.PageBuilder.Base;
 
-namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Constructors
+namespace Xarial.XCad.SolidWorks.UI.PropertyPage.Toolkit.Constructors
 {
     [DefaultType(typeof(IXSelObject))]
     [DefaultType(typeof(IEnumerable<IXSelObject>))]
@@ -31,7 +28,7 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Constructors
     {
         private readonly ILogger m_Logger;
 
-        public PropertyManagerPageSelectionBoxControlConstructor(ISldWorks app, IconsConverter iconsConv, ILogger logger) 
+        public PropertyManagerPageSelectionBoxControlConstructor(ISldWorks app, IconsConverter iconsConv, ILogger logger)
             : base(app, swPropertyManagerPageControlType_e.swControlType_Selectionbox, iconsConv)
         {
             m_Logger = logger;
@@ -41,7 +38,7 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Constructors
             IPropertyManagerPageSelectionbox swCtrl, IAttributeSet atts, SwPropertyManagerPageHandler handler, short height)
         {
             swCtrl.SingleEntityOnly = !(typeof(IList).IsAssignableFrom(atts.BoundType));
-            
+
             if (height == -1)
             {
                 height = 20;

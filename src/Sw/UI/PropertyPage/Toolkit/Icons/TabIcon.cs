@@ -2,14 +2,14 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad/blob/master/LICENSE
+//License: https://xcad.xarial.com/license/
 //*********************************************************************
 
 using System.Collections.Generic;
 using System.Drawing;
-using Xarial.XCad.Sw.Base;
+using Xarial.XCad.SolidWorks.Base;
 
-namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Icons
+namespace Xarial.XCad.SolidWorks.UI.PropertyPage.Toolkit.Icons
 {
     internal class TabIcon : IIcon
     {

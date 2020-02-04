@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net461</TargetFramework>
-    <RootNamespace>Xarial.XCad.Sw</RootNamespace>
-    <AssemblyName>Xarial.XCad.Sw</AssemblyName>
+    <RootNamespace>Xarial.XCad.SolidWorks</RootNamespace>
+    <AssemblyName>Xarial.XCad.SolidWorks</AssemblyName>
     <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile>test.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>

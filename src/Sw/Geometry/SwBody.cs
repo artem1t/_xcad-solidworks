@@ -2,18 +2,16 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad/blob/master/LICENSE
+//License: https://xcad.xarial.com/license/
 //*********************************************************************
 
 using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Xarial.XCad.Geometry;
 
-namespace Xarial.XCad.Sw.Geometry
+namespace Xarial.XCad.SolidWorks.Geometry
 {
     public class SwBody : SwSelObject, IXBody
     {
@@ -28,11 +26,11 @@ namespace Xarial.XCad.Sw.Geometry
         }
 
         public virtual IBody2 Body { get; }
-        
-        public bool Visible 
+
+        public bool Visible
         {
             get => Body.Visible;
-            set 
+            set
             {
                 Body.HideBody(!value);
             }
@@ -58,22 +56,22 @@ namespace Xarial.XCad.Sw.Geometry
             return PerformOperation(other, swBodyOperationType_e.SWBODYINTERSECT);
         }
 
-        public SwTempBody ToTempBody() 
+        public SwTempBody ToTempBody()
         {
             return new SwTempBody(Body);
         }
 
-        private IXBody[] PerformOperation(IXBody other, swBodyOperationType_e op) 
+        private IXBody[] PerformOperation(IXBody other, swBodyOperationType_e op)
         {
             if (other is SwBody)
             {
                 var thisBody = Body;
                 var otherBody = (other as SwBody).Body;
-                
+
                 int errs;
                 var res = thisBody.Operations2((int)op, otherBody, out errs) as object[];
 
-                if (errs != (int)swBodyOperationError_e.swBodyOperationNoError) 
+                if (errs != (int)swBodyOperationError_e.swBodyOperationNoError)
                 {
                     throw new Exception($"Body boolean operation failed: {(swBodyOperationError_e)errs}");
                 }
@@ -82,12 +80,12 @@ namespace Xarial.XCad.Sw.Geometry
                 {
                     return res.Select(b => new SwTempBody(b as IBody2)).ToArray();
                 }
-                else 
+                else
                 {
                     return new IXBody[0];
                 }
             }
-            else 
+            else
             {
                 throw new InvalidCastException();
             }
@@ -95,7 +93,7 @@ namespace Xarial.XCad.Sw.Geometry
 
         public override void Select(bool append)
         {
-            if (!Body.Select2(append, null)) 
+            if (!Body.Select2(append, null))
             {
                 throw new Exception("Failed to select body");
             }

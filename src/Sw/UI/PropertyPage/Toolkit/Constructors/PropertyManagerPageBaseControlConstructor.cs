@@ -2,39 +2,37 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad/blob/master/LICENSE
+//License: https://xcad.xarial.com/license/
 //*********************************************************************
 
+using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using SolidWorks.Interop.sldworks;
+using Xarial.XCad.Base.Attributes;
+using Xarial.XCad.SolidWorks.Enums;
+using Xarial.XCad.SolidWorks.UI.PropertyPage.Toolkit.Controls;
+using Xarial.XCad.SolidWorks.UI.PropertyPage.Toolkit.Icons;
+using Xarial.XCad.SolidWorks.Utils;
+using Xarial.XCad.UI.PropertyPage.Attributes;
 using Xarial.XCad.Utils.PageBuilder.Base;
 using Xarial.XCad.Utils.PageBuilder.Constructors;
-using Xarial.XCad.Sw.Utils;
 using Xarial.XCad.Utils.Reflection;
-using Xarial.XCad.UI.PropertyPage.Attributes;
-using Xarial.XCad.Base.Attributes;
-using Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Controls;
-using Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Icons;
-using Xarial.XCad.Sw.Enums;
 
-namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Constructors
+namespace Xarial.XCad.SolidWorks.UI.PropertyPage.Toolkit.Constructors
 {
     internal interface IPropertyManagerPageElementConstructor
         : IPageElementConstructor<PropertyManagerPageGroupBase, PropertyManagerPagePage>
     {
         Type ControlType { get; }
+
         void PostProcessControls(IEnumerable<IPropertyManagerPageControlEx> ctrls);
     }
 
     internal abstract class PropertyManagerPageBaseControlConstructor<TControl, TControlSw>
-            : ControlConstructor<TControl, PropertyManagerPageGroupBase, PropertyManagerPagePage>, 
+            : ControlConstructor<TControl, PropertyManagerPageGroupBase, PropertyManagerPagePage>,
             IPropertyManagerPageElementConstructor
             where TControl : IPropertyManagerPageControlEx
             where TControlSw : class
@@ -95,7 +93,7 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Constructors
             return CreateControl(swCtrl, atts, page.Handler, opts.Height);
         }
 
-        protected virtual TControlSw CreateSwControlInPage(IPropertyManagerPage2 page, 
+        protected virtual TControlSw CreateSwControlInPage(IPropertyManagerPage2 page,
             ControlOptionsAttribute opts, IAttributeSet atts)
         {
             if (m_App.IsVersionNewerOrEqual(SwVersion_e.Sw2014, 1))
@@ -222,7 +220,7 @@ namespace Xarial.XCad.Sw.UI.PropertyPage.Toolkit.Constructors
                 Debug.Assert(res);
             }
         }
-        
+
         protected int ConvertColor(KnownColor knownColor)
         {
             var color = Color.FromKnownColor(knownColor);

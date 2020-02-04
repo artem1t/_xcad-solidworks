@@ -2,15 +2,13 @@
 //xCAD
 //Copyright(C) 2020 Xarial Pty Limited
 //Product URL: https://www.xcad.net
-//License: https://github.com/xarial/xcad/blob/master/LICENSE
+//License: https://xcad.xarial.com/license/
 //*********************************************************************
 
 using SolidWorks.Interop.sldworks;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using Xarial.XCad.Annotations;
 using Xarial.XCad.Documents;
 using Xarial.XCad.Features.CustomFeature;
@@ -18,17 +16,17 @@ using Xarial.XCad.Features.CustomFeature.Attributes;
 using Xarial.XCad.Features.CustomFeature.Enums;
 using Xarial.XCad.Geometry;
 using Xarial.XCad.Reflection;
-using Xarial.XCad.Sw.Documents;
-using Xarial.XCad.Sw.Features.CustomFeature.Toolkit;
-using Xarial.XCad.Sw.Geometry;
-using Xarial.XCad.Sw.Utils;
+using Xarial.XCad.SolidWorks.Documents;
+using Xarial.XCad.SolidWorks.Features.CustomFeature.Toolkit;
+using Xarial.XCad.SolidWorks.Geometry;
+using Xarial.XCad.SolidWorks.Utils;
 using Xarial.XCad.Utils.CustomFeature;
 using Xarial.XCad.Utils.Reflection;
 
-namespace Xarial.XCad.Sw.Features.CustomFeature
+namespace Xarial.XCad.SolidWorks.Features.CustomFeature
 {
     public class SwMacroFeature : SwFeature, IXCustomFeature
-    {   
+    {
         protected readonly SwDocument m_Model;
 
         private IMacroFeatureData m_FeatData;
@@ -39,7 +37,7 @@ namespace Xarial.XCad.Sw.Features.CustomFeature
 
         private readonly IFeatureManager m_FeatMgr;
 
-        internal SwMacroFeature(SwDocument model, IFeatureManager featMgr, IFeature feat, bool created) 
+        internal SwMacroFeature(SwDocument model, IFeatureManager featMgr, IFeature feat, bool created)
             : base(model.Model, feat, created)
         {
             m_Model = model;
@@ -48,7 +46,7 @@ namespace Xarial.XCad.Sw.Features.CustomFeature
 
         //TODO: check constant context disconnection exception
         public IXConfiguration Configuration => new SwConfiguration((Feature.GetDefinition() as IMacroFeatureData).CurrentConfiguration);
-        
+
         public SwMacroFeature<TParams> ToParameters<TParams>()
             where TParams : class, new()
         {
@@ -118,7 +116,7 @@ namespace Xarial.XCad.Sw.Features.CustomFeature
     {
         private readonly MacroFeatureParametersParser m_ParamsParser;
 
-        internal SwMacroFeature(SwDocument model, IFeatureManager featMgr, IFeature feat, MacroFeatureParametersParser paramsParser, bool created) 
+        internal SwMacroFeature(SwDocument model, IFeatureManager featMgr, IFeature feat, MacroFeatureParametersParser paramsParser, bool created)
             : base(model, featMgr, feat, created)
         {
             m_ParamsParser = paramsParser;
@@ -165,13 +163,13 @@ namespace Xarial.XCad.Sw.Features.CustomFeature
                         }
                     }
                 }
-                else 
+                else
                 {
                     m_ParametersCache = value;
                 }
             }
         }
-        
+
         protected override IFeature CreateFeature()
         {
             return InsertComFeatureWithParameters();
