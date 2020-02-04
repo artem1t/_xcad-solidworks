@@ -81,7 +81,7 @@ namespace Xarial.XCad.Sw.UI.Commands
             m_CommandBars = new List<SwCommandBar>();
         }
 
-        public IXCommandGroup AddCommandBar(CommandBarSpec cmdBar)
+        public IXCommandGroup AddCommandBar(CommandGroupSpec cmdBar)
         {
             return AddCommandGroupOrContextMenu(cmdBar, false, 0);
         }
@@ -91,7 +91,7 @@ namespace Xarial.XCad.Sw.UI.Commands
             Dispose(true);
         }
 
-        internal SwCommandBar AddCommandGroupOrContextMenu(CommandBarSpec cmdBar,
+        internal SwCommandBar AddCommandGroupOrContextMenu(CommandGroupSpec cmdBar,
             bool isContextMenu, swSelectType_e contextMenuSelectType)
         {
             m_Logger.Log($"Creating command group: {cmdBar.Id}");
@@ -404,7 +404,7 @@ namespace Xarial.XCad.Sw.UI.Commands
             }
         }
 
-        private void CreateIcons(CommandGroup cmdGroup, CommandBarSpec cmdBar, IconsConverter iconsConv)
+        private void CreateIcons(CommandGroup cmdGroup, CommandGroupSpec cmdBar, IconsConverter iconsConv)
         {
             var mainIcon = cmdBar.Icon;
 
@@ -459,7 +459,7 @@ namespace Xarial.XCad.Sw.UI.Commands
             }
         }
 
-        private string GetMenuPath(CommandBarSpec cmdBar)
+        private string GetMenuPath(CommandGroupSpec cmdBar)
         {
             var title = new StringBuilder();
 
@@ -476,7 +476,7 @@ namespace Xarial.XCad.Sw.UI.Commands
             return title.ToString();
         }
 
-        private CommandGroup GetRootCommandGroup(CommandBarSpec cmdBar)
+        private CommandGroup GetRootCommandGroup(CommandGroupSpec cmdBar)
         {
             var root = cmdBar;
 

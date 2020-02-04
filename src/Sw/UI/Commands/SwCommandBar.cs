@@ -23,9 +23,9 @@ namespace Xarial.XCad.Sw.UI.Commands
 
         private readonly SwApplication m_App;
         public CommandGroup CommandGroup { get; }
-        public CommandBarSpec Spec { get; }
+        public CommandGroupSpec Spec { get; }
 
-        internal SwCommandBar(SwApplication app, CommandBarSpec spec, CommandGroup cmdGroup)
+        internal SwCommandBar(SwApplication app, CommandGroupSpec spec, CommandGroup cmdGroup)
         {
             Spec = spec;
             CommandGroup = cmdGroup;
